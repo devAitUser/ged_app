@@ -51,10 +51,13 @@
                         group_add
                         </span>
                      </li>
-                     <li class="Mnuli lish">
-                        <span class="material-icons">
-                        account_tree
-                        </span>
+                     <li class="Mnuli lish {{ request()->is('organigramme')  ? 'active' : '' }}">
+                        <a href="">
+                           <span class="material-icons  ">
+                           account_tree
+                           </span>
+
+                         </a>
                      </li>
                      <li class="Mnuli lish">
                         <span class="material-icons">
