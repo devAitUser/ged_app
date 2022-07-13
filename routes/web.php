@@ -35,3 +35,6 @@ Route::get('/user_profile', [App\Http\Controllers\UserController::class, 'index'
 
 Route::post('/user_profile_update', [App\Http\Controllers\UserController::class, 'update'])->name('user_profile_update');
 
+
+Route::get('/organigramme', [App\Http\Controllers\OrganigrammeController::class, 'index']);
+
