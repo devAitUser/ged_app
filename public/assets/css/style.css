@@ -345,7 +345,7 @@ input#remember {
 }
 
 .panel_view_bottom {
-  height: 525px;
+  height: 450px;
 }
 
 
@@ -491,4 +491,207 @@ li.list-group-item.node-treeview {
 
 .btn-info:focus {
   outline: aliceblue !important;
+}
+
+.block_manager_datable {
+  padding-bottom: 15px;
+    text-align: right;
+    padding-right: 17px;
+}
+
+.create_organi {
+  text-decoration: none;
+  background-color: #cddc39;
+  color: #333030;
+  padding: 10px 15px;
+  font-size: 15px;
+  border-radius: 4px;
+  top: 5px;
+}
+
+.panel_pop_up {
+  display: flex;
+  justify-content: center;
+}
+
+
+
+.create_organi:focus, .create_organi:hover {
+  color: #23527c;
+  text-decoration: none;
+}
+
+.mr-3{
+  margin-right: 3px;
+}
+
+#organigramme_table thead {
+  background-color: #e0e2e4;
+}
+
+#organigramme_table .odd {
+  background-color: #e5e9edcf;
+}
+
+span.ititle_organigramme {
+
+  font-weight: 600;
+  color: #030404b3;
+  text-transform: uppercase;
+  font-family: revert;
+}
+
+.styled-table {
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 0.9em;
+  font-family: sans-serif;
+  min-width: 400px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.styled-table thead tr {
+  background-color: #009879;
+  color: #ffffff;
+  text-align: left;
+}
+
+table.table_champs_add {
+  width: 100%;
+   max-width: 100%; 
+  margin-bottom: 20px;
+}
+
+.table_champs_add>thead>tr>th, .table_champs_add>tbody>tr>th, .table_champs_add>tfoot>tr>th, .table_champs_add>thead>tr>td, .table_champs_add>tbody>tr>td, .table_champs_add>tfoot>tr>td {
+  padding: 8px;
+  line-height: 1.42857143;
+  vertical-align: top;
+  text-align: center;
+
+}
+
+.table_champs_add {
+  border-collapse: separate;
+  border-spacing: 0;
+  min-width: 350px;
+}
+.table_champs_add tr th,
+.table_champs_add tr td {
+
+  border-bottom: 1px solid #bbb;
+  padding: 5px;
+}
+
+/*****/
+.table_champs_add tr th:last-child,
+.table_champs_add tr td:last-child {
+  border-right: 1px solid #bbb;
+  border-bottom: 1px solid #bbb;
+  padding: 5px;
+}
+/**********/
+
+.table_champs_add tr th:first-child,
+.table_champs_add tr td:first-child {
+  border-left: 1px solid #bbb;
+}
+.table_champs_add tr th:first-child,
+.table_champs_add tr td:first-child {
+  border-left: 1px solid #bbb;
+}
+.table_champs_add tr th {
+  background: #eee;
+  text-align: left;
+  border-top: solid 1px #bbb;
+}
+
+/* top-left border-radius */
+.table_champs_add tr:first-child th:first-child {
+  border-top-left-radius: 6px;
+}
+
+/* top-right border-radius */
+.table_champs_add tr:first-child th:last-child {
+  border-top-right-radius: 6px;
+}
+
+
+
+.table_champs_add tr th {
+  background: #eee;
+  text-align: left;
+  border-top: solid 1px #bbb;
+}
+
+
+.table_h th {
+
+  padding: 10px;
+}
+
+
+.table-bordered>tbody>tr>td, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>td, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>thead>tr>th {
+   border: unset !important; 
+}
+
+#organigramme_table thead tr th {
+
+  padding: 13px;
+  text-align:  center;
+}
+
+#organigramme_table tr:first-child th:first-child {
+  border-top-left-radius: 6px;
+}
+
+#organigramme_table tr:first-child th:last-child {
+  border-top-right-radius: 6px;
+}
+#organigramme_table_paginate {
+  padding-top: 5px;
+  padding-right: 2px;
+}
+
+#organigramme_table_filter {
+    padding-right: 1px;padding-bottom: 5px;
+}
+
+table#organigramme_table {
+  width: 100% !important;
+    max-width: 100%!important;
+}
+
+a.link_organigramme span {
+  position: absolute;
+  top: 5px;
+  left: 13px;
+  top: 10px;
+  font-size: 18px;
+}
+
+a.link_organigramme {
+  margin-left: 25px;
+  padding-top: 5px;
+}
+
+.btn_add_oranigramme span {
+  position: absolute;
+  margin-left: -25px;
+  margin-top: -2px;
+}
+
+
+
+.btn_add_oranigramme {
+  float: right;
+  margin-top: 15px;
+  margin-bottom: 15px !important;
+  padding-left: 30px !important;
+}
+
+
+
+
+.btn.active.focus, .btn.active:focus, .btn.focus, .btn:active.focus, .btn:active:focus, .btn:focus {
+  outline: 0px !important;
 }

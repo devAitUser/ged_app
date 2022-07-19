@@ -3,6 +3,7 @@
    <head>
       <meta charset="utf-8">
       <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+      <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
       <link href="https://fonts.googleapis.com/css2?family=Material+Icons"
          rel="stylesheet">
       <!-- CSRF Token -->
@@ -52,7 +53,7 @@
                         </span>
                      </li>
                      <li class="Mnuli lish {{ request()->is('organigramme')  ? 'active' : '' }}">
-                        <a href="">
+                        <a href="{{route('home_organigramme')}}">
                            <span class="material-icons  ">
                            account_tree
                            </span>

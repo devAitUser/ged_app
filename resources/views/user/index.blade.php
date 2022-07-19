@@ -5,7 +5,14 @@
    display: block;
    }
    .panel_view_bottom {
-   height: 564px!important;
+    height: auto !important;
+  margin-bottom: 37px;
+   }
+   .panel_view_details {
+    margin-bottom: 15px;
+   }
+   #organigramme_table_wrapper {
+    margin-bottom: 15px;
    }
 </style>
 

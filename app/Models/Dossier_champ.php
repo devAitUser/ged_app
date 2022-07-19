@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Dossier_champ extends Model
 {
     use HasFactory;
+    public function organigramme(){
+
+        return $this->hasMany('App\Models\Organigramme');
+        
+        
+      } 
 }

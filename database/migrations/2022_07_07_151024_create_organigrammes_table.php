@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDossierChampsTable extends Migration
+class CreateOrganigrammesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreateDossierChampsTable extends Migration
      */
     public function up()
     {
-        Schema::create('dossier_champs', function (Blueprint $table) {
+        Schema::create('organigrammes', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('parent_id');
-            $table->string('nom_champs');
+            $table->string('nom');
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ class CreateDossierChampsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('dossier_champs');
+        Schema::dropIfExists('organigrammes');
     }
 }
