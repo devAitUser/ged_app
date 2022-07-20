@@ -1,13 +1,32 @@
-
+var check_parent = 'false';
 
  var all_dossiers = [];
  
  var type_btn = 'btn_dossier';
 
 
+ function removeRow_table_champs_add(e,row) {
+
+  e.preventDefault();
+
+  document.getElementById("row_table_champs_add_" + row).remove();
+ 
+
+}
+
+
+
+
+
  function fill_treeview() {
 
+
+
+
+
   check_have_parent();
+
+
 
   $.ajaxSetup({
     headers: {
@@ -90,13 +109,23 @@ function check_have_parent(){
         },
         dataType: "json",
         success: function(data) {
-          console.log(data.etat)
+        
           if(data.etat){
-            $('.btn_add_champs_click').removeClass("hidden");
+
+              check_parent = 'true';
+              console.log('check :'.check_parent)
+         
 
           }else{
-            $(".btn_add_champs_click").addClass("hidden");
+          
+            check_parent = 'false';
 
+          }
+          
+          if(type_btn == 'btn_sous_dossier' &&	 check_parent == 'true'  ){
+            $('.btn_add_attributs_click').removeClass("hidden");
+          } else {
+                    $(".btn_add_attributs_click").addClass("hidden");
           }
         }
     })
@@ -104,6 +133,8 @@ function check_have_parent(){
 
 
 $(document).ready(function() {
+
+  
 
         var id_get = 1;
 
@@ -134,14 +165,29 @@ $(document).ready(function() {
               
         });
 
+
+        $('.btn_add_attributs_click').click(function() {
+
+          
+           $(".block_attributs").removeClass("hidden");
+
+  
+               
+         });
+
+
+
         $('.btn_dossier').click(function() {
 
           
            type_btn = "btn_dossier" ;
+           $(".btn_add_attributs_click").addClass("hidden");
         
            $('#type_dossier').val(type_btn);
 
-           fill_treeview()
+         
+
+           fill_treeview();
 
    
                 
@@ -152,6 +198,12 @@ $(document).ready(function() {
 
           
             type_btn = 'btn_sous_dossier';
+
+       
+
+            if(type_btn == 'btn_sous_dossier' && check_parent == 'true'  ){
+              $('.btn_add_attributs_click').removeClass("hidden");
+            } 
 
             $('#type_dossier').val(type_btn);
 
@@ -171,21 +223,21 @@ $(document).ready(function() {
 
 
         
-            var add_row = '<tr id=row_' + count + '  >';
+            var add_row = '<tr id=row_table_champs_add_' + count + '  >';
 
       
 
 
-            add_row += '<td><input class="form-control" type="text"   required></td>';
+            add_row += '<td><input name="name_champ[]" class="form-control" type="text"   required></td>';
 
       
           
 
-            add_row += '<td>  <select class="form-control" name="" id="" required> ';
-            add_row += '  <option>sélectionner le type</option>      <option value="1">Date</option> <option value="1">Text</option>';
+            add_row += '<td>  <select name ="type_champ[]" class="form-control" id="" required> ';
+            add_row += '  <option>sélectionner le type</option><option value="date">Date</option> <option value="Text">Text</option> <option value="Fichier">fichier</option>';
             add_row += '   </select></td>';
             add_row += '<td>  <div class="block_action_organigramme"> ';
-            add_row += '<button type="button" class="btn btn-success" onclick="click_edit(event,1 )">Validé</button>';
+            add_row += '<a href="" onClick="removeRow_table_champs_add(event,' + count + ')" ><i class="fa-solid fa-circle-xmark "></i></a>';
             add_row += '      </div> </td></tr>';
           
                 
@@ -223,11 +275,23 @@ $(document).ready(function() {
                  method:"POST",
                  data:$(this).serialize(),
                  success:function(data){
+                  console.log(data)
                   if(data.etat){
+                    
                     fill_treeview();
                  
                     $('#treeview_form')[0].reset();
                     alert('ajouter aves succes');
+
+                      $([document.documentElement, document.body]).animate({
+                        scrollTop: $("#treeview").offset().top
+                    }, 2000);
+
+                    
+                   
+                    $(".btn_add_attributs_click").addClass("hidden");
+
+                    
                   }
            
                  }

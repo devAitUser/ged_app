@@ -6,6 +6,11 @@
       <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
       <link href="https://fonts.googleapis.com/css2?family=Material+Icons"
          rel="stylesheet">
+         <link rel="preconnect" href="https://fonts.googleapis.com">
+         <link rel="preconnect" href="https://fonts.googleapis.com">
+         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+         <link href="https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&display=swap" rel="stylesheet">
+         
       <!-- CSRF Token -->
       <meta name="csrf-token" content="{{ csrf_token() }}">
       <title>{{ config('app.name', 'Laravel') }}</title>

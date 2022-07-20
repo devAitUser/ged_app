@@ -138,9 +138,10 @@ li.li_block_archive {
 }
 
 body {
-  font-family: “Gill Sans”, “Gill Sans MT”, Calibri, sans-serif;
+  Font-family:  Arial ,Roboto, sans-serif;
+
   letter-spacing: 0.05em;
-  font-size: 13px; 
+  font-size: 11px; 
   background-color: #EEEEEE
 }
 
@@ -199,8 +200,8 @@ span.icon_menu_left , span.icon_menu_right{
 }
 
 span.icon_menu_left img , span.icon_menu_right img {
-  margin-top: 6px;
-  margin-left: 6px;
+  margin-top: 5px;
+  margin-left: 5px;
 }
 
 .label_menu._left {
@@ -665,7 +666,7 @@ a.link_organigramme span {
   position: absolute;
   top: 5px;
   left: 13px;
-  top: 10px;
+  top: 11px;
   font-size: 18px;
 }
 

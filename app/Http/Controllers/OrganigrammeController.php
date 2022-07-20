@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Dossier_champ;
 use App\Models\Organigramme;
-
+use App\Models\Attribut_champ;
 
 use Illuminate\Http\Request;
 
@@ -165,6 +165,36 @@ class OrganigrammeController extends Controller
         $new_dossier->organigramme_id = $request->input('id_organigramme');
         $new_dossier->save();
 
+        function is_array_empty($arr){
+            if(is_array($arr)){
+               foreach($arr as $value){
+                  if(!empty($value)){
+                     return true;
+                  }
+               }
+            }
+            return  false;
+         }
+        
+
+        if (is_array_empty($request->name_champ)) {
+
+            for($i=0;$i<count($request->input('name_champ'));$i++){
+                $attribut_champ = new Attribut_champ();
+                $attribut_champ->dossier_champs_id = $new_dossier->id;
+                $attribut_champ->nom_champs = $request->name_champ[$i];
+                $attribut_champ->type_champs = $request->type_champ[$i];
+                $attribut_champ->save();
+            }   
+         }
+
+
+
+            
+    
+        
+        
+     
 
 
         return Response()
