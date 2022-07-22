@@ -75,10 +75,10 @@
                   <label>Entrez le nom de dossier</label>
                   <input type="text" name="dossier_champs" id="category_name" class="form-control">
                   <input class="hidden" type="text" name="id_organigramme" id="id_organigramme" value="{{$id}}" hidden="true"/>
-                  <input class="hidden" type="text" name="type_dossier" id="type_dossier" value="btn_dossier" hidden="true"/>
+                  <input class="hidden" type="text" name="type_dossier" id="type_dossier" value="btn_dossier" />
                </div>
                <div class="form-group">
-                  <button type="button" class="btn btn-success hidden btn_add_attributs_click" onclick="">Ajouter les champs</button>
+                  <button type="button" class="btn btn-success hidden btn_add_attributs_click" >Ajouter Les attributs</button>
                </div>
                <div class="form-group">
                   <input type="submit" name="action" id="action" value="Ajouter" class="btn btn-info" />
@@ -124,7 +124,7 @@
          </div>
         
          <div class="col-md-12 panel_add">
-            <h3 align="center">Le plan de classement du  <span class="ititle_organigramme"> {{$nom}}  </span> </h3>
+            <h3 align="center">Le plan de classement de  <span class="ititle_organigramme"> {{$nom}}  </span> </h3>
             <br />
             <div>
                <div id="treeview"></div>

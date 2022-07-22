@@ -10,10 +10,16 @@ var check_parent = 'false';
   e.preventDefault();
 
   document.getElementById("row_table_champs_add_" + row).remove();
- 
 
 }
 
+
+function unset_table() {
+
+        $('.table_champs_add tr:not(:nth-child(-n+1))').remove();
+        $(".block_attributs").addClass("hidden");
+
+  }
 
 
 
@@ -42,13 +48,10 @@ var check_parent = 'false';
       type_btn : type_btn,
     },
     success: function(data) {
-      
-     
-          
+
        $('#select_block').html(data)
        $('#select_tree').treeselect();
 
-      
     }
   })
 
@@ -61,19 +64,10 @@ var check_parent = 'false';
       },
       dataType: "json",
       success: function(data) {
-    
-
-
-        
- 
         $('#treeview').treeview({
           data: data,
 
         });
-
-
-
-
       }
   })
 
@@ -145,7 +139,8 @@ $(document).ready(function() {
 
       fill_treeview();
 
-      $('.btn-toggle').click(function() {
+      $('.btn-toggle').click(function(e) {
+        e.preventDefault();
         $(this).find('.btn').toggleClass('active');  
         
         if ($(this).find('.btn-primary').length>0) {
@@ -166,9 +161,9 @@ $(document).ready(function() {
         });
 
 
-        $('.btn_add_attributs_click').click(function() {
+        $('.btn_add_attributs_click').click(function(e) {
 
-          
+           e.preventDefault();
            $(".block_attributs").removeClass("hidden");
 
   
@@ -177,13 +172,14 @@ $(document).ready(function() {
 
 
 
-        $('.btn_dossier').click(function() {
-
-          
-           type_btn = "btn_dossier" ;
+        $('.btn_dossier').click(function(e) {
+ 
+           e.preventDefault();
+            type_btn = "btn_dossier" ;
            $(".btn_add_attributs_click").addClass("hidden");
         
            $('#type_dossier').val(type_btn);
+       
 
          
 
@@ -194,9 +190,9 @@ $(document).ready(function() {
           });
 
 
-          $('.btn_sous_dossier').click(function() {
+          $('.btn_sous_dossier').click(function(e) {
 
-          
+            e.preventDefault();
             type_btn = 'btn_sous_dossier';
 
        
@@ -275,24 +271,31 @@ $(document).ready(function() {
                  method:"POST",
                  data:$(this).serialize(),
                  success:function(data){
-                  console.log(data)
-                  if(data.etat){
-                    
-                    fill_treeview();
-                 
-                    $('#treeview_form')[0].reset();
-                    alert('ajouter aves succes');
 
-                      $([document.documentElement, document.body]).animate({
-                        scrollTop: $("#treeview").offset().top
-                    }, 2000);
+                  console.log(data.check_sub_dossier)
 
+                  if(!data.check_sub_dossier){
+                      if(data.etat){
+                      
+                        fill_treeview();
                     
-                   
-                    $(".btn_add_attributs_click").addClass("hidden");
+                        $('#treeview_form')[0].reset();
+                        alert('ajouter aves succes');
 
-                    
+                        $('#type_dossier').val(data.type_dossier);
+    
+                          $([document.documentElement, document.body]).animate({
+                            scrollTop: $("#treeview").offset().top
+                        }, 2000);
+    
+                        unset_table()
+                      }
+
+                  }else{
+                     alert('interdit d ajouter sous dossier dans ce racine');
                   }
+   
+                  
            
                  }
                 })

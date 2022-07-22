@@ -67,3 +67,6 @@ Route::get('/organigramme/{id}/edit',[App\Http\Controllers\OrganigrammeControlle
 Route::post('/check_have_parent',[App\Http\Controllers\OrganigrammeController::class, 'check_have_parent']);
 
 
+Route::post('/check_have_attributs',[App\Http\Controllers\OrganigrammeController::class, 'check_have_attributs']);
+
+

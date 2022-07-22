@@ -31,26 +31,57 @@ class OrganigrammeController extends Controller
 
 
         $dossier_parent = Dossier_champ::where('parent_id', '=', $parent_id)->get(); 
-
+        $dossier_attributs = Attribut_champ::where('dossier_champs_id', '=', $parent_id)->get(); 
         $output = array();
-        for($i=0;$i<count($dossier_parent);$i++)
+
+        if (count( $dossier_parent ) == 0 ) {
+            
+         } else 
+         {
+            for($i=0;$i<count($dossier_parent);$i++)
+            {
+             
+    
+                
+                        if($dossier_parent[$i]->organigramme_id == $organigramme_id){
+    
+                            $sub_array = array ();
+                            $sub_array['id_node'] = $dossier_parent[$i]->parent_id ;
+                            $sub_array['text'] = $dossier_parent[$i]->nom_champs.'<a href="" class="prevent-default" onClick="removeRow(event,'.$dossier_parent[$i]->id. ' )" ><span    class="material-icons btn_delete"> delete </span></a>'; 
+                            $sub_array['nodes'] = array_values($this->get_node_data( $dossier_parent[$i]->id , $organigramme_id  ))  ; 
+
+                            $output[] = $sub_array;
+    
+                        }
+    
+                   
+                
+                
+             
+            }
+         }
+
+
+         if (count( $dossier_attributs ) == 0 ) {
+            
+        } else 
         {
-         
+           for($i=0;$i<count($dossier_attributs);$i++)
+           {
+                               $sub_array = array ();
+                               $sub_array['text'] = $dossier_attributs[$i]->id.'<a href="" class="prevent-default" onClick="removeRow(event,1 )" >rzerezrz<span    class="material-icons btn_delete"> border_color </span> Modifier les attributs</a>'; 
+                               $sub_array['nodes'] = array() ; 
+                               $output[] = $sub_array;
+   
 
-            
-                    if($dossier_parent[$i]->organigramme_id == $organigramme_id){
-
-                        $sub_array = array ();
-                        $sub_array['id_node'] = $dossier_parent[$i]->parent_id ;
-                        $sub_array['text'] = $dossier_parent[$i]->nom_champs.'<a href="" class="prevent-default" onClick="removeRow(event,'.$dossier_parent[$i]->id. ' )" ><span    class="material-icons btn_delete"> delete </span></a>'; 
-                        $sub_array['nodes'] = array_values($this->get_node_data( $dossier_parent[$i]->id , $organigramme_id  ))  ; 
-                        $output[] = $sub_array;
-
-                    }
-            
-         
+           }
         }
 
+
+
+       
+
+   
         return $output;
 
 
@@ -61,6 +92,7 @@ class OrganigrammeController extends Controller
     {
 
         $parent_id=0;
+        $organigramme_id =1;
         $all_dossier = Dossier_champ::all();
         $organigramme_id = $request->input('organigramme_id');
         $data = array();
@@ -117,12 +149,13 @@ class OrganigrammeController extends Controller
 
             foreach ($all_dossier as $row) {
     
-                if($row["organigramme_id"]==  $organigramme_id ){
+                if( $row["organigramme_id"] ==  $organigramme_id ){
     
                     if($row["parent_id"]== 0 ){
                         $output .= '<option value="'.$row["id"].'"  >'.$row["nom_champs"].'</option>';
                     }else{
                         $output .= '<option value="'.$row["id"].'" data-parent="'.$row["parent_id"].'" >'.$row["nom_champs"].'</option>';
+                     
                     }
     
                  }
@@ -145,60 +178,78 @@ class OrganigrammeController extends Controller
     public function store_dossier(Request $request)
     {
 
-        $all_dossier = Dossier_champ::all();
+        $check =false;
+        
+        $check_add =false;
 
         $type_dossier = $request->input('type_dossier');
 
-        $new_dossier = new Dossier_champ();
-      
+        $id = $request->input('select_tree');
 
-        if( $type_dossier  ==  "btn_dossier" ){
-            $new_dossier->parent_id = 0;
-        } 
-        if( $type_dossier  ==  "btn_sous_dossier" ){
-            $new_dossier->parent_id = $request->input('select_tree'); 
-        }
+        $check_have_attribut = Attribut_champ::where('dossier_champs_id', '=', $id )->get(); 
 
-        $new_dossier->nom_champs = $request->input('dossier_champs');
-
-      
-        $new_dossier->organigramme_id = $request->input('id_organigramme');
-        $new_dossier->save();
-
-        function is_array_empty($arr){
-            if(is_array($arr)){
-               foreach($arr as $value){
-                  if(!empty($value)){
-                     return true;
-                  }
-               }
-            }
-            return  false;
-         }
-        
-
-        if (is_array_empty($request->name_champ)) {
-
-            for($i=0;$i<count($request->input('name_champ'));$i++){
-                $attribut_champ = new Attribut_champ();
-                $attribut_champ->dossier_champs_id = $new_dossier->id;
-                $attribut_champ->nom_champs = $request->name_champ[$i];
-                $attribut_champ->type_champs = $request->type_champ[$i];
-                $attribut_champ->save();
-            }   
+        if (count( $check_have_attribut ) == 0 ) {
+            $check = false;
+         } else 
+         {
+            $check = true;
          }
 
 
+
+         if(!$check){
 
             
-    
-        
-        
-     
 
+            $all_dossier = Dossier_champ::all();
+
+                $type_dossier = $request->input('type_dossier');
+
+                $new_dossier = new Dossier_champ();
+            
+
+                if( $type_dossier  ==  "btn_dossier" ){
+                    $new_dossier->parent_id = 0;
+                } 
+                if( $type_dossier  ==  "btn_sous_dossier" ){
+                    $new_dossier->parent_id = $request->input('select_tree'); 
+                }
+
+                $new_dossier->nom_champs = $request->input('dossier_champs');
+
+            
+                $new_dossier->organigramme_id = $request->input('id_organigramme');
+                $new_dossier->save();
+
+                $check_add = true;
+
+                function is_array_empty($arr){
+                    if(is_array($arr)){
+                    foreach($arr as $value){
+                        if(!empty($value)){
+                            return true;
+                        }
+                    }
+                    }
+                    return  false;
+                }
+                
+
+                if (is_array_empty($request->name_champ)) {
+
+                    for($i=0;$i<count($request->input('name_champ'));$i++){
+                        $attribut_champ = new Attribut_champ();
+                        $attribut_champ->dossier_champs_id = $new_dossier->id;
+                        $attribut_champ->nom_champs = $request->name_champ[$i];
+                        $attribut_champ->type_champs = $request->type_champ[$i];
+                        $attribut_champ->save();
+                    }   
+                }
+                
+            }
 
         return Response()
-        ->json(['etat' => true]);
+        ->json(['etat' => $check_add , 'check_sub_dossier' => $check , 'type_dossier' => $type_dossier   ]);
 
     }
 
@@ -281,14 +332,38 @@ class OrganigrammeController extends Controller
         $check = false;
             foreach ($all_dossier as $row) {
                 if( $row["organigramme_id"]==  $organigramme_id ){
-                    if( Dossier_champ::where('parent_id', $row["id"] )->exists() ){
+               
                         $check = true;
-                    }
+                    
                  }
              }
              return  Response()
              ->json(['etat' => $check  ]);
      }
+
+     
+     public function check_have_attributs(Request $request){
+
+
+        $check =false;
+
+        $id = $request->input('select_tree');
+
+        $check_have_attribut = Attribut_champ::where('dossier_champs_id', '=', $id )->get(); 
+
+        if (count( $check_have_attribut ) == 0 ) {
+            $check = false;
+         } else 
+         {
+            $check = true;
+         }
+
+        
+         return  Response()
+         ->json(['etat' => $check  ]);
+
+      
+      }
         
 
     
