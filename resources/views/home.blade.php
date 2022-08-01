@@ -2,6 +2,11 @@
 
 @section('content')
 
+<style>
+     li.link_menu__right a {
+    text-decoration: none !important;
+   }
+</style>
 
 <div class="block_menu left">
          <ul>
@@ -23,6 +28,12 @@
                </span>
                <span class="label_menu _left"> Gestion des versements   </span> 
             </li>
+            <li class="link_menu__left">
+                <span class="icon_menu_left" >
+                <img src="{{ asset('img_app/folder-error-icon.png') }}" style="width: 20px;">
+                </span>
+             <a href="{{ route('boites.index') }}">   <span class="label_menu _left"> Gestion des boites   </span></a>
+             </li>
          </ul>
       </div>
       <div class="panel_view_info">
@@ -51,18 +62,32 @@
             </div>
          </ul>
       </div>
+      
       <div class="block_menu right">
          <ul>
             <li class="link_menu__right">
+            <a href="{{route('create_dossier')}}">
                <div class="add_btn_folder">
                   <span class="icon_menu_right" >
                   <img src="{{ asset('img_app/folder-add-icon.png') }}" style="width: 20px;">
                   </span>
                   <span class="label_menu_right"> Créer un nouveau dossier  </span> 
                </div>
+               </a>
+            </li>
+            <li class="link_menu__right" style="margin-top:5px">
+            <a href="{{ route('boites.create') }}">
+               <div class="add_btn_folder">
+                  <span class="icon_menu_right" >
+                  <img src="{{ asset('img_app/folder-add-icon.png') }}" style="width: 20px;">
+                  </span>
+                  <span class="label_menu_right"> Créer une nouvelle boîte </span> 
+               </div>
+               </a>
             </li>
          </ul>
       </div>
+  
 
 
 

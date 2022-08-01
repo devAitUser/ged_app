@@ -40,24 +40,28 @@ class OrganigrammeController extends Controller
          {
             for($i=0;$i<count($dossier_parent);$i++)
             {
-             
-    
-                
                         if($dossier_parent[$i]->organigramme_id == $organigramme_id){
-    
+                            $check_attributs = Attribut_champ::where('dossier_champs_id', '=', $dossier_parent[$i]->id)->get(); 
                             $sub_array = array ();
                             $sub_array['id_node'] = $dossier_parent[$i]->parent_id ;
-                            $sub_array['text'] = $dossier_parent[$i]->nom_champs.'<a href="" class="prevent-default" onClick="removeRow(event,'.$dossier_parent[$i]->id. ' )" ><span    class="material-icons btn_delete"> delete </span></a>'; 
-                            $sub_array['nodes'] = array_values($this->get_node_data( $dossier_parent[$i]->id , $organigramme_id  ))  ; 
+                            if (count( $check_attributs ) == 0) {
+                                $sub_array['text'] = $dossier_parent[$i]->nom_champs.'<a href="" class="prevent-default" onClick="removeRow(event,'.$dossier_parent[$i]->id. ' )" ><span    class="material-icons btn_delete"> delete </span></a>'; 
+                            }else{
+                                $sub_array['text'] = $dossier_parent[$i]->nom_champs.'<a href="" class="prevent-default" onClick="removeRow(event,'.$dossier_parent[$i]->id. ' )" ><span    class="material-icons btn_delete"> delete </span></a><a href="" class="prevent-default" data-toggle="modal" data-target="#panel_attributs" onClick="editRow_organi(event,'.$dossier_parent[$i]->id. ' )" ><span    class="material-icons btn_edit"> border_color </span></a>'; 
+                            }
+                            if (count( $check_attributs ) == 0) {
+                            $sub_array['nodes'] = array_values($this->get_node_data( $dossier_parent[$i]->id , $organigramme_id  ))  ;
+                             
+                            } else {
 
+                                if($check_attributs[$i]->type_champs == 'Fichier'){
+                                    $sub_array['nodes'] = array_values($this->get_node_data( $dossier_parent[$i]->id , $organigramme_id  ))  ;
+                                }
+
+                            }
                             $output[] = $sub_array;
     
                         }
-    
-                   
-                
-                
-             
             }
          }
 
@@ -66,24 +70,21 @@ class OrganigrammeController extends Controller
             
         } else 
         {
-           for($i=0;$i<count($dossier_attributs);$i++)
-           {
-                               $sub_array = array ();
-                               $sub_array['text'] = $dossier_attributs[$i]->id.'<a href="" class="prevent-default" onClick="removeRow(event,1 )" >rzerezrz<span    class="material-icons btn_delete"> border_color </span> Modifier les attributs</a>'; 
-                               $sub_array['nodes'] = array() ; 
-                               $output[] = $sub_array;
-   
-
-           }
+                $attributs_f='';
+            for($i=0;$i<count($dossier_attributs);$i++)
+            {
+                    if($dossier_attributs[$i]->type_champs == 'Fichier'){
+                        $attributs_f .='<span class="material-icons icon_file_organi">description</span>'.$dossier_attributs[$i]->nom_champs .',';
+                    }          
+            }
+            if( $attributs_f  != ''){
+                $sub_array = array ();
+                $sub_array['text'] = $attributs_f.'<a href="" class="prevent-default" onClick="removeRow(event,1 )" > </a>'; 
+                $output[] = $sub_array;
+            }
         }
 
-
-
-       
-
-   
         return $output;
-
 
     }
 
@@ -363,6 +364,51 @@ class OrganigrammeController extends Controller
          ->json(['etat' => $check  ]);
 
       
+      }
+
+      public function fill_table_edit_attributs(Request $request){
+        $dossier = Dossier_champ::find($request->champs_id);
+        $attributs = Attribut_champ::where('dossier_champs_id', '=', $request->champs_id )->get(); 
+   
+        return  Response()
+         ->json(['attributs' => $attributs , 'nom_dossier' => $dossier->nom_champs , 'id_dossier' => $dossier->id ]);
+        
+      }
+
+
+      public function update_attributs(Request $request){
+
+        if ( !empty($request->old_id_champ) ) {
+            for($i=0;$i<count($request->old_id_champ);$i++){
+                $update_attribut = Attribut_champ::find($request->old_id_champ[$i]); 
+                $update_attribut->nom_champs = $request->old_name_champ[$i];
+                $update_attribut->type_champs = $request->old_type_champ[$i];
+                $update_attribut->save();
+            }
+         }
+
+         if ( !empty($request->new_name_champ) ) {
+            for($i=0;$i<count($request->new_name_champ);$i++){
+                $new_attribut = new Attribut_champ(); 
+                $new_attribut->nom_champs = $request->new_name_champ[$i];
+                $new_attribut->type_champs = $request->new_type_champ[$i];
+                $new_attribut->dossier_champs_id = $request->id_champs;
+                $new_attribut->save();
+            }
+         }
+
+         return  Response()
+         ->json(['etat' => true  ]);
+        
+      }
+
+
+      public function remove_champs_attributs(Request $request){
+
+         $delete= Attribut_champ::find($request->id_champs_attributs);  
+         $delete->delete();
+
+       
       }
         
 

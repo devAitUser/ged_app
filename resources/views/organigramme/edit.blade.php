@@ -38,6 +38,7 @@
    color: #e91e63;
    margin-top: 10px;
    }
+
 </style>
 <div class="header_view">
    <div class="sub_view">
@@ -73,12 +74,12 @@
                </div>
                <div class="form-group">
                   <label>Entrez le nom de dossier</label>
-                  <input type="text" name="dossier_champs" id="category_name" class="form-control">
+                  <input type="text" name="dossier_champs" id="category_name" class="form-control" required>
                   <input class="hidden" type="text" name="id_organigramme" id="id_organigramme" value="{{$id}}" hidden="true"/>
-                  <input class="hidden" type="text" name="type_dossier" id="type_dossier" value="btn_dossier" />
+                  <input class="hidden" type="text" name="type_dossier" id="type_dossier" value="btn_dossier" hidden="true"/>
                </div>
                <div class="form-group">
-                  <button type="button" class="btn btn-success hidden btn_add_attributs_click" >Ajouter Les attributs</button>
+                  <button type="button" class="btn btn-success hidden btn_add_attributs_click" onclick="">Ajouter les champs</button>
                </div>
                <div class="form-group">
                   <input type="submit" name="action" id="action" value="Ajouter" class="btn btn-info" />
@@ -89,10 +90,10 @@
             <h3 align="center">Les attributs</h3>
             <br />
             <div class="block_attributs hidden">
-               <button type="button" class="btn btn-info btn_add_oranigramme" onclick="add_oranigramme()"><span class="material-icons">
+               <button type="button" class="btn btn-info btn_add_oranigramme" ><span class="material-icons">
                add
                </span>Ajouter</button>
-               <table class="table_champs_add">
+               <table id="add_table_champs_add" class="table_champs_add">
                   <tr class="table_h">
                      <th style="width:45%">Nom du champs</th>
                      <th>Type du champs</th>
@@ -103,7 +104,7 @@
                      <tr id='row_table_champs_add_1' >
                         <td> <input name ='name_champ[]' class="form-control" type="text" > </td>
                         <td>
-                           <select name ='type_champ[]' class="form-control" name="" id="">
+                           <select name ='type_champ[]' class="form-control" name="" id="" >
                               <option>sélectionner le type</option>
                               <option value="date">Date</option> 
                               <option value="Text">Text</option> 
@@ -124,7 +125,7 @@
          </div>
         
          <div class="col-md-12 panel_add">
-            <h3 align="center">Le plan de classement de  <span class="ititle_organigramme"> {{$nom}}  </span> </h3>
+            <h3 align="center">Le plan de classement du  <span class="ititle_organigramme"> {{$nom}}  </span> </h3>
             <br />
             <div>
                <div id="treeview"></div>
@@ -134,4 +135,50 @@
    </form>
    </div>
 </div>
+
+
+
+ 
+ <!-- Modal -->
+ <div class="modal fade" id="panel_attributs" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+   <div class="modal-dialog modal-dialog-centered" role="document">
+     <div class="modal-content">
+       <div class="modal-header">
+         <h4 class="modal-title" id="exampleModalLongTitle">Dossier : <strong><span class="title_dossier"></span></strong>
+            </h4>
+         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+         </button>
+       </div>
+       <form method="post" id="form_modal">
+       <div class="modal-body">
+         <button type="button" class="btn btn-info modal_btn_add_oranigramme"><span class="material-icons">
+            add
+            </span>Ajouter</button>
+        
+            <input type="text" class="hidden id_dossier" name="id_champs" >
+            
+         <table id="Modal_table_champs_add" class="table_champs_add">
+            <tbody><tr class="table_h">
+               <th style="width:45%">Nom du champs</th>
+               <th>Type du champs</th>
+               <th>Action</th>
+            </tr>
+            </tbody><tbody>
+
+       
+
+            </tbody>
+          
+         </table>
+      
+       </div>
+       <div class="modal-footer">
+         <button type="button" class="btn btn-secondary btn_fermer_attributs" data-dismiss="modal">Fermer</button>
+         <button type="submit" class="btn btn-primary">Sauvegarder les modifications</button>
+       </div>
+      </form>
+     </div>
+   </div>
+ </div>
 @endsection

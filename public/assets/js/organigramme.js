@@ -4,6 +4,77 @@ var check_parent = 'false';
  
  var type_btn = 'btn_dossier';
 
+ function editRow_organi(e,row) {
+
+
+  
+  $.ajaxSetup({
+    headers: {
+      'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+    }
+  });
+
+  $.ajax({
+    url: "/fill_table_edit_attributs",
+    method:"POST",
+    data:{
+      champs_id : row,
+    },
+    success: function(data) {
+
+
+      $("#Modal_table_champs_add tbody tr:not(:first)").remove();
+      $(".title_dossier").html(data.nom_dossier);
+      $(".id_dossier").val(data.id_dossier);
+      for (let i = 0; i < data.attributs.length; i++) {
+
+        var add_row = '<tr id=model_row_table_champs_add_' + [i] + '  >';
+        add_row += '<td><input name="old_id_champ[]" class="hidden" type="text" value="'+data.attributs[i].id+'" ><input name="old_name_champ[]" class="form-control" type="text" value="'+data.attributs[i].nom_champs+'"   required></td>';
+        add_row += '<td>  <select name ="old_type_champ[]" class="form-control" id="" required> ';
+        add_row += '  <option>sélectionner le type</option>';
+        add_row += ' <option value="date"   ';
+        if(data.attributs[i].type_champs == 'date'){
+          add_row += 'selected';
+        }
+        add_row += '>Date </option> ';
+        add_row += ' <option value="Text" ';
+        if(data.attributs[i].type_champs == 'Text'){
+          add_row += 'selected';
+        }
+        add_row += ' >Text</option> ';
+        add_row += ' <option value="Fichier"';
+        if(data.attributs[i].type_champs == 'Fichier'){
+          add_row += 'selected';
+        }
+        add_row += '>fichier</option>';
+        add_row += '   </select></td>';
+        add_row += '<td>  <div class="block_action_organigramme"> ';
+        add_row += '<a href="" onClick="model_removeRow_table_champs_add(event,' + [i] + ','+data.attributs[i].id+')" ><i class="fa-solid fa-circle-xmark "></i></a>';
+        add_row += '      </div> </td></tr>';
+        $("#Modal_table_champs_add tbody tr:last").after(add_row);
+
+      }
+
+     
+
+
+    }
+  })
+
+
+
+
+
+
+  
+
+
+ 
+        
+
+
+}
+
 
  function removeRow_table_champs_add(e,row) {
 
@@ -11,12 +82,58 @@ var check_parent = 'false';
 
   document.getElementById("row_table_champs_add_" + row).remove();
 
+
+
+
+
+
+}
+
+
+function model_removeRow_table_champs_add(e,row,id=null) {
+
+  e.preventDefault();
+
+  if (confirm("Vous voulez vraiment supprimer ce attribut !") == true) {
+      document.getElementById("model_row_table_champs_add_" + row).remove();
+
+      if(id !=null){
+      
+        $.ajaxSetup({
+          headers: {
+            'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+          }
+        });
+      
+        $.ajax({
+          url: "/remove_champs_attributs",
+          method:"POST",
+          data:{
+            id_champs_attributs : id,
+          },
+          success: function(data) {
+      
+            fill_treeview()
+      
+          }
+        })
+      
+      }
+  } else {
+
+  }
+
+ 
+ 
+
+
+
 }
 
 
 function unset_table() {
 
-        $('.table_champs_add tr:not(:nth-child(-n+1))').remove();
+        $('#add_table_champs_add tr:not(:nth-child(-n+1))').remove();
         $(".block_attributs").addClass("hidden");
 
   }
@@ -66,6 +183,7 @@ function unset_table() {
       success: function(data) {
         $('#treeview').treeview({
           data: data,
+          
 
         });
       }
@@ -242,13 +360,51 @@ $(document).ready(function() {
 
             if (tableLength > 0) {
 
-                $(".table_champs_add tbody tr:last").after(add_row);
+                $("#add_table_champs_add tbody tr:last").after(add_row);
             }
             if (tableLength == 0) {
 
-                $(".table_champs_add tbody ").append(add_row);
+                $("#add_table_champs_add tbody ").append(add_row);
             }
             tableLength++;
+
+
+
+       });
+
+       $('.modal_btn_add_oranigramme').on('click', function(event){
+        event.preventDefault();
+        var rowCount_v = $('#Modal_table_champs_add tr').length;
+         rowCount = rowCount_v - 1;
+    
+
+
+        
+            var add_row = '<tr id=model_row_table_champs_add_' + rowCount + '  >';
+
+      
+
+
+            add_row += '<td><input name="new_name_champ[]" class="form-control" type="text"   required></td>';
+
+      
+          
+
+            add_row += '<td>  <select name ="new_type_champ[]" class="form-control" id="" required> ';
+            add_row += '  <option>sélectionner le type</option><option value="date">Date</option> <option value="Text">Text</option> <option value="Fichier">fichier</option>';
+            add_row += '   </select></td>';
+            add_row += '<td>  <div class="block_action_organigramme"> ';
+            add_row += '<a href="" onClick="model_removeRow_table_champs_add(event,' + rowCount + ')" ><i class="fa-solid fa-circle-xmark "></i></a>';
+            add_row += '      </div> </td></tr>';
+          
+                
+
+
+
+
+                $("#Modal_table_champs_add tbody tr:last").after(add_row);
+          
+      
 
 
 
@@ -301,6 +457,33 @@ $(document).ready(function() {
                 })
              });
 
+             $('#form_modal').on('submit', function(event){
+              event.preventDefault();
+                $.ajax({
+                 url:"/update_attributs",
+                 method:"POST",
+                 data:$(this).serialize(),
+                 success:function(data){
+
+             
+
+                  if(data.etat){
+
+             
+
+                    $('#form_modal .btn_fermer_attributs').click();
+
+                     fill_treeview()
+
+
+                  }
+
+   
+                  
+           
+                 }
+                })
+             });
 
 
 
