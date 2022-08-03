@@ -2,10 +2,22 @@
 
 @section('content')
 <div class="container">
+
+    <div class="header_view" style="margin-bottom: 5px">
+        <div class="sub_view">
+           <a class="link_organigramme" href="{{route('home')}}">
+           <span class="material-icons">  home </span>  Home
+           </a>
+           <a class="title_profil" href="{{route('roles.index')}}">     \
+            <span class=""> Roles </span> </a>
+           <span class="title_profil">     \
+           <span class=""> Ajouter nouveau role </span> </span>
+        </div>
+     </div>
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Ajouter nouveau role') }}</div>
+
+
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('roles.store') }}">
@@ -41,7 +53,11 @@
                         </div>
                     </form>
                 </div>
-            </div>
+                @if (Session::has('err'))
+                <div class="alert alert-danger" style="width: 100%" role="alert" style="color:red;margin-left: 163px;">
+               {{Session::get('err')}}
+                </div>
+                @endif
         </div>
     </div>
 </div>

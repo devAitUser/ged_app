@@ -17,21 +17,16 @@ class UserController extends Controller
     }
 
 
-    public function showUser($id){
-        //$user=User::find($id);
-        $roles=Role::all();
-        $user = User::find($id);
-        $permissions=Permission::all();
 
-       return view('user.showuser',compact('user','roles','permissions'));
-    }
 
     public function test(){
-        return view('user.register');
+        $roles=Role::all();
+        return view('user.register',compact('roles'));
     }
 
     public function create(Request $request)
     {
+
         $request->validate([
             'nom'=>'required',
             'telephone'=>'required',
@@ -50,7 +45,7 @@ class UserController extends Controller
         $addNewUser->email=$request->email;
         $addNewUser->identifiant=$request->identifiant;
         $addNewUser->telephone=$request->telephone;
-
+        $addNewUser->assignRole($request->role);
         $addNewUser->save();
         return redirect()->route('user_list');
       /* $request->validate([
@@ -70,6 +65,13 @@ class UserController extends Controller
     public function test2(){
         $users=User::latest()->paginate(5);
        return view('user.userlist',compact('users'));
+
+    }
+    public function edit($id)
+    {
+        $roles=Role::all();
+        $user = User::find($id);
+        return view('user.edit',compact('roles'));
 
     }
     public function index()
@@ -100,14 +102,42 @@ class UserController extends Controller
 
     }
 
+    public function showUser($id){
+
+        $roles=Role::all();
+        $user = User::find($id);
+        $permissions=Permission::all();
+
+       return view('user.showuser',compact('user','roles','permissions'));
+    }
+    public function updateUser(Request $request)
+    {
+       // $user = User::find($id);
+        $user = User::where('id', '=', $request->id)->first();
+        $user->nom = $request->nom;
+        $user->identifiant = $request->identifiant;
+        $user->prenom = $request->prenom;
+        $user->telephone = $request->telephone;
+        if($request->email != '' ){
+            $user->email = $request->email;
+        }
+        if($request->password != '' ){
+            $user->password = Hash::make($request->password);
+
+        }
+        $user->syncRoles($request->role);
+        $user->save();
+        return redirect()->route('user_list')
+         ->with('message','User est modifiée avec success');
+
+
+    }
+
     public function verify()
     {
        return view('user.login');
     }
-    public function edit()
-    {
-       return view('user.edit');
-    }
+
 
 
 
@@ -116,18 +146,20 @@ class UserController extends Controller
         if ($user->hasRole($request->role)) {
             return back()->with('err', 'Role exists.');
         }
-        else{
+        else if ($user->hasRole($request->role) == false){
             $user->syncRoles($request->role);
         return back()->with('message', 'Role updated.');
-        }
+        } else{
         $user->assignRole($request->role);
-        return back()->with('message', 'Role assigned.');
+        return back()->with('message', 'Role assigned.');}
     }
 
     public function removeRole(User $user, Role $role)
     {
+        $permission=Permission::all();
         if ($user->hasRole($role)) {
             $user->removeRole($role);
+            $user->revokePermissionTo($permission);
             return back()->with('message', 'Role removed.');
         }
 
@@ -135,6 +167,10 @@ class UserController extends Controller
     }
     public function givePermission(Request $request, User $user)
     {
+        $role=Role::all();
+        if ($user->hasRole($role) == false) {
+            return back()->with('err', 'Impossible d\'ajouter une permission à un role non assigné');
+        }
         if ($user->hasPermissionTo($request->permission)) {
             return back()->with('err', 'Permission exists à ce role.');
         }

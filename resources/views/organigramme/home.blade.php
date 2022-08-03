@@ -1,13 +1,13 @@
 @extends('layouts.app')
 @section('content')
 
-<script src="https://code.jquery.com/jquery-1.12.1.min.js"></script> 
+<script src="https://code.jquery.com/jquery-1.12.1.min.js"></script>
 
 	<link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.0.45/css/materialdesignicons.min.css">
 
 
 
-   
+
     <link href="{{ asset('assets/css/bootstrap2.min.css') }}" rel="stylesheet" >
 
 <link rel="stylesheet" href="{{asset('assets/css/datatables.min.css')}}">
@@ -53,24 +53,24 @@
                        <th scope="col">Num</th>
                        <th scope="col">Nom organigramme</th>
                        <th scope="col">Action  </th>
-                     
-       
 
-           
+
+
+
                    </tr>
                </thead>
                <tbody>
-             
+
                    <tr>
                        <th scope="row"></th>
 
-                       
-                      
+
+
                        <th scope="row"></th>
 
-       
 
-                   
+
+
                        <td>
                            <a href="#" class="text-success mr-2">
                                <i class="nav-icon i-Pen-2 font-weight-bold"></i>
@@ -80,22 +80,22 @@
                            </a>
                        </td>
                    </tr>
-              
-                 
+
+
                </tbody>
            </table>
 
          </div>
 
-         
+
       </div>
 
-      
 
 
 
 
-  
+
+
   <!-- Modal -->
   <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -104,25 +104,25 @@
             @csrf
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Créer un organigramme</h5>
-          <button type="button" class="close" data-dismiss="modal" > 
-           
+          <button type="button" class="close" data-dismiss="modal" >
+
           </button>
         </div>
         <div class="modal-body">
             <div class="panel_pop_up">
-              
-                 
+
+
                     <div class="form-group">
                       <label for="nom_organigramme">Nom du organigramme </label>
                       <input type="text" class="form-control" name="nom_organigramme"  id="nom_organigramme"  placeholder="Nom du organigramme" required="">
-                     
+
                     </div>
-                  
-               
-                 
-                  
+
+
+
+
             </div>
-         
+
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
@@ -136,7 +136,6 @@
 
 
 
-  
 
 
 
@@ -146,7 +145,8 @@
 
 
 
-    
+
+
 
 
 

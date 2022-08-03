@@ -5,87 +5,213 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('User Profile') }}</div>
+                <div class="card-header">{{ __('Update Profile') }}</div>
 
                 <div class="card-body">
 
-
-                        <div class="row mb-3" style="position: relative">
-                         <a href="{{ route('edit') }}">  <button class="btn btn-success" style="position: absolute;right:0;">Modifier</button></a>
-                            <label for="name" class="">Nom : {{$user->nom}} </label>
-
-
-                        </div>
-                        <div class="row mb-3">
-                            <label for="name" class="">Email: {{$user->email}}</label>
-                        </div>
-
-
-                </div>
-                <div class="card-header">{{ __('Modifier le role') }}</div>
-
-                <div class="card-body">
-                    <div class="row mb-3">
-                        <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Role Occupé :') }}</label>
-
-
-                        <div class="col-md-6">
-                            @if ($user->roles)
-                                @foreach ($user->roles as $user_role)
-
-                                    <form class="" method="POST"
-                                   action="{{ route('removeRole', [$user->id, $user_role->id]) }}"
-                                   style="margin: 2px"
-                                   onsubmit="return confirm('Are you sure?');">
-                                   @csrf
-                                   @method('DELETE')
-                                   <button type="submit" class="btn btn-danger">{{ $user_role->name }}</button>
-                               </form>
-                                @endforeach
-                            @endif
-
-                       </div>
-                    </div>
-                    <form method="POST" action="{{ route('assignRole',$user->id) }}">
+                    <form method="POST" action="{{ route('updateUser',$user->id) }}">
                         @csrf
+                        @method('PUT')
                         <div class="row mb-3">
-                            <label for="role" class="col-md-4 col-form-label text-md-end">{{ __('Les Roles') }}</label>
+                            <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Nom') }}</label>
 
                             <div class="col-md-6">
-                                <select class="custom-select" id="role" name="role">
-                                    <option selected disabled>------------------------------------</option>
-                                    @foreach ($roles as $role)
-                                    <option value="{{ $role->name }}">{{ $role->name }}</option>
+                                <input id="nom" type="text" class="form-control @error('nom') is-invalid @enderror" name="nom" value="{{$user->nom}}"  autofocus>
 
-                                    @endforeach
-                                  </select>
+                                @error('nom')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
 
+                        <div class="row mb-3">
+                            <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Prénom') }}</label>
 
+                            <div class="col-md-6">
+                                <input id="nom" type="text" class="form-control @error('nom') is-invalid @enderror" name="prenom" value="{{$user->prenom}}"  autofocus>
+
+                                @error('prenom')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Téléphone') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="nom" type="number" min="0" class="form-control @error('nom') is-invalid @enderror" name="telephone" value="{{$user->telephone}}"  autofocus>
+
+                                @error('telephone')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="identifiant" class="col-md-4 col-form-label text-md-end">{{ __('Identifiant') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="identifiant" type="text" class="form-control @error('Identifiant') is-invalid @enderror" name="identifiant" value="{{$user->identifiant}}"  autofocus>
+
+                                @error('identifiant')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
 
 
 
-                        <div class="container" style="margin-left:205px">
+                        <div class="row mb-3">
+                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{$user->email}}" required autocomplete="email">
+
+                                @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password"  autocomplete="new-password">
+
+                                @error('password')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation"  autocomplete="new-password">
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        <div class="container" style="margin-bottom: 45px;position: relative;">
                             <div class="row">
-                                <button type="submit" class="btn btn-primary ml-4">
-                                    {{ __('Ajouter') }}
+                                <button type="submit" class="btn btn-primary ml-4" style="position: absolute;right:117px">
+                                    {{ __('Update User') }}
                                 </button>
-                                &nbsp;
 
-                                <button type="reset" class="btn btn-primary" >
-                                    {{ __('Annuler') }}
-                                </button>
+
+
                             </div>
                         </div>
+                    </form>
+
+
+                    <div class="card-header">{{ __('Modifier le role') }}</div>
+
+                    <div class="card-body">
+                        <div class="row mb-3">
+                            <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Role Occupé :') }}</label>
+
+
+                            <div class="col-md-6">
+                                @if ($user->roles)
+                                    @foreach ($user->roles as $user_role)
+
+                                        <form class="" method="POST"
+                                       action="{{ route('removeRole', [$user->id, $user_role->id]) }}"
+                                       style="margin: 2px"
+                                       onsubmit="return confirm('Are you sure?');">
+                                       @csrf
+                                       @method('DELETE')
+                                       <button type="submit" class="btn btn-danger">{{ $user_role->name }}</button>
+                                   </form>
+                                    @endforeach
+                                @endif
+
+                           </div>
+                        </div>
+                        <form method="POST" action="{{ route('assignRole',$user->id) }}">
+                            @csrf
+                            <div class="row mb-3">
+                                <label for="role" class="col-md-4 col-form-label text-md-end">{{ __('Les Roles') }}</label>
+
+                                <div class="col-md-6">
+                                    <select class="custom-select" id="role" name="role">
+                                        @foreach ($roles as $role)
+                                        <option value="{{ $role->name }}">{{ $role->name }}</option>
+
+                                        @endforeach
+                                      </select>
+
+
+                                </div>
+                            </div>
+
+
+
+                            <div class="container" style="margin-left:205px">
+                                <div class="row">
+                                    <button type="submit" class="btn btn-primary ml-4">
+                                        {{ __('Update Role') }}
+                                    </button>
+                                    &nbsp;
+
+                                    <button type="reset" class="btn btn-primary" >
+                                        {{ __('Annuler') }}
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+
+
+
+                    </div>
+
+
+
+
                     </form>
 
 
 
                 </div>
 
-                <div class="card-header">{{ __('Modifier les permissions') }}</div>
-                <div class="card-body">
+              <!--  <div class="card-header">{{ __('Modifier les permissions') }}</div>
+               <div class="card-body">
                     <div class="row mb-3">
                         <label for="permission" class="col-md-4 col-form-label text-md-end">{{ __('Permission assigné :') }}</label>
 
@@ -114,7 +240,7 @@
 
                             <div class="col-md-6">
                                 <select class="custom-select" id="permission" name="permission">
-                                    <option selected disabled>------------------------------------</option>
+
                                     @foreach ($permissions as $permission)
                                     <option value="{{ $permission->name }}">{{ $permission->name }}</option>
 
@@ -152,7 +278,15 @@
                    @endif
 
 
-                </div>
+                </div>-->
+                @if (Session::has('message'))
+                    <div class="alert alert-success" style="width: 100%"> {{Session::get('message')}}</div>
+                    @endif
+                   @if (Session::has('err'))
+                   <div class="alert alert-danger" style="width: 100%" role="alert" style="color:red;margin-left: 163px;">
+                  {{Session::get('err')}}
+                   </div>
+                   @endif
                 <a href="{{ route('user_list') }}" style="text-decoration: underline;float:right;color: black"> <h6>Retour</h6></a>
 
             </div>
