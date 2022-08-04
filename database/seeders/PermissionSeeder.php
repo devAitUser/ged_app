@@ -5,16 +5,16 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
 
-class DatabaseSeeder extends Seeder
+class PermissionSeeder extends Seeder
 {
     /**
-     * Seed the application's database.
+     * Run the database seeds.
      *
      * @return void
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
-        Permission::create(['name' => 'unpublish articles']);
+        //
+        Permission::create(['name' => 'gestion des boites']);
     }
 }

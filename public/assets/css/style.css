@@ -466,6 +466,14 @@ input:disabled {
   
 }
 
+div#objet {
+  width: 100%;
+  padding-top: 25px;
+}
+
+div#objet textarea {
+  height: 85px;
+}
 
 .btn_delete {
   font-size: 18px;
@@ -718,4 +726,12 @@ a.link_organigramme {
 .icon_file_organi {
   position: relative;
   top: 5px;
+}
+
+.dossier {
+  background-color: burlywood;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  background-color: aquamarine;
+  border: 1px solid aquamarine;
 }

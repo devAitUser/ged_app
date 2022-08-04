@@ -21,11 +21,22 @@ class RoleController extends Controller
 
     public function store(Request $request)
     {
+        $role=Role::all();
         $request->validate([
             'name'=>'required'
         ]);
-        $role=Role::create($request->all());
-        return redirect()->route('roles.index');
+
+           /* $role=Role::create($request->all());
+            return redirect()->route('roles.index');*/
+            //$user = User::where('name', '=', $request->name)->first();
+            $a_role = Role::where('name', '=', $request->name)->first();
+            if($a_role) {
+                return back()->with('err', 'Role déja exist');
+            }else{
+                $a_rolee = Role::create($request->all());
+                return redirect()->route('roles.index');}
+
+
     }
 
     public function show(Role $role)
