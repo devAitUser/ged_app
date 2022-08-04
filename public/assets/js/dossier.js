@@ -43,21 +43,26 @@ function add_row_select(row){
       
            
               row_select = '<div id="row_'+count+'" class="col-md-12">';
-              row_select += '<form><div class="form-group row">';
+              row_select += '<div class="form-group row">';
               row_select += ' <label for="colFormLabelSm" id="" class="col-sm-4 col-form-label col-form-label-sm sous_label_'+count+' text-uppercase" >________ :</label>';
-              row_select += ' <div class="col-sm-8">';
-              row_select += ' <select class="form-control" id="sous_select_'+count+'" onchange="add_row_select('+count+')">';
+              row_select += ' <input class="nom_champs_select_'+count+'" type="text" name="nom_champs_select[]" value="text" hidden> <div class="col-sm-8">';
+              row_select += ' <select class="form-control" id="sous_select_'+count+'" name="value_select[]" onchange="add_row_select('+count+')" >';
               row_select += '<option value="">Selectionne le dossier</option>';
               $.each(data.dossier_champs, function (){
                 row_select += '<option value="'+this.id+'">'+this.nom_champs+'</option>';
               });
               row_select += '</select>';
               row_select += '</div></div>';
-              row_select += '</form></div>';
+              row_select += '</div>';
       
         
               $("#row_"+row).after(row_select);
     
+              $(".sous_label_"+next).html(data.dossier_champs_label+" :");
+
+              $(".nom_champs_select_"+next).val(data.dossier_champs_label);
+
+
               $(".sous_label_"+next).html(data.dossier_champs_label+" :");
     
               count++;
@@ -101,8 +106,9 @@ function add_row_select(row){
                 row_select1 = '<div id="" class="col-md-12">';
                 row_select1 += '<div class="form-group row">';
                 row_select1 += ' <label for="colFormLabelSm" class=" text-uppercase col-sm-4 col-form-label col-form-label-sm">'+this.nom_champs+' :</label>';
-                row_select1 += ' <div class="col-sm-8">';
-                row_select1 += ' <input class="form-control" type="text">';
+                row_select1 += '<input type="text" name="nom_champ[]" value="'+this.nom_champs+' " class="hidden"> ';
+                row_select1 += '<input type="text" name="type_champ[]" value="text" class="hidden"> <div class="col-sm-8">';
+                row_select1 += ' <input class="form-control" type="text" name="valeur[]">';
             
               
                 row_select1 += '</div></div>';
@@ -112,38 +118,57 @@ function add_row_select(row){
               }
               if(this.type_champs == "date"){
                 row_select1 = '<div id="" class="col-md-12">';
-                row_select1 += '<form><div class="form-group row">';
+                row_select1 += '<div class="form-group row">';
                 row_select1 += ' <label for="colFormLabelSm" class=" text-uppercase col-sm-4 col-form-label col-form-label-sm">'+this.nom_champs+' :</label>';
-                row_select1 += ' <div class="col-sm-8">';
-                row_select1 += ' <input class="form-control" type="date">';
+                row_select1 += '<input type="text" name="nom_champ[]" value="'+this.nom_champs+' " class="hidden"> ';
+                row_select1 += '<input type="text" name="type_champ[]" value="date" class="hidden"> <div class="col-sm-8">';
+                row_select1 += ' <input class="form-control" type="date" name="valeur[]">';
             
                 row_select1 += '';
                 row_select1 += '</div>';
-                row_select1 += '</form></div>';
+                row_select1 += '</div>';
 
                 $("#attribut_champ").append(row_select1);
               }
               if(this.type_champs == "Fichier"){
                 row_select1 = '<div id="" class="col-md-12">';
-                row_select1 += '<form><div class="form-group row">';
+                row_select1 += '<div class="form-group row">';
                 row_select1 += ' <label for="colFormLabelSm" class=" text-uppercase col-sm-4 col-form-label col-form-label-sm">'+this.nom_champs+' :</label>';
-                row_select1 += ' <div class="col-sm-8">';
-                row_select1 += ' <input class="form-control controle_file" type="file" onchange="loadFile(event)">';
+                row_select1 += '<input type="text" name="nom_champ_file[]" value="'+this.nom_champs+' " class="hidden"> ';
+                row_select1 += '<div class="col-sm-8">';
+                row_select1 += ' <input class="form-control controle_file" type="file" name="file[]" placeholder="Choose file" id="file" onchange="loadFile(event)"> ';
             
                 row_select1 += '';
                 row_select1 += '</div></div>';
-                row_select1 += '</form></div>';
+                row_select1 += '</div>';
 
                 $("#attribut_file").append(row_select1);
                 $("#attribut_file").addClass("attribut_file");
               }
 
+             
+     
+
             });
+
+            row_select1 = '<div id="" class="col-md-12">';
+            row_select1 += '<div class="form-group row">';
+            row_select1 += ' <label for="colFormLabelSm" class=" text-uppercase col-sm-4 col-form-label col-form-label-sm">Titre:</label>';
+            row_select1 += ' ';
+            row_select1 += ' <div class="col-sm-8">';
+            row_select1 += '<textarea name="titre" class="form-control" id="folder_name" " ></textarea>';
+        
+            row_select1 += '';
+            row_select1 += '</div></div>';
+            row_select1 += '</div>';
+
+            $("#objet").append(row_select1);
     
 
            } else {
             $("#attribut_champ").empty();
             $("#attribut_file").empty();
+            $("#objet").empty();
             $("#attribut_file").removeClass("attribut_file");
            }
        
@@ -218,7 +243,7 @@ $(document).ready(function() {
 
           $("#sous_select_1").find('option').not(':first').remove();
           $(".sous_label_1").html(data.dossier_champs_label+" :");
-  
+          $(".nom_champs_select_1").val(data.dossier_champs_label);
           $.each(data.dossier_champs, function (){
             $("#sous_select_1").append($("<option   />").val(this.id).text(this.nom_champs));
            });
@@ -226,6 +251,7 @@ $(document).ready(function() {
 
            $("#attribut_champ").empty();
            $("#attribut_file").empty();
+           $("#objet").empty();
            $("#attribut_file").removeClass("attribut_file");
 
 

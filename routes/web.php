@@ -85,6 +85,11 @@ Route::get('/fill_sous_dossier',[App\Http\Controllers\DossierController::class, 
 Route::get('/fill_sous_dossier1',[App\Http\Controllers\DossierController::class, 'fill_sous_dossier1']);
 
 
+Route::post('/store_dossier',[App\Http\Controllers\DossierController::class, 'store_dossier']);
+
+Route::get('/show_dossier/{id}',[App\Http\Controllers\DossierController::class, 'show_dossier']);
+
+
 /****boites */
 
 Route::resource('boites',App\Http\Controllers\BoiteController::class);

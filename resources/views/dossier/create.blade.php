@@ -78,6 +78,7 @@
 
     .panel_organigramme {
     PADDING-RIGHT: 25px!important;
+    height: 550px !important;
      }
 
      .form-group label {
@@ -94,19 +95,21 @@
 </div>
 <div class="panel_view_details">
    <div class="table_p">
-      <form method="post" id="treeview_form">
+   <form  method="post" action="{{url('store_dossier')}}" enctype="multipart/form-data" >
+            @csrf
       <div class="row">
          
          <div class="col-md-4 ">
             <div class="row panel_add">
 
               <div class="col-md-12">
-
-                      <form>
+             
+                      
                         <div class="form-group row">
                            <label for="colFormLabelSm" class="col-sm-4 col-form-label col-form-label-sm">FOND :</label>
+                           <input  type="text" name="nom_champs_select[]" value="FOND" hidden="">
                            <div class="col-sm-8">
-                           <select class="form-control" id="parent_select">
+                           <select class="form-control" id="parent_select" name="value_select[]">
                               <option value="">Selectionne le dossier</option>
                      
                               </select>
@@ -115,18 +118,19 @@
                            </div>
                         </div>
        
-                     </form>
+                  
 
               </div>
 
               
               <div id="row_1" class="col-md-12 ">
 
-                  <form>
+     
                         <div class="form-group row">
                            <label for="colFormLabelSm"  class="col-sm-4 col-form-label col-form-label-sm sous_label_1 text-uppercase">________ :</label>
+                           <input class="nom_champs_select_1" type="text" name="nom_champs_select[]" value="text" hidden="">
                            <div class="col-sm-8">
-                              <select class="form-control" id="sous_select_1" onchange="add_row_select(1)">
+                              <select class="form-control" id="sous_select_1" name="value_select[]" onchange="add_row_select(1)">
                                  <option value="">Selectionne le dossier</option>
                         
                                  </select>
@@ -134,8 +138,9 @@
                               
                            </div>
                         </div>
+                        
        
-                     </form>
+                   
 
               </div>
 
@@ -147,6 +152,12 @@
        
 
               </div> 
+
+
+              <div class="" id='objet'>
+       
+
+               </div> 
          
         
           
@@ -173,8 +184,8 @@
            <div class="btn_panel">
             
                
-                  <button type="button" class="btn btn-danger mr-3 " >Validé</button>
-                  <button type="button" class="btn btn-primary" >Supprimer</button>
+                  <button type="submit" class="btn btn-primary  mr-3 " >Validé</button>
+                  <button type="button" class="btn btn-danger" >Supprimer</button>
            </div>
         
          </div>
