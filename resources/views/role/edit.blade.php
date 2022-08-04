@@ -80,7 +80,7 @@
 
                             <div class="col-md-6">
                                 <select class="custom-select" id="permission" name="permission">
-                                    <option selected disabled>------------------------------------</option>
+
                                     @foreach ($permissions as $permision)
                                     <option value="{{$permision->name}}">{{$permision->name}}</option>
                                     @endforeach

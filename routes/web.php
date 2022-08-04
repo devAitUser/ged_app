@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
 
-    if(Auth::check()) 
+    if(Auth::check())
     {
         return redirect()->route('home');
 
@@ -38,7 +38,6 @@ Route::post('/user_profile_update', [App\Http\Controllers\UserController::class,
 
 //Route::get('/organigramme1', [App\Http\Controllers\OrganigrammeController::class, 'index'])->name('organigramme');
 
-Route::get('/organigramme', [App\Http\Controllers\OrganigrammeController::class, 'home_organigramme'])->name('home_organigramme');
 
 
 Route::post('/array_organigramme', [App\Http\Controllers\OrganigrammeController::class, 'array_organigramme'])->name('test_ajax');
@@ -96,12 +95,14 @@ Route::resource('boites',App\Http\Controllers\BoiteController::class);
 //Route::get('/create', [App\Http\Controllers\BoiteController::class, 'create'])->name('create');
 //Route::get('/register1',[App\Http\Controllers\Auth\RegisterController::class, 'test']);
 Route::get('/user_show', [App\Http\Controllers\UserController::class, 'test'])->name('user_show');
-Route::get('/user_list', [App\Http\Controllers\UserController::class, 'test2'])->name('user_list');
 Route::post('/ajouter', [App\Http\Controllers\UserController::class, 'create'])->name('add');
 Route::get('/verify', [App\Http\Controllers\UserController::class, 'verify'])->name('verify');
 Route::post('/checkLogin', [App\Http\Controllers\UserController::class, 'checkLogin'])->name('checkLogin');
 Route::get('/showUser/{id}', [App\Http\Controllers\UserController::class, 'showUser']);
-Route::get('/edit', [App\Http\Controllers\UserController::class, 'edit'])->name('edit');
+Route::get('/edit/{id}', [App\Http\Controllers\UserController::class, 'edit'])->name('edit');
+Route::delete('/destroy/{user}', [App\Http\Controllers\UserController::class, 'destroy'])->name('destroy');
+Route::put('/updateUser/{id}', [App\Http\Controllers\UserController::class, 'updateUser'])->name('updateUser');
+
 ////////////////////////////////////////////////
 
 
@@ -112,7 +113,7 @@ Route::get('/listfinal', [App\Http\Controllers\RoleController::class, 'listfinal
 Route::resource('roles',App\Http\Controllers\RoleController::class);
 Route::resource('permissions',App\Http\Controllers\PermissionController::class);
 Route::post('/rolepermission/{role}', [App\Http\Controllers\RoleController::class, 'givePermission'])->name('rolepermission');
-Route::delete('/revokePermission/{role}/{permission}', [App\Http\Controllers\RoleController::class, 'revokePermission'])->name('revokePermission');
+Route::delete('/revokePermission/{role}/permissions/{permission}', [App\Http\Controllers\RoleController::class, 'revokePermission'])->name('revokePermission');
 ///////////////////////////////////////////////////////////////
 Route::post('/assignRole/{user}', [App\Http\Controllers\UserController::class, 'assignRole'])->name('assignRole');
 Route::delete('/removeRole/{user}/{role}', [App\Http\Controllers\UserController::class, 'removeRole'])->name('removeRole');
@@ -120,3 +121,10 @@ Route::post('/givePermission/{user}', [App\Http\Controllers\UserController::clas
 Route::delete('/revokePermission/{user}/permissions/{permission}', [App\Http\Controllers\UserController::class, 'revokePermission'])->name('revokePermission');
 
 
+/////////////////////////////////////
+Route::group(['middleware' => ['role:admin']], function () {
+    //
+    Route::get('/user_list', [App\Http\Controllers\UserController::class, 'test2'])->name('user_list');
+    Route::get('/organigramme', [App\Http\Controllers\OrganigrammeController::class, 'home_organigramme'])->name('home_organigramme');
+
+});

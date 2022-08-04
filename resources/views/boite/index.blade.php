@@ -49,7 +49,7 @@
                         </button>
                     </a></div>
                     <div class="col-xsm mr-2"> <a >
-                        <form method="POST" action="{{ route('boites.destroy',$boite->id) }}" >
+                        <form method="POST" action="{{ route('boites.destroy',$boite->id) }}" onsubmit="return confirm('etes vous sur de supprimer cette boite ')">
 
                             @csrf
                             @method('DELETE')
