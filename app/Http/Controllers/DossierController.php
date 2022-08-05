@@ -12,10 +12,11 @@ class DossierController extends Controller
 {
     public function create_dossier(){
 
-        $user = Dossier_champ::take(1)->first();
+      
+        $organigramme = Organigramme::take(1)->first();
+        $data = array( 'id_organigramme' => $organigramme->id );
 
-
-        return view('dossier.create');
+        return view('dossier.create',$data);
 
     }
 
@@ -65,7 +66,7 @@ class DossierController extends Controller
 
 
         $dossier = new Dossier();
-        
+        $dossier->organigramme_id  = $request->id_organigramme;
         $dossier->save();
 
 
@@ -133,11 +134,18 @@ class DossierController extends Controller
      public function show_dossier($id){
 
         $dossier = Dossier::find($id);
+        $titre = '';
+
+        $attributs = $dossier->attibuts_dossier;
+
+        for($i=0;$i<count($attributs);$i++){
+                if($attributs[$i]->type_champs == "textarea"){
+                $titre =  $attributs[$i]->valeur ;
+                }
+        }
 
 
-     $attributs = $dossier->attibuts_dossier;
-
-     $data = array("attributs" =>  $attributs  );
+        $data = array("attributs" =>  $attributs , 'titre' => $titre );
 
         return view('dossier.show',  $data);
 
@@ -146,7 +154,33 @@ class DossierController extends Controller
 
      public function all_dossier(){
 
-        return view('dossier.test');
+            
+        $organigramme = Organigramme::take(1)->first();
+        $dossiers = $organigramme->dossiers;
+
+        $all_dossier = array();
+
+
+        for($i=0;$i<count($dossiers);$i++){
+
+            $all_dossier = Attributs_dossier::where(['dossier_id' => $dossiers[$i]->id  ])->get();
+
+            for($j=0;$j<count($all_dossier);$j++){
+                if( $all_dossier[$j]->type_champs == 'textarea'){
+                        $titre = $all_dossier[$j]->valeur ;
+                }
+            }
+
+            $all_dossiers[] = array('id' => $dossiers[$i]->id , 'date' => $dossiers[$i]->created_at , 'titre' =>  $titre);
+
+        }  
+
+   
+        $data = array( 'dossiers' => $all_dossiers );
+
+
+
+        return view('dossier.all_dossier',$data);
  
 
      }

@@ -56,13 +56,19 @@
                         </a>
                      </li>
                  
-                  @if (Auth::user()->hasRole('archiviste'))
-
+   
+               
                      <li class="Mnuli lish  {{ request()->is('user_list')  ? 'active' : '' }} ">
                         <span class="material-icons">
-                        <a href="{{route('user_list') }}">group_add</a>
+                        <a href="{{route('user_list') }}">
+                           
+
+                           <span class="material-icons">group_add</span>
+                        
+                        </a>
                         </span>
                      </li>
+                   
 
                      <li class="Mnuli lish {{ request()->is('organigramme')  ? 'active' : '' }}">
                         <a href="{{route('home_organigramme')}}">
@@ -73,7 +79,7 @@
                          </a>
                      </li>
 
-                     @endif
+               
 
 
 
@@ -113,6 +119,5 @@
          </div>
       </div>
       </div>
-
    </body>
 </html>
