@@ -52,9 +52,9 @@
                   Suivi de l'archivage
                </h4>
                <li class="li_block_archive">
-                  <a href="#">
+                  <a href="{{route('all_dossier')}}">
                   <img src="{{ asset('img_app/62917-open-file-folder-icon.png') }}" style="width: 22px;vertical-align: sub;" alt="">
-                  En stade intermédiaire  <b><span ><b>(83738)</b>
+                  En stade intermédiaire  <b><span ><b> ({{$Count}})  </b>
                   </span></b></a>
                </li>
                <li class="li_block_archive last_item_bskli">

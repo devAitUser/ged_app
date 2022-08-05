@@ -33,13 +33,16 @@ class OrganigrammeController extends Controller
         $dossier_parent = Dossier_champ::where('parent_id', '=', $parent_id)->get(); 
         $dossier_attributs = Attribut_champ::where('dossier_champs_id', '=', $parent_id)->get(); 
         $output = array();
-
+        
         if (count( $dossier_parent ) == 0 ) {
             
          } else 
          {
             for($i=0;$i<count($dossier_parent);$i++)
             {
+             
+        
+                
                         if($dossier_parent[$i]->organigramme_id == $organigramme_id){
                             $check_attributs = Attribut_champ::where('dossier_champs_id', '=', $dossier_parent[$i]->id)->get(); 
                             $sub_array = array ();
@@ -49,28 +52,26 @@ class OrganigrammeController extends Controller
                             }else{
                                 $sub_array['text'] = $dossier_parent[$i]->nom_champs.'<a href="" class="prevent-default" onClick="removeRow(event,'.$dossier_parent[$i]->id. ' )" ><span    class="material-icons btn_delete"> delete </span></a><a href="" class="prevent-default" data-toggle="modal" data-target="#panel_attributs" onClick="editRow_organi(event,'.$dossier_parent[$i]->id. ' )" ><span    class="material-icons btn_edit"> border_color </span></a>'; 
                             }
-                            if (count( $check_attributs ) == 0) {
-                            $sub_array['nodes'] = array_values($this->get_node_data( $dossier_parent[$i]->id , $organigramme_id  ))  ;
-                             
-                            } else {
-
-                                if($check_attributs[$i]->type_champs == 'Fichier'){
-                                    $sub_array['nodes'] = array_values($this->get_node_data( $dossier_parent[$i]->id , $organigramme_id  ))  ;
-                                }
-
-                            }
+        
+                            $sub_array['nodes'] = array_values($this->get_node_data( $dossier_parent[$i]->id , $organigramme_id  ))  ; 
+        
                             $output[] = $sub_array;
-    
+        
                         }
+        
+                   
+                
+                
+             
             }
          }
-
-
+        
+        
          if (count( $dossier_attributs ) == 0 ) {
             
         } else 
         {
-                $attributs_f='';
+            $attributs_f='';
             for($i=0;$i<count($dossier_attributs);$i++)
             {
                     if($dossier_attributs[$i]->type_champs == 'Fichier'){
@@ -83,10 +84,16 @@ class OrganigrammeController extends Controller
                 $output[] = $sub_array;
             }
         }
-
+        
+        
+        
+        
+        
+        
         return $output;
-
-    }
+        
+        
+        }
 
 
     public function array_organigramme(Request $request)

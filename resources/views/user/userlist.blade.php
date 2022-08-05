@@ -1,7 +1,15 @@
 @extends('layouts.app')
 @section('content')
 <div class="container">
-   <a href="{{route('user_show')}}"> <button type="button" class="btn btn-primary btn-lg">Nouveau utilisateur</button></a>
+   <a href="{{route('user_show')}}"> <button type="button" class="btn btn-outline-primary btn-lg">Nouveau utilisateur</button></a>
+
+    <form class="form-inline" style="float: right" action="{{route('user_list')}}" method="GET">
+        <button class="btn btn-outline-primary" style="margin-right: 5px"><span class="glyphicon glyphicon-refresh"></span> Actualiser</button>
+
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" id="tt" name="search" aria-label="Search">
+      <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
+    </form>
+
    <h1 style="text-decoration: underline;font-size:xx-large;text-align:center">List des utilisateurs</h1>
    <table class="table" style="width: 99%;margin:0 auto;">
       <thead class="thead-dark">
@@ -62,6 +70,7 @@
 @endforeach
 </tbody>
 </table>
-{!! $users->links() !!}
+
 </div>
+
 @endsection

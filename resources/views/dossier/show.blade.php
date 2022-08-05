@@ -46,7 +46,7 @@
 
 
 <div class="header_view">
-         <div class="sub_view"> <span class="title_profil"> Mon profil</span> </div>
+         <div class="sub_view"> <span class="title_profil"> Dossier :{{$titre}}  </span> </div>
       </div>
       <div class="panel_view_details">
          <div class="table_p">

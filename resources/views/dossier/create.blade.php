@@ -93,9 +93,12 @@
  
    </div>
 </div>
+
+
+
 <div class="panel_view_details">
    <div class="table_p">
-   <form  method="post" action="{{url('store_dossier')}}" enctype="multipart/form-data" >
+   <form  method="post" action="{{url('store_dossier_create')}}" enctype="multipart/form-data" >
             @csrf
       <div class="row">
          
@@ -104,7 +107,9 @@
 
               <div class="col-md-12">
              
-                      
+              <input type="text" name="id_organigramme" value="{{$id_organigramme}}" hidden>
+
+              
                         <div class="form-group row">
                            <label for="colFormLabelSm" class="col-sm-4 col-form-label col-form-label-sm">FOND :</label>
                            <input  type="text" name="nom_champs_select[]" value="FOND" hidden="">

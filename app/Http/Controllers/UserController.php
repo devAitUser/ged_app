@@ -62,9 +62,15 @@ class UserController extends Controller
      //return $request;
     }
 
-    public function test2(){
-        $users=User::latest()->paginate(5);
-       return view('user.userlist',compact('users'));
+    public function test2(Request $request){
+        $search=$request->search;
+        if($search != ""){
+            $users=User::where('nom','=',$search)->get();
+        }else{
+            $users=User::all();
+        }
+
+       return view('user.userlist',compact('users','search'));
 
     }
     public function edit($id)

@@ -10,33 +10,54 @@ class RoleController extends Controller
 {
     public function index()
     {
-        $roles=Role::all();
-        return view('role.index',compact('roles'));
+        $roles=Role::all();$permissions=Permission::all();
+        return view('role.index',compact('roles','permissions'));
     }
     public function create()
-    {
-        return view('role.create');
+    { $role=Role::all();
+        $permissions=Permission::all();
+        return view('role.create',compact('role','permissions'));
     }
 
 
     public function store(Request $request)
     {
         $role=Role::all();
+        $permission=Permission::all();
         $request->validate([
-            'name'=>'required'
+            'name'=>'required',
+
+            'permission' => 'required'
         ]);
 
-           /* $role=Role::create($request->all());
-            return redirect()->route('roles.index');*/
-            //$user = User::where('name', '=', $request->name)->first();
+           // dd($request->all());
+         /*
+          $role = Role::create(['name' => $request->input('name')]);
+        $role->syncPermissions($request->input('permission'));
+
+        return redirect()->route('roles.index')
+                        ->with('success','Role created successfully');*/
             $a_role = Role::where('name', '=', $request->name)->first();
             if($a_role) {
                 return back()->with('err', 'Role déja exist');
             }else{
-                $a_rolee = Role::create($request->all());
+               // $a_role = Role::create($request->all());
+
+                // $a_role->syncPermissions($request->input('permission'));
+                $a_role = Role::create(['name' => $request->input('name')]);
+               $a_role->givePermissionTo($request->input('permission'));
                 return redirect()->route('roles.index');}
 
 
+    }
+
+    public function givePermission(Request $request, Role $role)
+    {
+        if ($role->hasPermissionTo($request->permission)) {
+            return back()->with('message', 'Permission exists.');
+        }
+        $role->givePermissionTo($request->permission);
+        return back()->with('message', 'Permission added.');
     }
 
     public function show(Role $role)
@@ -67,14 +88,6 @@ class RoleController extends Controller
          ->with('success','role deleted successfully');
     }
 
-    public function givePermission(Request $request, Role $role)
-    {
-        if ($role->hasPermissionTo($request->permission)) {
-            return back()->with('message', 'Permission exists.');
-        }
-        $role->givePermissionTo($request->permission);
-        return back()->with('message', 'Permission added.');
-    }
     public function revokePermission(Role $role, Permission $permission)
     {
         if ($role->hasPermissionTo($permission)) {

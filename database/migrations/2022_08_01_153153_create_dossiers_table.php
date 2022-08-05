@@ -15,6 +15,8 @@ class CreateDossiersTable extends Migration
     {
         Schema::create('dossiers', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('organigramme_id');
+            $table->foreign('organigramme_id')->references('id')->on('organigrammes')->onDelete('cascade');
         
             $table->timestamps();
         });

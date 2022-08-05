@@ -15,6 +15,12 @@ class Organigramme extends Model
         return $this->hasMany('App\Models\Dossier_champ','organigramme_id');
     }
 
+
+    public function dossiers()
+    {
+        return $this->hasMany('App\Models\Dossier','organigramme_id');
+    }
+
   
 
 }
