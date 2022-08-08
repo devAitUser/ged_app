@@ -3,12 +3,12 @@
 <script src="https://code.jquery.com/jquery-1.12.1.min.js"></script> 
 <script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-treeview/1.2.0/bootstrap-treeview.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-treeview/1.2.0/bootstrap-treeview.min.css" >
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/flatly/bootstrap.min.css">
+
 <link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.0.45/css/materialdesignicons.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"  >
 <link href="{{ asset('assets/Treeview/css/jquery.bootstrap.treeselect.css') }}" rel="stylesheet">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"  ></script>
 <script src="{{ asset('assets/Treeview/js/jquery.bootstrap.treeselect.js') }}"></script>
 <link rel="stylesheet" href="{{ asset('assets/combotree/style.css') }}">
 <script>
@@ -38,6 +38,9 @@
    color: #e91e63;
    margin-top: 10px;
    }
+   i.caret {
+    display: none;
+   }
 
 </style>
 <div class="header_view">
@@ -62,10 +65,14 @@
                   <div class="block">
                      <label>Sélectionner le type</label>
                   </div>
-                  <div class="btn-group btn-toggle"> 
-                     <button class="btn btn-primary btn-default active btn_dossier">Dossier</button>
+                  <div class="btn-group "  id='btn_group_oganigramme'> 
+                     <button class="btn btn-primary btn-default  btn_dossier">Dossier</button>
+            
                      <button class="btn btn-default  btn_sous_dossier">Sous Dossier</button>
+                     <button class="btn  btn-default  btn_piece_joint ">Pièce joint</button>
+                 
                   </div>
+
                </div>
                <div class="form-group">
                   <label>Sélectionner le dossier parent</label>

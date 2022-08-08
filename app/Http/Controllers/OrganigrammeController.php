@@ -133,6 +133,43 @@ class OrganigrammeController extends Controller
     }
 
 
+    public function fill_drop_down_parent()
+    {
+
+
+        $parent_id=0;
+        $all_dossier = Dossier_champ::all();
+        $organigramme_id = $request->input('organigramme_id');
+        $type_btn = $request->input('type_btn');
+
+        if( $type_btn == 'btn_sous_dossier' || $type_btn == 'btn_piece_joint'  ){
+
+
+            foreach ($all_dossier as $row) {
+    
+                if( $row["organigramme_id"] ==  $organigramme_id ){
+    
+                    if($row["parent_id"]== 0 ){
+                        $output .= '<option value="'.$row["id"].'"  >'.$row["nom_champs"].'</option>';
+                    }else{
+                        $output .= '<option value="'.$row["id"].'" data-parent="'.$row["parent_id"].'" >'.$row["nom_champs"].'</option>';
+                     
+                    }
+    
+                 }
+            
+             }
+    
+         
+
+        }
+
+
+        echo $output ;
+   
+    }
+
+
     
  
 
@@ -152,7 +189,7 @@ class OrganigrammeController extends Controller
         
         $output  = '<select  id="select_tree"  name="select_tree">';
 
-        if( $type_btn == 'btn_sous_dossier' ){
+        if( $type_btn == 'btn_sous_dossier' || $type_btn == 'btn_piece_joint'  ){
 
 
             foreach ($all_dossier as $row) {
@@ -190,6 +227,8 @@ class OrganigrammeController extends Controller
         
         $check_add =false;
 
+        $piece_joint =true; 
+
         $type_dossier = $request->input('type_dossier');
 
         $id = $request->input('select_tree');
@@ -206,10 +245,75 @@ class OrganigrammeController extends Controller
 
 
          if(!$check){
-
+              
+            $count_file=0;
             
+            $piece_joint =true; 
 
-            $all_dossier = Dossier_champ::all();
+         
+            function is_array_empty($arr){
+                    if(is_array($arr)){
+                    foreach($arr as $value){
+                        if(!empty($value)){
+                            return true;
+                        }
+                    }
+                    }
+                    return  false;
+             }
+
+             for($i=0;$i<count($request->input('name_champ'));$i++){
+                
+                if($request->type_champ[$i] == 'Fichier'){
+                    $count_file++;
+                }
+            } 
+
+            if($count_file == 1){
+                $piece_joint =false; 
+            }
+
+
+            if(  $type_dossier  ==  "btn_piece_joint" ){
+
+                if(!$piece_joint){
+
+
+                    $all_dossier = Dossier_champ::all();
+
+                    $type_dossier = $request->input('type_dossier');
+    
+                    $new_dossier = new Dossier_champ();
+                
+                        $new_dossier->parent_id = $request->input('select_tree'); 
+                    
+                    $new_dossier->nom_champs = $request->input('dossier_champs');
+    
+                
+                    $new_dossier->organigramme_id = $request->input('id_organigramme');
+                    $new_dossier->save();
+    
+                    $check_add = true;
+    
+                   
+                    
+    
+                    if (is_array_empty($request->name_champ)) {
+    
+                        for($i=0;$i<count($request->input('name_champ'));$i++){
+                            $attribut_champ = new Attribut_champ();
+                            $attribut_champ->dossier_champs_id = $new_dossier->id;
+                            $attribut_champ->nom_champs = $request->name_champ[$i];
+                            $attribut_champ->type_champs = $request->type_champ[$i];
+                            $attribut_champ->save();
+                        }   
+                    }
+
+                }
+
+            } else {
+
+                $all_dossier = Dossier_champ::all();
 
                 $type_dossier = $request->input('type_dossier');
 
@@ -231,16 +335,7 @@ class OrganigrammeController extends Controller
 
                 $check_add = true;
 
-                function is_array_empty($arr){
-                    if(is_array($arr)){
-                    foreach($arr as $value){
-                        if(!empty($value)){
-                            return true;
-                        }
-                    }
-                    }
-                    return  false;
-                }
+               
                 
 
                 if (is_array_empty($request->name_champ)) {
@@ -256,8 +351,12 @@ class OrganigrammeController extends Controller
                 
             }
 
+                
+                
+            }
+
         return Response()
-        ->json(['etat' => $check_add , 'check_sub_dossier' => $check , 'type_dossier' => $type_dossier   ]);
+        ->json(['etat' => $check_add , 'check_sub_dossier' => $check , 'type_dossier' => $type_dossier , 'piece_joint' => $piece_joint  ]);
 
     }
 
