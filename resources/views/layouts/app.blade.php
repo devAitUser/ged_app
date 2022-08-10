@@ -12,11 +12,15 @@
          <link href="https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&display=swap" rel="stylesheet">
 
          <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+         <style>
+          
+            </style>
 
-
+         <script src="{{ asset('assets/js/home_app.js') }}"></script>
       <!-- CSRF Token -->
       <meta name="csrf-token" content="{{ csrf_token() }}">
       <title>{{ config('app.name', 'Laravel') }}</title>
+    
    </head>
    <body>
       @guest
@@ -34,7 +38,7 @@
          </div> -->
       @endguest
       <div class="wrapper">
-
+     
          <div class="main-content">
             <div class="panel_view_header">
                <div class="header_panel_view">
@@ -50,6 +54,10 @@
                         </a>
 
                      </li>
+
+                
+
+
                      <li class="Mnuli lish  {{ request()->is('user_profile')  ? 'active' : '' }} ">
                         <a href="{{route('user_profile')}}">
                         <span class="material-icons">manage_accounts</span>
@@ -90,20 +98,22 @@
                         </span> </a>
                      </li>
 
+                     <li class="Mnuli lish">
+                        
+                        <a href="{{route('logout') }}" href="{{ route('logout') }}"
+                        onclick="event.preventDefault();
+                        document.getElementById('logout-form').submit();">
+                           <span class="material-icons">
+                              logout
+                           </span> </a>
+                           <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                              @csrf
+                           </form>
+                        </li>
+
                     
 
-                     <li class="Mnuli lish">
-                        <a href="?display=true&amp;page=logout">
-                        <a class="dropdown-item" href="{{ route('logout') }}"
-                           onclick="event.preventDefault();
-                           document.getElementById('logout-form').submit();">
-                        <span class="material-icons">  logout </span>
-                        </a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                           @csrf
-                        </form>
-                        </a>
-                     </li>
+                  
                   </ul>
 
                </div>

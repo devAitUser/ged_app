@@ -26,12 +26,26 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $organigramme = Organigramme::take(1)->first();
-         $dossiers = $organigramme->dossiers;
-         $Count = $dossiers->count();
+        $user = Auth::user();
+        $Count = 0;
 
-   
-        $data = array( 'Count' => $Count );
+        $ckeck_select = false;
+
+        if($user->projet_select_id != NULL) {
+
+
+            $projet_select_id = $user->projet_select_id;
+
+            $organigramme = Organigramme::find($projet_select_id);
+            $dossiers = $organigramme->dossiers;
+            $Count = $dossiers->count();
+
+            $ckeck_select = true;
+          
+
+        }
+       
+        $data = array( 'Count' => $Count , 'ckeck_select' => $ckeck_select );
 
         return view('home' ,  $data );
     }

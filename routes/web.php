@@ -43,6 +43,7 @@ Route::post('/user_profile_update', [App\Http\Controllers\UserController::class,
 Route::post('/array_organigramme', [App\Http\Controllers\OrganigrammeController::class, 'array_organigramme'])->name('test_ajax');
 
 Route::post('/fill_drop_down', [App\Http\Controllers\OrganigrammeController::class, 'all_data_select'])->name('array_drop_down');
+Route::post('/fill_drop_down_dossier', [App\Http\Controllers\OrganigrammeController::class, 'fill_drop_down_dossier']);
 
 Route::post('/fill_drop_down_parent', [App\Http\Controllers\OrganigrammeController::class, 'fill_drop_down_parent']);
 

@@ -14,6 +14,9 @@
    #organigramme_table_wrapper {
     margin-bottom: 15px;
    }
+   button.btn_profil {
+    border: none;
+   }
 </style>
 
       <div class="header_view">
@@ -55,14 +58,27 @@
                <tr class="bottom_tr">
                   <td class="td_1">Entités : </td>
                   <td>
-                     <select class="profil_entite" name="entite" value="{{ $user['entite'] }}" id="" size="5">
-                        <option> PROJET 1</option>
+                     <select class="profil_entite" name="projet_user" value="{{ $user['entite'] }}" id="" size="5">
+                  
+
+                        <?php for($i=0;$i<count($projets);$i++){ ?>
+                                  
+                                             
+                           <?php if($projets[$i]['id'] == $user['projet_select_id'] ) {  ?>
+                                 <option value="<?php echo $projets[$i]['id']; ?>" selected><?php echo $projets[$i]['nom']; ?></option>
+                                 <?php  } else {  ?>
+                                 <option value="<?php echo $projets[$i]['id']; ?>" ><?php echo $projets[$i]['nom']; ?></option>
+                                 <?php  } ?>
+                  
+          
+                            <?php  } ?>
+                       
                      </select>
                   </td>
                </tr>
                <tr >
-                  <td ><button type="submit" class="btn_profil" href="http://">Valider</button></td>
-                  <td class="left"> <a class="btn_profil" href="{{ route('home') }}">Annuler</a></td>
+                  <td ><button type="submit" class="btn_profil" >Valider</button></td>
+                  <td class="left"> <button class="btn_profil" href="{{ route('home') }}">Annuler</button></td>
                </tr>
             </table>
           </form>

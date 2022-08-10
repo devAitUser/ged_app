@@ -20,6 +20,12 @@
  
 }
 
+.panel_view_header .card-header {
+
+   background-color: unset !important; 
+
+}
+
 
 ul.hdMnu {
   list-style: none;
@@ -227,7 +233,7 @@ span.icon_menu_left img , span.icon_menu_right img {
 }
 
 span.label_menu_right {
-  margin-top: 7px;
+  margin-top: 4px;
   margin-left: 10px;
   margin-right: 6px;
   color: #fff;
@@ -262,7 +268,7 @@ input.input-field_login {
 .input-container .material-icons {
   position: relative;
   right: -34px;
-  top: 5px;
+  top: 6px;
   color: #b5b0b0;
 }
 
@@ -283,7 +289,7 @@ input.input-field_pass {
 
 .pass .material-icons {
   font-size: 20px;
-  top: 3px;
+  top: 4px;
 }
 
 

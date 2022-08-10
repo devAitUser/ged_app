@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\Organigramme;
+use App\Models\Projet;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Http\Request;
 use Hash;
@@ -84,8 +86,16 @@ class UserController extends Controller
     {
 
         $user = Auth::user();
+
+        for($i=0;$i<count($user->projet);$i++){
+            $organigramme[]=Organigramme::find($user->projet[$i]['organigrammes_id']);
+
+           
+          }
+
         $data = array(
-            'user' => $user
+            'user' => $user,
+            'projets' => $organigramme
         );
         return view('user.index', $data);
 
@@ -98,10 +108,10 @@ class UserController extends Controller
 
         $user->telephone = $request->telephone;
         if($request->mot_de_pass != '' ){
-            $user->password = $request->mot_de_pass;
+            $user->password =  $user->password = Hash::make($request->password);
         }
         $user->email = $request->email;
-
+        $user->projet_select_id = $request->projet_user;
          $user->save();
 
          return redirect()->route('user_profile');
@@ -109,16 +119,43 @@ class UserController extends Controller
     }
 
     public function showUser($id){
+         $organigrammes=Organigramme::all();
+         $roles=Role::all();
+         $user = User::find($id);
+         $permissions=Permission::all();
+        $project = $user->projet;
+        $count_projet = 0;
+        $les_projets = array();
+        $ajax_option='';
 
-        $roles=Role::all();
-        $user = User::find($id);
-        $permissions=Permission::all();
+        for($i=0;$i<count($project);$i++){
+            $organigramme=Organigramme::find($project[$i]->organigrammes_id );
+            $id_organigramme = $project[$i]->organigrammes_id;
+            $nom_organigrammes = $organigramme->nom;
+            $dossiers = json_decode($project[$i]->dossiers, true);
+        
+            $les_projets[] = array('id' => $id_organigramme ,'nom_organigrammes' => $nom_organigrammes,'dossiers_select' => $dossiers , 'dossiers' => $organigramme->dossier_champ );
+            $count_projet++;
+          }
 
-       return view('user.showuser',compact('user','roles','permissions'));
+
+          
+
+       return view('user.showuser',compact('user','roles','permissions','organigrammes','les_projets' ,'count_projet' ));
     }
     public function updateUser(Request $request)
     {
-       // $user = User::find($id);
+        function is_array_empty($arr){
+            if(is_array($arr)){
+            foreach($arr as $value){
+                if(!empty($value)){
+                    return true;
+                }
+            }
+            }
+            return  false;
+        }
+       
         $user = User::where('id', '=', $request->id)->first();
         $user->nom = $request->nom;
         $user->identifiant = $request->identifiant;
@@ -133,6 +170,24 @@ class UserController extends Controller
         }
         $user->syncRoles($request->role);
         $user->save();
+        $count = 1;
+
+        $delete_projet= Projet::where('user_id', '=', $user->id);  
+        $delete_projet->delete();
+
+        if (is_array_empty($request->organigramme_id)) {
+    
+            for($i=0;$i<count($request->input('organigramme_id'));$i++){
+                $projet = new Projet();
+                $projet->organigrammes_id  = $request->organigramme_id[$i];
+                $projet->user_id  = $user->id;
+                $dossiers =json_encode($request->input('dossiers'.$count));
+                $projet->dossiers = $dossiers ;
+                $projet->save();
+                $count++;
+            }   
+        }
+
         return redirect()->route('user_list')
          ->with('message','User est modifiée avec success');
 

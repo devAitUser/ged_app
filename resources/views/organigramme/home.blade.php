@@ -38,20 +38,20 @@
 </style>
 
       <div class="header_view">
-         <div class="sub_view"> <span class="title_profil"> Les Organigrammes </span> </div>
+         <div class="sub_view"> <span class="title_profil"> Les plans de classement </span> </div>
       </div>
       <div class="panel_view_details">
          <div class="table_p">
 
             <div class="block_manager_datable">
-                <a href="#" class="create_organi" aria-label="Close" data-toggle="modal" data-target="#exampleModal">creer un organigramme</a>
+                <a href="#" class="create_organi" aria-label="Close" data-toggle="modal" data-target="#exampleModal">creer un plan de classement </a>
             </div>
 
             <table id="organigramme_table" class=" table table-bordered text-center styled-table">
                <thead>
                    <tr>
                        <th scope="col">Num</th>
-                       <th scope="col">Nom organigramme</th>
+                       <th scope="col">Nom plan de classement</th>
                        <th scope="col">Action  </th>
 
 
@@ -103,7 +103,7 @@
         <form  method="post" action="{{url('create_organigramme')}}">
             @csrf
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Créer un organigramme</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Créer un plan de classement</h5>
           <button type="button" class="close" data-dismiss="modal" >
 
           </button>
@@ -113,7 +113,7 @@
 
 
                     <div class="form-group">
-                      <label for="nom_organigramme">Nom du organigramme </label>
+                      <label for="nom_organigramme">Nom du plan de classement </label>
                       <input type="text" class="form-control" name="nom_organigramme"  id="nom_organigramme"  placeholder="Nom du organigramme" required="">
 
                     </div>

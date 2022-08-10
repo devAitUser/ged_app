@@ -172,7 +172,47 @@ class OrganigrammeController extends Controller
 
     
  
+    public function fill_drop_down_dossier(Request $request)
+    {
 
+        
+        $all_dossier = Dossier_champ::all();
+        $organigramme_id = $request->input('organigramme_id');
+
+        $data = array();
+
+        $ajax_option ='';
+     
+
+
+            foreach ($all_dossier as $row) {
+    
+                if( $row["organigramme_id"] ==  $organigramme_id ){
+    
+                    if($row["parent_id"]== 0 ){
+                                          
+                        $ajax_option .= '<option value="'.$row["id"].'">'.$row["nom_champs"].'</option>';
+                    }
+    
+                 }
+            
+             }
+    
+         
+
+        
+
+    
+
+
+  
+      
+
+        return  Response()
+        ->json($ajax_option);
+        
+
+    }
 
  
 
@@ -216,6 +256,8 @@ class OrganigrammeController extends Controller
 
   
         echo $output ;
+
+    
         
 
     }

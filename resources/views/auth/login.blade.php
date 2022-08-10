@@ -2,7 +2,15 @@
 
 @section('content')
 
-
+<style>
+    input#identifiant , .input-field_pass {
+    Font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+    font-size: 13px !important;
+    letter-spacing: 0.05em;
+    font-size: 11px;
+    background-color: #EEEEEE;
+}
+</style>
 
 <div class="main-content">
 
