@@ -55,17 +55,18 @@
 
                      </li>
 
-                
 
-
+                  
+           
                      <li class="Mnuli lish  {{ request()->is('user_profile')  ? 'active' : '' }} ">
                         <a href="{{route('user_profile')}}">
                         <span class="material-icons">manage_accounts</span>
                         </a>
                      </li>
+                
                  
    
-               
+                     @if (Auth::user()->hasRole('admin')) 
                      <li class="Mnuli lish  {{ request()->is('user_list')  ? 'active' : '' }} ">
                         <span class="material-icons">
                         <a href="{{route('user_list') }}">
@@ -76,8 +77,10 @@
                         </a>
                         </span>
                      </li>
+                     @endif
+                
                    
-
+                     @if (Auth::user()->hasPermissionTo('Plan de classement')) 
                      <li class="Mnuli lish {{ request()->is('organigramme')  ? 'active' : '' }}">
                         <a href="{{route('home_organigramme')}}">
                            <span class="material-icons  ">
@@ -86,17 +89,19 @@
 
                          </a>
                      </li>
+                     @endif
 
                
 
 
-
-                     <li class="Mnuli lish">
+                     @if (Auth::user()->hasRole('admin')) 
+                     <li class="Mnuli lish {{ request()->is('roles')  ? 'active' : '' }}  ">
                      <a href="{{route('roles.index') }}">
                         <span class="material-icons">
                         rule
                         </span> </a>
                      </li>
+                     @endif
 
                      <li class="Mnuli lish">
                         

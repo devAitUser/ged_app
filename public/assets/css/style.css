@@ -27,6 +27,8 @@
 }
 
 
+
+
 ul.hdMnu {
   list-style: none;
   left: 37px;
@@ -409,7 +411,8 @@ table.tbl_profil tr td {
   width: 53%;
   margin: 0 auto;
   margin-bottom: 34px;
-
+  position: relative;
+  right: 17px;
 }
 
 .table_p {

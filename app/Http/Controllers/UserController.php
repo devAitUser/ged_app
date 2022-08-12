@@ -87,6 +87,8 @@ class UserController extends Controller
 
         $user = Auth::user();
 
+        $organigramme =array();
+
         for($i=0;$i<count($user->projet);$i++){
             $organigramme[]=Organigramme::find($user->projet[$i]['organigrammes_id']);
 
@@ -127,6 +129,7 @@ class UserController extends Controller
         $count_projet = 0;
         $les_projets = array();
         $ajax_option='';
+        $les_projets= array();
 
         for($i=0;$i<count($project);$i++){
             $organigramme=Organigramme::find($project[$i]->organigrammes_id );
@@ -161,6 +164,7 @@ class UserController extends Controller
         $user->identifiant = $request->identifiant;
         $user->prenom = $request->prenom;
         $user->telephone = $request->telephone;
+        $user->projet_select_id = 0;
         if($request->email != '' ){
             $user->email = $request->email;
         }

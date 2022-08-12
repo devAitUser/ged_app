@@ -91,7 +91,7 @@ Route::post('/store_dossier_create',[App\Http\Controllers\DossierController::cla
 
 Route::get('/show_dossier/{id}',[App\Http\Controllers\DossierController::class, 'show_dossier']);
 
-
+Route::get('/recherche_dossier',[App\Http\Controllers\DossierController::class, 'recherche_dossier'])->name('recherche_dossier');
 
 
 Route::get('/all_dossier',[App\Http\Controllers\DossierController::class, 'all_dossier'])->name('all_dossier');

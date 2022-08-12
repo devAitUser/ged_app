@@ -142,42 +142,45 @@
                            <select id="select_project" multiple="multiple"  class=" form-control ">
                               <?php for($i=0;$i<count($organigrammes);$i++){ ?>
                                   
-                                             
-                                                   <?php if($organigrammes[$i]['id'] == $les_projets[$i]['id'] ) {  ?>
+                                 <?php if( isset($les_projets[$i])  ) {  ?>
+                                                   <?php if (in_array($organigrammes[$i]['id'], $les_projets[$i])) {    ?>
                                                    <option value="<?php echo $organigrammes[$i]['id']; ?>" selected><?php echo $organigrammes[$i]['nom']; ?></option>
                                                    <?php  } else {  ?>
                                                    <option value="<?php echo $organigrammes[$i]['id']; ?>" ><?php echo $organigrammes[$i]['nom']; ?></option>
                                                    <?php  } ?>
                                           
-                                  
+                                           <?php  } else { ?>
+                                             <option value="<?php echo $organigrammes[$i]['id']; ?>" ><?php echo $organigrammes[$i]['nom']; ?></option>
+                                       <?php  } ?>
                               <?php  } ?>
                            </select>
                         </div>
                      </div>
                      <input type="text" value="{{$count_projet}}" id="count_projet" hidden>
-                     <?php $count=1; for($i=0;$i<count($les_projets);$i++){ ?>
+                     <?php  $count=1; for($i=0;$i<count($les_projets);$i++){ ?>
                      <div id="row<?php echo $count; ?>" class="row mb-3">
                         <input type="text" value="<?php echo $les_projets[$i]['id']; ?>" name="organigramme_id[]" hidden>
                         <label for="password-confirm" class="col-md-4 col-form-label text-md-end">Les Dossiers a Voir dans  <strong> <?php echo $les_projets[$i]['nom_organigrammes']; ?> </strong>  </label>
                         <div class="col-md-6">
                            <select id="select_tree<?php echo $count; ?>" multiple="multiple" name="dossiers<?php echo $count; ?>[]" class=" form-control ">
-                              <?php for($j=0;$j<count($les_projets[$i]['dossiers']);$j++){ ?>
+                              <?php $array_id= array(); for($j=0;$j<count($les_projets[$i]['dossiers']);$j++){ ?>
+                                 <?php if ($les_projets[$i]['dossiers'][$j]['parent_id'] == 0){  ?>
                                     <?php if (is_array_empty($les_projets[$i]['dossiers_select'])){  ?>
-                                          <?php if(isset($les_projets[$i]['dossiers_select'][$j])){ ?>
-                                                   <?php if($les_projets[$i]['dossiers'][$j]['id'] == $les_projets[$i]['dossiers_select'][$j] ) {  ?>
+                                          
+                                                   <?php if (in_array($les_projets[$i]['dossiers'][$j]['id'], $les_projets[$i]['dossiers_select'])) {  ?>
                                                    <option value="<?php echo $les_projets[$i]['dossiers'][$j]['id']; ?>" selected><?php echo $les_projets[$i]['dossiers'][$j]['nom_champs']; ?></option>
-                                                   <?php  } ?>
-                                                
-                                                  
-                                         <?php  } else {?>
+                                                   <?php  } else { ?>
+                                                      <option value="<?php echo $les_projets[$i]['dossiers'][$j]['id']; ?>" ><?php echo $les_projets[$i]['dossiers'][$j]['nom_champs']; ?></option>
+                                                      <?php  } ?>
 
-                                          <option value="<?php echo $les_projets[$i]['dossiers'][$j]['id']; ?>" ><?php echo $les_projets[$i]['dossiers'][$j]['nom_champs']; ?></option>
+                                  
 
-                                          <?php  } ?>
+                                       
                                         
                                   <?php } else {  ?>
                                     <option value="<?php echo $les_projets[$i]['dossiers'][$j]['id']; ?>" ><?php echo $les_projets[$i]['dossiers'][$j]['nom_champs']; ?></option>
                                   <?php  } ?>
+                                  <?php } ?>
                               <?php } ?>
                            </select>
                         </div>

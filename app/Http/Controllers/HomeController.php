@@ -31,6 +31,8 @@ class HomeController extends Controller
 
         $ckeck_select = false;
 
+        $nom_projet='';
+
         if($user->projet_select_id != NULL) {
 
 
@@ -38,6 +40,7 @@ class HomeController extends Controller
 
             $organigramme = Organigramme::find($projet_select_id);
             $dossiers = $organigramme->dossiers;
+            $nom_projet = $organigramme->nom;
             $Count = $dossiers->count();
 
             $ckeck_select = true;
@@ -45,7 +48,7 @@ class HomeController extends Controller
 
         }
        
-        $data = array( 'Count' => $Count , 'ckeck_select' => $ckeck_select );
+        $data = array( 'Count' => $Count , 'ckeck_select' => $ckeck_select , 'nom_projet' => $nom_projet );
 
         return view('home' ,  $data );
     }

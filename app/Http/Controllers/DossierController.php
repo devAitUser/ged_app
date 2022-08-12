@@ -6,15 +6,31 @@ use App\Models\Attribut_champ;
 use App\Models\Organigramme;
 use App\Models\Dossier;
 use App\Models\Attributs_dossier;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+
 use Illuminate\Http\Request;
 
 class DossierController extends Controller
 {
     public function create_dossier(){
 
+        $user = Auth::user();
+         $id ='';
+
+        if($user->projet_select_id != NULL) {
+
+            $projet_select_id = $user->projet_select_id;
+
+            $organigramme = Organigramme::find($projet_select_id);
+            $id = $organigramme->id;
+       
+          
+
+        }
+
       
-        $organigramme = Organigramme::take(1)->first();
-        $data = array( 'id_organigramme' => $organigramme->id );
+        $data = array( 'id_organigramme' => $id );
 
         return view('dossier.create',$data);
 
@@ -22,17 +38,65 @@ class DossierController extends Controller
 
     public function fill_parent_dossier(){
 
-        $organigramme = Organigramme::take(1)->first();
+        $user = Auth::user();
+        $id ='';
+        $dossier_champs = array();
+        $les_dossiers  = '';
 
-        $dossier_champs = Dossier_champ::where([
-            'organigramme_id' => $organigramme->id ,
-            'parent_id' => 0,
-       
-        ])->get();
+       if($user->projet_select_id != NULL) {
+
+           $projet_select_id = $user->projet_select_id;
+           $dossiers_voir = $user->projet;
+
+            $organigramme = Organigramme::find($projet_select_id);
+            $id = $organigramme->id;
+
+           
+
+           for($j=0;$j<count($dossiers_voir);$j++){ 
+
+               if($dossiers_voir[$j]['organigrammes_id']== $id ){
+                   $les_dossiers  =  $dossiers_voir[$j]['dossiers'];
+               }
+
+           }
+
+
+           if( $les_dossiers!= '' ){
+                  $id_dossier=  json_decode($les_dossiers, true);
+                $dossier_champs = DB::table('dossier_champs')->whereIn('id', $id_dossier)->get();
+
+           }else {
+
+                $dossier_champs = Dossier_champ::where([
+                'organigramme_id' =>  $id ,
+                'parent_id' => 0,
+           
+                ])->get();
+
+
+           }
+
+        
+
+
+
+           
+      
+         
+
+       }
+
+
+
+     
+
+
+        
 
 
         return Response()
-        ->json($dossier_champs);
+        ->json($dossier_champs );
 
     }
 
@@ -182,6 +246,32 @@ class DossierController extends Controller
 
         return view('dossier.all_dossier',$data);
  
+
+     }
+
+
+     public function recherche_dossier() {
+
+        $user = Auth::user();
+        $id ='';
+
+       if($user->projet_select_id != NULL) {
+
+           $projet_select_id = $user->projet_select_id;
+
+           $organigramme = Organigramme::find($projet_select_id);
+           $id = $organigramme->id;
+      
+         
+
+       }
+
+     
+       $data = array( 'id_organigramme' => $id );
+
+
+
+        return view('dossier.recherche',$data);
 
      }
 

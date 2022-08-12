@@ -121,7 +121,7 @@
     
             </table>
 
-         
+            @if (Auth::user()->hasPermissionTo('Modifier les dossiers'))
 
                   <div class="btn_panel">
                   
@@ -129,6 +129,9 @@
                         <button type="submit" class="btn btn-primary  mr-3 " >Modifier</button>
                         <button type="button" class="btn btn-danger" >Supprimer</button>
                   </div>
+
+
+             @endif     
 
        
      
