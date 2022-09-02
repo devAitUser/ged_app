@@ -69,7 +69,7 @@
                      <button class="btn btn-primary btn-default  btn_dossier">Dossier</button>
             
                      <button class="btn btn-default  btn_sous_dossier">Sous Dossier</button>
-                     <button class="btn  btn-default  btn_piece_joint ">Pièce joint</button>
+                     <button class="btn  btn-default  btn_piece_joint ">Pièce </button>
                  
                   </div>
 

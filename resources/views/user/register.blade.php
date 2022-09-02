@@ -1,11 +1,47 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
+<style>
+   .panel_view_bottom {
+   display: block;
+   }
+   .panel_view_bottom {
+    height: auto !important;
+  margin-bottom: 37px;
+   }
+   .panel_view_details {
+    margin-bottom: 15px;
+   }
+   #organigramme_table_wrapper {
+    margin-bottom: 15px;
+   }
+   button.btn_profil {
+    border: none;
+   }
+   .text_center {
+    text-align: center;
+  }
+</style>
+
+
+
+
+
+
+
+
+
+<div class="header_view">
+         <div class="sub_view"> <span class="title_profil"> Nouveau utilisateur </span> </div>
+      </div>
+      <div class="panel_view_details">
+         <div class="table_p">
+
+
+         <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
+              
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('add') }}">
@@ -124,15 +160,15 @@
                         </div>
 
                         <div class="container">
-                            <div class="row">
+                            <div class="text_center">
                                 <button type="submit" class="btn btn-primary ml-4">
-                                    {{ __('Register') }}
+                                  Créer
                                 </button>
                                 &nbsp;
 
-                                <button type="reset" class="btn btn-primary">
+                              <a href=" {{ route('user_list') }}" class="btn btn-danger" >  
                                     {{ __('Annuler') }}
-                                </button>
+                             </a>
                             </div>
                         </div>
                     </form>
@@ -140,5 +176,7 @@
             </div>
         </div>
     </div>
-</div>
+
+         </div>
+      </div>
 @endsection

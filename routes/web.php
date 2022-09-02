@@ -36,6 +36,8 @@ Route::get('/user_profile', [App\Http\Controllers\UserController::class, 'index'
 Route::post('/user_profile_update', [App\Http\Controllers\UserController::class, 'update'])->name('user_profile_update');
 
 
+Route::get('/all_user', [App\Http\Controllers\UserController::class, 'all_user'])->name('all_user');
+
 //Route::get('/organigramme1', [App\Http\Controllers\OrganigrammeController::class, 'index'])->name('organigramme');
 
 
@@ -96,6 +98,8 @@ Route::get('/recherche_dossier',[App\Http\Controllers\DossierController::class, 
 
 Route::get('/all_dossier',[App\Http\Controllers\DossierController::class, 'all_dossier'])->name('all_dossier');
 
+Route::get('/api_all_dossier',[App\Http\Controllers\DossierController::class, 'api_all_dossier'])->name('api_all_dossier');
+
 /****boites */
 
 Route::resource('boites',App\Http\Controllers\BoiteController::class);
@@ -107,7 +111,7 @@ Route::get('/verify', [App\Http\Controllers\UserController::class, 'verify'])->n
 Route::post('/checkLogin', [App\Http\Controllers\UserController::class, 'checkLogin'])->name('checkLogin');
 Route::get('/showUser/{id}', [App\Http\Controllers\UserController::class, 'showUser']);
 Route::get('/edit/{id}', [App\Http\Controllers\UserController::class, 'edit'])->name('edit');
-Route::delete('/destroy/{user}', [App\Http\Controllers\UserController::class, 'destroy'])->name('destroy');
+Route::post('/user_destroy/{user}', [App\Http\Controllers\UserController::class, 'delete_user_item'])->name('delete_user_item');
 Route::put('/updateUser/{id}', [App\Http\Controllers\UserController::class, 'updateUser'])->name('updateUser');
 
 ////////////////////////////////////////////////

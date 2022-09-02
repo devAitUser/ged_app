@@ -276,6 +276,38 @@ class DossierController extends Controller
      }
 
 
+     public function api_all_dossier() {
+
+
+        $organigramme = Organigramme::take(1)->first();
+        $dossiers = $organigramme->dossiers;
+
+        $all_dossier = array();
+
+
+        for($i=0;$i<count($dossiers);$i++){
+
+            $all_dossier = Attributs_dossier::where(['dossier_id' => $dossiers[$i]->id  ])->get();
+
+            for($j=0;$j<count($all_dossier);$j++){
+                if( $all_dossier[$j]->type_champs == 'textarea'){
+                        $titre = $all_dossier[$j]->valeur ;
+                }
+            }
+
+            $all_dossiers[] = array('id' => $dossiers[$i]->id , 'date' => $dossiers[$i]->created_at , 'titre' =>  $titre);
+
+        }  
+
+     
+
+        return Response()
+      ->json($all_dossiers);
+
+
+     }
+
+
 
 
 

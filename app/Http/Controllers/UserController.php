@@ -252,13 +252,30 @@ class UserController extends Controller
         return back()->with('err', 'Permission n exists pas.');
     }
 
-    public function destroy(User $user)
-    {
-        if ($user->hasRole('admin')) {
-            return back()->with('err', 'you are admin.');
-        }
-        $user->delete();
 
-        return back()->with('message', 'User deleted.');
+
+    public function all_user(){
+
+        $table_user= User::all();  
+
+    
+        return  Response()
+        ->json($table_user);
+        
+    }
+
+
+
+    public function delete_user_item($id){
+
+        $delete_user= User::find($id);  
+        $delete_user->delete();
+
+        $data = User::all();  
+   
+
+        return  Response()
+        ->json(['etat' => true , 'data' =>  $data    ]);
+    
     }
 }

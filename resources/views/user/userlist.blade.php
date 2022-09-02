@@ -1,76 +1,107 @@
 @extends('layouts.app')
 @section('content')
-<div class="container">
-   <a href="{{route('user_show')}}"> <button type="button" class="btn btn-outline-primary btn-lg">Nouveau utilisateur</button></a>
+<script src="https://code.jquery.com/jquery-1.12.1.min.js"></script>
 
-    <form class="form-inline" style="float: right" action="{{route('user_list')}}" method="GET">
-        <button class="btn btn-outline-primary" style="margin-right: 5px"><span class="glyphicon glyphicon-refresh"></span> Actualiser</button>
-
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" id="tt" name="search" aria-label="Search">
-      <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
-    </form>
-
-   <h1 style="text-decoration: underline;font-size:xx-large;text-align:center">List des utilisateurs</h1>
-   <table class="table" style="width: 99%;margin:0 auto;">
-      <thead class="thead-dark">
-         <tr>
-            <th scope="col">Nom</th>
-            <th scope="col">Email</th>
-            <th scope="col">Identifiant</th>
-            <th scope="col">Action</th>
-         </tr>
-      </thead>
-      <tbody>
-         @foreach ($users as $user )
-         <tr>
-            <td>{{$user->nom}}</td>
-            <td>{{$user->email}}</td>
-            <td>{{$user->identifiant}}</td>
-            <td>
-               <div class="row">
-                  <!--    <div class="col-xsm mr-2"> <a href="">
-                     <button class="btn btn-success" href="">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
-                        <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
-                        </svg>
-                     </button>
-                     </a>
-                     </div>
-                     -->
-
-                  <div class="col-xsm mr-2">
-                     <a href="showUser/{{$user->id}}">
-                        <button class="btn btn-warning" href="">
-                           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
-                              <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
-                              <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
-                           </svg>
-                        </button>
-                     </a>
-                  </div>
+	<link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.0.45/css/materialdesignicons.min.css">
 
 
-                  <div class="col-xsm mr-2">
-                     <a >
-                        <form method="POST" action="{{ route('destroy',$user->id) }}" onsubmit="return confirm('etes vous sur de supprimer ce utilisateur ')">
-                            @csrf
-                            @method('DELETE')
-                            <button class="btn btn-danger">
-                              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
-                                 <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
-                              </svg>
-                           </button>
-                        </form>
-                     </a>
-                  </div>
-               </div>
-</div>
-</td>
-</tr>
-@endforeach
-</tbody>
-</table>
 
-</div>
+
+    <link href="{{ asset('assets/css/bootstrap2.min.css') }}" rel="stylesheet" >
+
+<link rel="stylesheet" href="{{asset('assets/css/datatables.min.css')}}">
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<style>
+   .panel_view_bottom {
+   display: block;
+   }
+   .panel_view_bottom {
+    height: auto !important;
+  margin-bottom: 37px;
+   }
+   .panel_view_details {
+    margin-bottom: 15px;
+   }
+   #organigramme_table_wrapper {
+    margin-bottom: 15px;
+   }
+
+   .styled-table thead tr {
+    background-color: #343a40;
+
+    }
+</style>
+
+
+
+<div class="header_view">
+         <div class="sub_view"> <span class="title_profil"> Les utilisateurs  </span> </div>
+      </div>
+      <div class="panel_view_details">
+         <div class="table_p">
+
+            <div class="block_manager_datable">
+                <a href="{{route('user_show')}}" class="create_organi" aria-label="Close" >Nouveau utilisateur </a>
+            </div>
+
+            <table id="organigramme_table" class=" table table-bordered text-center styled-table">
+               <thead>
+                   <tr>
+                       <th scope="col">Nom</th>
+                       <th scope="col">Prenom</th>
+                       <th scope="col">Email</th>
+                       <th scope="col">identifiant</th>
+                       <th scope="col">Action  </th>
+
+
+
+
+                   </tr>
+               </thead>
+               <tbody>
+
+                   <tr>
+                       <th scope="row"></th>
+
+
+
+                       <th scope="row"></th>
+
+
+
+
+                       <td>
+                           <a href="#" class="text-success mr-2">
+                               <i class="nav-icon i-Pen-2 font-weight-bold"></i>
+                           </a>
+                           <a href="#" class="text-danger mr-2">
+                               <i class="nav-icon i-Close-Window font-weight-bold"></i>
+                           </a>
+                       </td>
+                   </tr>
+
+
+               </tbody>
+           </table>
+
+         </div>
+
+         
+
+
+      </div>
+
+
+      <script src="{{asset('assets/js/datatables.min.js')}}"></script>
+      <script src="{{asset('assets/js/datatable_user.js')}}"></script>
 
 @endsection
