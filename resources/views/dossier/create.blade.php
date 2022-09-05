@@ -159,10 +159,7 @@
               </div> 
 
 
-              <div class="" id='objet'>
-       
-
-               </div> 
+             
          
         
           
@@ -190,6 +187,7 @@
             
                
                   <button type="submit" class="btn btn-primary  mr-3 " >Validé</button>
+                
                   <button type="button" class="btn btn-danger" >Supprimer</button>
            </div>
         

@@ -33,6 +33,7 @@
     textarea.form-control {
     height: 131px;
     }
+
  
 </style>
 
@@ -46,7 +47,7 @@
 
 
 <div class="header_view">
-         <div class="sub_view"> <span class="title_profil"> Dossier :{{$titre}}  </span> </div>
+         <div class="sub_view"> <span class="title_profil"> Dossier : {{$id}}  </span> </div>
       </div>
       <div class="panel_view_details">
          <div class="table_p">
@@ -125,9 +126,13 @@
 
                   <div class="btn_panel">
                   
-                     
-                        <button type="submit" class="btn btn-primary  mr-3 " >Modifier</button>
-                        <button type="button" class="btn btn-danger" >Supprimer</button>
+                  
+
+                        <a class="btn btn-primary delete_user mr-3" href="" id="">Modifier</a>
+                        <a class="btn btn-danger delete_user" href="{{ route('delete_dossier',$id) }}" id="">Supprimer</a>
+
+
+
                   </div>
 
 

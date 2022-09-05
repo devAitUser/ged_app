@@ -161,34 +161,30 @@ class DossierController extends Controller
          }  
 
    
+         if($request->file != null){
+            for($i=0;$i<count($request->file);$i++){
 
-        for($i=0;$i<count($request->file);$i++){
-
-                        
-                if($request->file[$i] != null){
-                
-               
-                    $attributs_dossier1 = new Attributs_dossier();
-                    $attributs_dossier1->nom_champs  =  $request->nom_champ_file[$i];
-                    $attributs_dossier1->valeur      =  $request->file('file')[$i]->store('files') ;
-                    $attributs_dossier1->type_champs =   'Fichier' ;
-                    $attributs_dossier1->dossier_id  =   $dossier->id;
-                    $attributs_dossier1->save();
-                    
-                }
                             
-            
-    
+                    if($request->file[$i] != null){
+                    
+                
+                        $attributs_dossier1 = new Attributs_dossier();
+                        $attributs_dossier1->nom_champs  =  $request->nom_champ_file[$i];
+                        $attributs_dossier1->valeur      =  $request->file('file')[$i]->store('files') ;
+                        $attributs_dossier1->type_champs =   'Fichier' ;
+                        $attributs_dossier1->dossier_id  =   $dossier->id;
+                        $attributs_dossier1->save();
+                        
+                    }
+                                
+                
+        
 
+            }
         }
 
 
-        $attributs_dossier1 = new Attributs_dossier();
-        $attributs_dossier1->nom_champs  =  'TITRE' ;
-        $attributs_dossier1->valeur      =   $request->input('titre');
-        $attributs_dossier1->type_champs =   'textarea' ;
-        $attributs_dossier1->dossier_id  =   $dossier->id;
-        $attributs_dossier1->save();
+
 
          return redirect('/show_dossier/'.$dossier->id); 
       
@@ -202,14 +198,9 @@ class DossierController extends Controller
 
         $attributs = $dossier->attibuts_dossier;
 
-        for($i=0;$i<count($attributs);$i++){
-                if($attributs[$i]->type_champs == "textarea"){
-                $titre =  $attributs[$i]->valeur ;
-                }
-        }
 
 
-        $data = array("attributs" =>  $attributs , 'titre' => $titre );
+        $data = array("attributs" =>  $attributs , 'id' => $id );
 
         return view('dossier.show',  $data);
 
@@ -282,21 +273,31 @@ class DossierController extends Controller
         $organigramme = Organigramme::take(1)->first();
         $dossiers = $organigramme->dossiers;
 
+
+        $titre = '';
+
         $all_dossier = array();
 
 
         for($i=0;$i<count($dossiers);$i++){
 
+            $count_check_item_next = 0 ;
+            $check = 1 ;
             $all_dossier = Attributs_dossier::where(['dossier_id' => $dossiers[$i]->id  ])->get();
 
             for($j=0;$j<count($all_dossier);$j++){
-                if( $all_dossier[$j]->type_champs == 'textarea'){
-                        $titre = $all_dossier[$j]->valeur ;
+                if( $all_dossier[$j]->type_champs == 'text'){
+                        if($check == $count_check_item_next ){
+                            $titre .= ' \ ' ;
+                            $check++;
+                        }
+                        $titre .= $all_dossier[$j]->valeur;
+                        $count_check_item_next++;
                 }
             }
 
             $all_dossiers[] = array('id' => $dossiers[$i]->id , 'date' => $dossiers[$i]->created_at , 'titre' =>  $titre);
-
+            $titre = '';
         }  
 
      
@@ -306,6 +307,31 @@ class DossierController extends Controller
 
 
      }
+
+     public function update_dossier($id){
+
+        $upd = Dossier::find($id);  
+
+        $upd->nom = $request->nom;
+        $upd->identifiant = $request->identifiant;
+        
+
+        return redirect('/show_dossier/'.$id); 
+
+     }
+
+
+     public function delete_dossier($id){
+
+        $delete = Dossier::find($id);  
+        $delete->delete();
+
+        return redirect('/all_dossier'); 
+
+     }
+
+
+
 
 
 

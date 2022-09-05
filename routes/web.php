@@ -100,6 +100,9 @@ Route::get('/all_dossier',[App\Http\Controllers\DossierController::class, 'all_d
 
 Route::get('/api_all_dossier',[App\Http\Controllers\DossierController::class, 'api_all_dossier'])->name('api_all_dossier');
 
+
+Route::get('/delete_dossier/{id}',[App\Http\Controllers\DossierController::class, 'delete_dossier'])->name('delete_dossier');
+
 /****boites */
 
 Route::resource('boites',App\Http\Controllers\BoiteController::class);

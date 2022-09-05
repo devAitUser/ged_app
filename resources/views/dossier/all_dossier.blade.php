@@ -90,6 +90,30 @@
     .styled-table thead tr {
     background-color: #428bca;
       }
+
+
+      table#organigramme_table {
+      box-shadow: rgb(136 136 136) 0px 1px 3px;
+      }
+
+      table#organigramme_table tr {
+         border-top: 1px solid #ddd !important;
+         border-bottom: 1px solid #ddd !important;
+ 
+      }
+
+      #organigramme_table .odd {
+            background-color: #ebf3f9;
+         }
+
+      @media screen and (min-width: 600px){
+            table#organigramme_table tbody tr:hover {
+               background-color: #d6e4ef;
+            }
+
+    
+
+       }
  
 </style>
 <div class="header_view">
@@ -107,75 +131,19 @@
 
 
      
-       <table class="rwd-table">
-               <tbody>
-                  <tr>
-                  <th width="25%">Date</th>
-                  <th width="25%"> Numero</th>
-                  <th width="40%"> Titre</th>
-                  <th width="10%">Voir</th>
-         
-                  </tr>
-  
-
-                  @for ($i = 0; $i < count($dossiers) ; $i++)
-                  
-                           <tr>
-                                   
-                                    <td> 
-                                    {{$dossiers[$i]['id']}}
-
-                                    </td>
-
-
-                                    <td> 
-                                 
-                                    {{$dossiers[$i]['date']}}
-                                    </td>
-
-                                    <td> 
-                                    {{$dossiers[$i]['titre']}}
-
-                                    </td>
-
-
-                                    <td> 
-                                    <div class="control_block">
-
-                                      
-
-                                             <div class="col-xsm mr-2">
-                                                <a href="/show_dossier/   {{$dossiers[$i]['id']}} " target="_blank">
-                                                   <button class="btn btn-warning" style="padding: 3px 5px;" >
-                                                      <svg width="26px" height="26px" viewBox="0 0 32 32" id="icon" xmlns="http://www.w3.org/2000/svg"><defs><style>.cls-1{fill:none;}</style></defs><title>folder--details</title><rect x="16" y="20" width="14" height="2"/><rect x="16" y="24" width="14" height="2"/><rect x="16" y="28" width="7" height="2"/><path d="M14,26H4V6h7.17l3.42,3.41.58.59H28v8h2V10a2,2,0,0,0-2-2H16L12.59,4.59A2,2,0,0,0,11.17,4H4A2,2,0,0,0,2,6V26a2,2,0,0,0,2,2H14Z"/><rect id="_Transparent_Rectangle_" data-name="&lt;Transparent Rectangle&gt;" class="cls-1" width="32" height="32"/></svg>
-                                                   </button>
-                                                </a>
-                                             </div>
-                                             </div>
-
-                                    </td>
-
-
-                              </tr>
-                   @endfor
-                  
-                 
-               </tbody>
-            </table>
+     
 
 
 
             <div class="table_p">
 
-                  <div class="block_manager_datable">
-                     <a href="{{route('user_show')}}" class="create_organi" aria-label="Close" >Nouveau utilisateur </a>
-                  </div>
+          
 
                   <table id="organigramme_table" class=" table table-bordered text-center styled-table">
                      <thead>
                         <tr>
-                        <th width="25%">Date</th>
-                        <th width="25%"> Numero</th>
+                        <th width="25%">Numero </th>
+                        <th width="25%"> Date de Creation </th>
                         <th width="40%"> Titre</th>
                         <th width="10%">Voir</th>
 

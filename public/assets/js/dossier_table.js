@@ -7,9 +7,9 @@
     e.preventDefault();
     var id =row
 
-    location.href='/show_dossier/' + row ;
+    var url ='/show_dossier/' + row ;
 
-
+    window.open(url,'_blank');
 
 
 

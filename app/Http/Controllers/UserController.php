@@ -172,7 +172,7 @@ class UserController extends Controller
             $user->password = Hash::make($request->password);
 
         }
-        $user->syncRoles($request->role);
+       
         $user->save();
         $count = 1;
 

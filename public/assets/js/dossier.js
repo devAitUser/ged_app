@@ -113,6 +113,7 @@ function add_row_select(row){
               
                 row_select1 += '</div></div>';
                 row_select1 += '</div>';
+                console.log(row_select1);
 
                 $("#attribut_champ").append(row_select1);
               }
@@ -151,18 +152,7 @@ function add_row_select(row){
 
             });
 
-            row_select1 = '<div id="" class="col-md-12">';
-            row_select1 += '<div class="form-group row">';
-            row_select1 += ' <label for="colFormLabelSm" class=" text-uppercase col-sm-4 col-form-label col-form-label-sm">Titre:</label>';
-            row_select1 += ' ';
-            row_select1 += ' <div class="col-sm-8">';
-            row_select1 += '<textarea name="titre" class="form-control" id="folder_name" " ></textarea>';
-        
-            row_select1 += '';
-            row_select1 += '</div></div>';
-            row_select1 += '</div>';
-
-            $("#objet").append(row_select1);
+     
     
 
            } else {
