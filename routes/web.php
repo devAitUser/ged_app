@@ -91,7 +91,7 @@ Route::get('/fill_sous_dossier1',[App\Http\Controllers\DossierController::class,
 
 Route::post('/store_dossier_create',[App\Http\Controllers\DossierController::class, 'store_dossier']);
 
-Route::get('/show_dossier/{id}',[App\Http\Controllers\DossierController::class, 'show_dossier']);
+Route::get('/show_dossier/{id}',[App\Http\Controllers\DossierController::class, 'show_dossier'])->name('show_dossier');
 
 Route::get('/recherche_dossier',[App\Http\Controllers\DossierController::class, 'recherche_dossier'])->name('recherche_dossier');
 
@@ -102,6 +102,10 @@ Route::get('/api_all_dossier',[App\Http\Controllers\DossierController::class, 'a
 
 
 Route::get('/delete_dossier/{id}',[App\Http\Controllers\DossierController::class, 'delete_dossier'])->name('delete_dossier');
+
+Route::post('/update_dossier/{id}',[App\Http\Controllers\DossierController::class, 'update_dossier'])->name('update_dossier');
+
+Route::post('/search_dossier',[App\Http\Controllers\DossierController::class, 'search_dossier'])->name('search_dossier');
 
 /****boites */
 

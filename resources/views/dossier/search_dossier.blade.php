@@ -125,7 +125,7 @@
 <div class="header_view">
    <div class="sub_view">
   
-      Résultats : 
+      Résultats : {{$count}}
  
    </div>
 </div>
@@ -143,7 +143,7 @@
 
             <div class="table_p">
 
-          
+                  @if($check_input)
 
                   <table id="organigramme_table" class=" table table-bordered text-center styled-table">
                      <thead>
@@ -162,28 +162,27 @@
                      <tbody>
 
                         <tr>
-                           <th scope="row"></th>
+                           
+                      
 
+                           <td></td>
 
+                           
 
-                           <th scope="row"></th>
 
 
 
 
                            <td>
-                                 <a href="#" class="text-success mr-2">
-                                    <i class="nav-icon i-Pen-2 font-weight-bold"></i>
-                                 </a>
-                                 <a href="#" class="text-danger mr-2">
-                                    <i class="nav-icon i-Close-Window font-weight-bold"></i>
-                                 </a>
+                           <button class="btn btn-warning" style="padding: 3px 5px;" type="button" onclick="click_show(event,2 )">  <svg width="26px" height="26px" viewBox="0 0 32 32" id="icon" xmlns="http://www.w3.org/2000/svg"><defs><style>.cls-1{fill:none;}</style></defs><title>folder--details</title><rect x="16" y="20" width="14" height="2"></rect><rect x="16" y="24" width="14" height="2"></rect><rect x="16" y="28" width="7" height="2"></rect><path d="M14,26H4V6h7.17l3.42,3.41.58.59H28v8h2V10a2,2,0,0,0-2-2H16L12.59,4.59A2,2,0,0,0,11.17,4H4A2,2,0,0,0,2,6V26a2,2,0,0,0,2,2H14Z"></path><rect id="_Transparent_Rectangle_" data-name="<Transparent Rectangle>" class="cls-1" width="32" height="32"></rect></svg></button>
                            </td>
                         </tr>
 
 
                      </tbody>
                 </table>
+
+                @endif()
 
               </div>
       
@@ -193,7 +192,14 @@
 
 
 <script src="{{asset('assets/js/datatables.min.js')}}"></script>
-      <script src="{{asset('assets/js/dossier_table.js')}}"></script>
+<script>
+
+var data = {!! json_encode($all_dossiers) !!};
+
+console.log(data);
+
+</script>
+      <script src="{{asset('assets/js/dossier_recherche_table.js')}}"></script>
 
 
 

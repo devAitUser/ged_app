@@ -39,6 +39,7 @@
     }).done( function(data) {
         $('#organigramme_table').dataTable( {
             "aaData": data,
+            "searching" : false,
             "bInfo" : false,
             "lengthChange": false,
             columnDefs: [
@@ -64,6 +65,7 @@
                 { "data": "id"  },
                 { "data": "date"  },
                 { "data": "titre"  },
+                { "data": "user"  },
                 { "data": "id"  , render: function(data, type, row) {
                     return '<button class="btn btn-warning" style="padding: 3px 5px;" type="button"  onclick="click_show(event,' + data + ' )"  >'+button_show+'</button>' } 
                 }

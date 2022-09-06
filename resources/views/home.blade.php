@@ -6,6 +6,10 @@
      li.link_menu__right a {
     text-decoration: none !important;
    }
+
+   .w_menu_right {
+      width: 307px;
+   }
 </style>
 
 <div class="block_menu left">
@@ -68,7 +72,7 @@
                   <li class="li_block_archive last_item_bskli">
                      <a href="#">
                      <img src="{{ asset('img_app/62917-open-file-folder-icon.png') }}" style="width: 22px;vertical-align: sub;" alt="">
-                     Total des Dossiers indexé aujourd'hui  <b><span ><b>(3)</b></span></b></a>
+                     Total des Dossiers indexé aujourd'hui  <b><span ><b>({{$dossier_indexe}})</b></span></b></a>
                   </li>
                   @endif
                     
@@ -87,7 +91,7 @@
          </ul>
       </div>
 
-      <div class="block_menu right">
+      <div class="block_menu right @if (!Auth::user()->hasPermissionTo('Créer les dossiers')) w_menu_right @endif">
          <ul>
          @if ($ckeck_select)
            @if (Auth::user()->hasPermissionTo('Créer les dossiers'))

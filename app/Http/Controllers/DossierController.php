@@ -5,9 +5,11 @@ use App\Models\Dossier_champ;
 use App\Models\Attribut_champ;
 use App\Models\Organigramme;
 use App\Models\Dossier;
+use App\Models\User;
 use App\Models\Attributs_dossier;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 use Illuminate\Http\Request;
 
@@ -128,9 +130,11 @@ class DossierController extends Controller
 
      public function store_dossier(Request $request){
 
+        $user = Auth::user();
 
         $dossier = new Dossier();
         $dossier->organigramme_id  = $request->id_organigramme;
+        $dossier->user_id  = $user->id;
         $dossier->save();
 
 
@@ -184,8 +188,6 @@ class DossierController extends Controller
         }
 
 
-
-
          return redirect('/show_dossier/'.$dossier->id); 
       
      }
@@ -209,33 +211,14 @@ class DossierController extends Controller
 
      public function all_dossier(){
 
-            
-        $organigramme = Organigramme::take(1)->first();
-        $dossiers = $organigramme->dossiers;
 
-        $all_dossier = array();
-
-
-        for($i=0;$i<count($dossiers);$i++){
-
-            $all_dossier = Attributs_dossier::where(['dossier_id' => $dossiers[$i]->id  ])->get();
-
-            for($j=0;$j<count($all_dossier);$j++){
-                if( $all_dossier[$j]->type_champs == 'textarea'){
-                        $titre = $all_dossier[$j]->valeur ;
-                }
-            }
-
-            $all_dossiers[] = array('id' => $dossiers[$i]->id , 'date' => $dossiers[$i]->created_at , 'titre' =>  $titre);
-
-        }  
 
    
-        $data = array( 'dossiers' => $all_dossiers );
+       
 
 
 
-        return view('dossier.all_dossier',$data);
+        return view('dossier.all_dossier');
  
 
      }
@@ -270,7 +253,12 @@ class DossierController extends Controller
      public function api_all_dossier() {
 
 
-        $organigramme = Organigramme::take(1)->first();
+        $user = Auth::user();
+
+           $projet_select_id = $user->projet_select_id;
+
+           $organigramme = Organigramme::find($projet_select_id);
+         
         $dossiers = $organigramme->dossiers;
 
 
@@ -285,10 +273,16 @@ class DossierController extends Controller
             $check = 1 ;
             $all_dossier = Attributs_dossier::where(['dossier_id' => $dossiers[$i]->id  ])->get();
 
+            $createdAt = Carbon::parse($dossiers[$i]->created_at);
+
+            $date = $createdAt->format('d/m/Y H:i:s');  
+
+
+            $user = User::find($dossiers[$i]->user_id);
             for($j=0;$j<count($all_dossier);$j++){
                 if( $all_dossier[$j]->type_champs == 'text'){
                         if($check == $count_check_item_next ){
-                            $titre .= ' \ ' ;
+                            $titre .= ' / ' ;
                             $check++;
                         }
                         $titre .= $all_dossier[$j]->valeur;
@@ -296,7 +290,7 @@ class DossierController extends Controller
                 }
             }
 
-            $all_dossiers[] = array('id' => $dossiers[$i]->id , 'date' => $dossiers[$i]->created_at , 'titre' =>  $titre);
+            $all_dossiers[] = array('id' => $dossiers[$i]->id , 'date' => $date , 'titre' =>  $titre , 'user' =>  $user->identifiant );
             $titre = '';
         }  
 
@@ -308,15 +302,15 @@ class DossierController extends Controller
 
      }
 
-     public function update_dossier($id){
+     public function update_dossier($id,Request $request){
 
-        $upd = Dossier::find($id);  
+        for($i=0;$i<count($request->id);$i++){
+            $upd = Attributs_dossier::find($request->id[$i]);  
+            $upd->valeur = $request->valeur[$i];
+            $upd->save();
+        }
 
-        $upd->nom = $request->nom;
-        $upd->identifiant = $request->identifiant;
-        
-
-        return redirect('/show_dossier/'.$id); 
+        return redirect(route('show_dossier',$id)); 
 
      }
 
@@ -327,6 +321,115 @@ class DossierController extends Controller
         $delete->delete();
 
         return redirect('/all_dossier'); 
+
+     }
+
+     public function search_dossier(Request $request){
+ 
+
+        $user = Auth::user();
+
+        $projet_select_id = $user->projet_select_id;
+
+        $count_dossier=0;
+
+        $nom_champ = '';
+        $word ='';
+
+        $check_input = false;
+
+        $all_dossiers = array();
+
+        if(isset($request->nom_champ)){
+            for($o=0;$o<count($request->nom_champ);$o++){
+                if($request->valeur[$o] != null){
+                    $word = $request->valeur[$o];
+                    $nom_champ = $request->nom_champ[$o];
+                } 
+            }
+        }
+
+        
+        if($word == ''){
+            $word = $request->titre;
+        }
+
+        $array_search = array();
+
+        function like($str, $searchTerm) {
+            $searchTerm = strtolower($searchTerm);
+            $str = strtolower($str);
+            $pos = strpos($str, $searchTerm);
+            if ($pos === false)
+                return false;
+            else
+                return true;
+        }
+
+
+       $dossiers = Dossier::query()->where([ 'organigramme_id' =>  $projet_select_id ])->get() ;
+       $titre = '';
+
+            for($i=0;$i<count($dossiers);$i++){
+
+                if($nom_champ != ''){
+
+                $attributs_dossiers = Attributs_dossier::query()->where([ 'dossier_id' =>  $dossiers[$i]->id , 'nom_champs' => $nom_champ ])->get() ;
+
+                 } else {
+                    $attributs_dossiers = Attributs_dossier::query()->where([ 'dossier_id' =>  $dossiers[$i]->id  ])->get() ;
+                 }
+
+                for($j=0;$j<count($attributs_dossiers);$j++){
+                    $found = like($attributs_dossiers[$j]->valeur, $word);
+                   if($found){
+                    $array_search[] = $attributs_dossiers[$j];
+
+                    $dossiers_s = dossier::find($attributs_dossiers[$j]->dossier_id);
+
+                    
+
+                        $count_check_item_next = 0 ;
+                        $check = 1 ;
+
+                            $all_dossier = Attributs_dossier::where(['dossier_id' => $dossiers_s->id   ])->get();
+                      
+
+                        $createdAt = Carbon::parse($dossiers_s->created_at);
+
+                        $date = $createdAt->format('d/m/Y H:i:s');  
+
+                        $user = User::find($dossiers_s->user_id);
+                        for($e=0;$e<count($all_dossier);$e++){
+                         
+                            if( $all_dossier[$e]->type_champs == 'text' ){
+                                    if($check == $count_check_item_next ){
+                                        $titre .= ' / ' ;
+                                        $check++;
+                                    }
+                                    $titre .= $all_dossier[$e]->valeur;
+                                    $count_check_item_next++;
+                            }
+                        }
+                        $count_dossier++;
+            
+                        $all_dossiers[] = array('id' => $dossiers[$i]->id , 'date' => $date , 'titre' =>  $titre , 'user' =>  $user->identifiant );
+                        $titre = '';
+            
+                      
+                    
+
+                   } else {
+                    $check_input = true;
+                   }
+                }
+             
+            }
+          
+            $data = array( 'all_dossiers' => $all_dossiers , 'count' => $count_dossier , 'check_input' => $check_input  );
+            
+            return view('dossier.search_dossier',$data);
+
 
      }
 

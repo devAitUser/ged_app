@@ -50,10 +50,19 @@
 </div>
 <div class="panel_view_details">
    <div class="table_p">
-      <form action=""  method="post">
-         @csrf
+      <form action="{{url('search_dossier')}}"  method="post" >
+         {{ csrf_field() }}
          <table class="tbl_profil">
             <tbody>
+               <tr>
+               
+                     <td class="td_1">Titre :</td>
+                     <td>
+                        <input type="text" class="input_prof" name="titre" >
+                     </td>
+                  </tr>
+                  <tr>
+                  </tr>
                <tr>
                <input type="text" name="id_organigramme" value="{{$id_organigramme}}" hidden>
                   <td class="td_1">Fond :</td>

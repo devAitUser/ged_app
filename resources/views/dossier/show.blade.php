@@ -49,6 +49,8 @@
 <div class="header_view">
          <div class="sub_view"> <span class="title_profil"> Dossier : {{$id}}  </span> </div>
       </div>
+      <form  method="post" action="{{url('update_dossier',$id)}}"  >
+         {{ csrf_field() }}
       <div class="panel_view_details">
          <div class="table_p">
       
@@ -101,8 +103,8 @@
                            
 
                                     @else 
-
-                                    <input type="text" class="form-control" value="{{$attributs[$i]->valeur}}" >
+                                    <input type="text" name="id[]" value="{{$attributs[$i]->id}}" hidden>
+                                    <input type="text" name="valeur[]" class="form-control" value="{{$attributs[$i]->valeur}}" >
 
                                     @endif
                            
@@ -128,7 +130,7 @@
                   
                   
 
-                        <a class="btn btn-primary delete_user mr-3" href="" id="">Modifier</a>
+                        <button class="btn btn-primary delete_user mr-3" href="" id="">Modifier</button>
                         <a class="btn btn-danger delete_user" href="{{ route('delete_dossier',$id) }}" id="">Supprimer</a>
 
 
@@ -142,6 +144,8 @@
      
          </div>
       </div>
+
+      </form>
 
 
 

@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use DateTimeInterface;
+
 
 class Dossier extends Model
 {
@@ -13,6 +15,12 @@ class Dossier extends Model
     {
         return $this->hasMany('App\Models\Attributs_dossier');
     }
+
+    
+    
+
+
+    
 
     
 }
