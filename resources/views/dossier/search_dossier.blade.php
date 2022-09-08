@@ -143,7 +143,7 @@
 
             <div class="table_p">
 
-                  @if($check_input)
+                  @if(!$check_input)
 
                   <table id="organigramme_table" class=" table table-bordered text-center styled-table">
                      <thead>

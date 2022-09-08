@@ -42,6 +42,39 @@
     padding-top: 23px;
 
    }
+   .styled-table thead tr {
+    background-color: #428bca;
+      }
+
+
+      table#organigramme_table {
+      box-shadow: rgb(136 136 136) 0px 1px 3px;
+      }
+
+      table#organigramme_table tr {
+         border-top: 1px solid #ddd !important;
+         border-bottom: 1px solid #ddd !important;
+ 
+      }
+
+      .table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td {
+
+        vertical-align: unset !important;
+
+      }
+
+      #organigramme_table .odd {
+            background-color: #ebf3f9;
+         }
+
+      @media screen and (min-width: 600px){
+            table#organigramme_table tbody tr:hover {
+               background-color: #d6e4ef;
+            }
+
+    
+
+       }
 </style>
 <script src="https://code.jquery.com/jquery-1.12.1.min.js"></script> 
 <script src="{{ asset('assets/js/recherche.js') }}"></script>
@@ -50,8 +83,8 @@
 </div>
 <div class="panel_view_details">
    <div class="table_p">
-      <form action="{{url('search_dossier')}}"  method="post" >
-         {{ csrf_field() }}
+   
+
          <table class="tbl_profil">
             <tbody>
                <tr>
@@ -102,9 +135,51 @@
                   </td>
                </tr>
                
+
+
+
+               <table id="organigramme_table" class=" table table-bordered text-center styled-table">
+                     <thead>
+                        <tr>
+                        <th width="20%">Numero  </th>
+                        <th width="25%"> Date de création  </th>
+                        <th width="40%"> Titre </th>
+                        <th width="30%"> Opérateur 	</th>
+                        <th width="25%">Voir</th>
+
+
+
+
+                        </tr>
+                     </thead>
+                     <tbody>
+                
+
+
+                     </tbody>
+                </table>
+
+
+
+               
             </tbody>
          </table>
-      </form>
-   </div>
+
+
+   
 </div>
+
+<script src="{{asset('assets/js/datatables.min.js')}}"></script>
+
+<script>
+
+var data = {!! json_encode($all_dossiers) !!};
+
+console.log(data);
+
+</script>
+      <script src="{{asset('assets/js/dossier_recherche_table.js')}}"></script>
+
+
+   
 @endsection

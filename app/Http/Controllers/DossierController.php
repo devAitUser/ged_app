@@ -240,8 +240,50 @@ class DossierController extends Controller
 
        }
 
+
+       $user = Auth::user();
+
+       $projet_select_id = $user->projet_select_id;
+
+       $organigramme = Organigramme::find($projet_select_id);
      
-       $data = array( 'id_organigramme' => $id );
+        $dossiers = $organigramme->dossiers;
+
+
+        $titre = '';
+
+        $all_dossier = array();
+
+
+        for($i=0;$i<count($dossiers);$i++){
+
+                $count_check_item_next = 0 ;
+                $check = 1 ;
+                $all_dossier = Attributs_dossier::where(['dossier_id' => $dossiers[$i]->id  ])->get();
+
+                $createdAt = Carbon::parse($dossiers[$i]->created_at);
+
+                $date = $createdAt->format('d/m/Y H:i:s');  
+
+
+                $user = User::find($dossiers[$i]->user_id);
+                for($j=0;$j<count($all_dossier);$j++){
+                    if( $all_dossier[$j]->type_champs == 'text'){
+                            if($check == $count_check_item_next ){
+                                $titre .= ' / ' ;
+                                $check++;
+                            }
+                            $titre .= $all_dossier[$j]->valeur;
+                            $count_check_item_next++;
+                    }
+                }
+
+                $all_dossiers[] = array('id' => $dossiers[$i]->id , 'date' => $date , 'titre' =>  $titre , 'user' =>  $user->identifiant );
+                $titre = '';
+         }  
+
+     
+        $data = array( 'id_organigramme' => $id , 'all_dossiers' => $all_dossiers );
 
 
 
@@ -297,7 +339,7 @@ class DossierController extends Controller
      
 
         return Response()
-      ->json($all_dossiers);
+      ->json(  $all_dossiers  );
 
 
      }
@@ -349,21 +391,34 @@ class DossierController extends Controller
             }
         }
 
-        
+        if($request->titre == ''){
+            $check_input = true;
+        }
+
+
         if($word == ''){
             $word = $request->titre;
         }
 
+
+       
         $array_search = array();
 
         function like($str, $searchTerm) {
             $searchTerm = strtolower($searchTerm);
-            $str = strtolower($str);
-            $pos = strpos($str, $searchTerm);
-            if ($pos === false)
+            if($searchTerm != ''){
+
+                $str = strtolower($str);
+                $pos = strpos($str, $searchTerm);
+                if ($pos === false)
+                    return false;
+                else
+                    return true;
+
+            } else {
                 return false;
-            else
-                return true;
+            }
+           
         }
 
 
@@ -420,7 +475,7 @@ class DossierController extends Controller
                     
 
                    } else {
-                    $check_input = true;
+                    
                    }
                 }
              
