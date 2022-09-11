@@ -105,7 +105,7 @@
                </div>
                </a>
             </li>
-            <li class="link_menu__right" style="margin-top:5px">
+            {{-- <li class="link_menu__right" style="margin-top:5px">
             <a href="{{ route('boites.create') }}">
                <div class="add_btn_folder">
                   <span class="icon_menu_right" >
@@ -114,7 +114,7 @@
                   <span class="label_menu_right"> Créer une nouvelle boîte </span>
                </div>
                </a>
-            </li>
+            </li> --}}
              @endif
             @endif
          </ul>

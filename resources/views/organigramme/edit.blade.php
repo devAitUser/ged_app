@@ -41,6 +41,14 @@
    i.caret {
     display: none;
    }
+   select.form-control {
+      width: auto;
+   }
+   span.lable_btn_add {
+    margin-top: 5px;
+    position: relative;
+    top: -8px;
+    }
 
 </style>
 <div class="header_view">
@@ -60,6 +68,36 @@
          <div class="col-md-6 panel_add">
             <h3 align="center">Ajouter un Nouveau Dossier</h3>
             <br />
+
+
+               <div class="form-group">
+                  <div class="block">
+                     <label>Sélectionner l'entité</label>
+                  </div>
+                  <div class="d_flex" style="display: flex;">
+
+                     <select name="select_entite" class="form-control" id="select_entite">
+                        <option value="">Selectionner</option>
+                        @foreach ($entites as $entite)
+                        <option value="{{$entite->id}}">{{$entite->nom}}</option>
+                        @endforeach
+                       </select> 
+
+                       <button class="form-control btn_add_entitre"  data-toggle="modal" data-target="#panel_entite" style="width: auto;margin-left: 37px;background-color: #cddc39;border: #707b0c;color: #333030;">
+
+                        <span class="material-icons">add</span>
+                       <span class="lable_btn_add">Ajouter</span> 
+
+                       </button>
+      
+                         
+
+                       
+
+                  </div>
+
+
+               </div>
           
                <div class="form-group">
                   <div class="block">
@@ -134,6 +172,11 @@
          <div class="col-md-12 panel_add">
             <h3 align="center">Le plan de classement du  <span class="ititle_organigramme"> {{$nom}}  </span> </h3>
             <br />
+            <nav aria-label="breadcrumb">
+               <ol class="breadcrumb">
+                 <li class="breadcrumb-item active" aria-current="page">Home</li>
+               </ol>
+             </nav>
             <div>
                <div id="treeview"></div>
             </div>
@@ -146,7 +189,7 @@
 
 
  
- <!-- Modal -->
+ <!-- Modal panel_attributs -->
  <div class="modal fade" id="panel_attributs" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
    <div class="modal-dialog modal-dialog-centered" role="document">
      <div class="modal-content">
@@ -183,6 +226,39 @@
        <div class="modal-footer">
          <button type="button" class="btn btn-secondary btn_fermer_attributs" data-dismiss="modal">Fermer</button>
          <button type="submit" class="btn btn-primary">Sauvegarder les modifications</button>
+       </div>
+      </form>
+     </div>
+   </div>
+ </div>
+
+
+ <!-- Modal entite -->
+ <div class="modal fade" id="panel_entite" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+   <div class="modal-dialog modal-dialog-centered" role="document">
+     <div class="modal-content">
+       <div class="modal-header">
+         <h4 class="modal-title" id="exampleModalLongTitle">Ajouter : <strong><span class="title_dossier"></span></strong>
+            </h4>
+         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+         </button>
+       </div>
+       <form method="post" id="form_modal">
+       <div class="modal-body">
+ 
+            
+            <div class="panel_pop_up">
+                     <div class="form-group">
+                     <label for="nom_organigramme">Nom du L'entité </label>
+                     <input type="text" class="form-control" name="nom_entite" id="nom_entite" placeholder="Nom du L'entité " required="">
+                     </div>
+            </div>
+      
+       </div>
+       <div class="modal-footer">
+         <button type="button" class="btn btn-secondary btn_fermer_attributs" data-dismiss="modal">Fermer</button>
+         <button type="button" class="btn btn-primary btn_creer_entite">Créer</button>
        </div>
       </form>
      </div>

@@ -386,6 +386,40 @@ $(document).ready(function() {
 
        });
 
+       $('.btn_add_entitre').on('click', function(event){
+        event.preventDefault();
+      });
+
+      $('.btn_creer_entite').on('click', function(event){
+        event.preventDefault();
+
+        var entite =  $('#nom_entite').val();
+        var id_organigramme =  $('#id_organigramme').val();
+
+        $.ajax({
+          url:"/creer_entite",
+          method:"POST",
+          data:{
+            'nom' : entite,
+            'id_organigramme' : id_organigramme,
+          },
+          success:function(data){
+
+            if(data.status){
+
+
+              
+                $("#select_entite").append($("<option   />").val(data.entite.id).text(data.entite.nom));
+            
+
+              $('#panel_entite .btn_fermer_attributs').click();
+
+            }
+    
+          }
+         })
+      });
+
        $('.modal_btn_add_oranigramme').on('click', function(event){
         event.preventDefault();
         var rowCount_v = $('#Modal_table_champs_add tr').length;
@@ -441,6 +475,7 @@ $(document).ready(function() {
                  method:"POST",
                  data:$(this).serialize(),
                  success:function(data){
+                  console.log(data)
 
               
 

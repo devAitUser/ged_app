@@ -125,7 +125,7 @@ li.Mnuli.lish.active a {
 
 .li_block_archive a {
   color: #666;
-  text-decoration: none;
+  text-decoration: none !important;
   font-size: 14px;
 }
 

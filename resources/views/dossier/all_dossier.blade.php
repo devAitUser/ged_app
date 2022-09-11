@@ -73,7 +73,7 @@
 
     .panel_view_details , .header_view {
 
-    width: 94% !important;
+    width: 84% !important;
 
     }
 
@@ -120,6 +120,10 @@
     
 
        }
+
+       .tbl_profil {
+       right: unset !important;
+         }
  
 </style>
 <div class="header_view">
@@ -133,7 +137,7 @@
    <div class="table_p">
              
 
-   <div class="block_data_dossier  tbl_profil" style='width: 80%;'>
+   <div class="block_data_dossier  tbl_profil" style='width: 94%;'>
 
 
      
@@ -148,11 +152,11 @@
                   <table id="organigramme_table" class=" table table-bordered text-center styled-table">
                      <thead>
                         <tr>
-                        <th width="20%">Numero  </th>
+                        <th width="15%">Numero  </th>
                         <th width="25%"> Date de création  </th>
                         <th width="40%"> Titre </th>
                         <th width="30%"> Opérateur 	</th>
-                        <th width="25%">Voir</th>
+                        <th width="30%">Voir</th>
 
 
 

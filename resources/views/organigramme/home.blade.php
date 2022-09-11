@@ -38,7 +38,7 @@
 </style>
 
       <div class="header_view">
-         <div class="sub_view"> <span class="title_profil"> Les plans de classement </span> </div>
+         <div class="sub_view"> <span class="title_profil"> Les plans de classements </span> </div>
       </div>
       <div class="panel_view_details">
          <div class="table_p">

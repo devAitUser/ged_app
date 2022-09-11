@@ -20,6 +20,19 @@ function add_row_select(row){
   var id_select =    $('#sous_select_'+row+' option:selected').val();
 
 
+         if( id_select == '' ){
+
+          var count_p = count;
+          for (let i = next; i < count_p+1; i++) {
+            $("#row_"+i).remove();
+            count = count -1;
+          }
+          count++;
+
+          $("#attribut_champ").empty();
+          $("#attribut_file").empty();
+
+         }
 
        $.ajaxSetup({
         headers: {
@@ -36,6 +49,7 @@ function add_row_select(row){
         success: function(data) {
       
           if ($.trim(data.dossier_champs)){   
+            console.log('data.dossier_champs :'+data.dossier_champs);
 
             if( !$("#row_"+next).length ){    
               
@@ -78,10 +92,8 @@ function add_row_select(row){
                });
                var tt= next+1;
                $("#sous_select_"+tt).find('option').not(':first').remove();
-
+               $(".sous_label_"+next).html(data.dossier_champs_label+" :");
             
-         
-
             }
           } else {
             var count_pre = count;
@@ -211,6 +223,30 @@ $(document).ready(function() {
 
   $('#parent_select').on('change', function() {
     var id_select =    $('#parent_select option:selected').val();
+
+    if( id_select == '' ){
+
+      var count_p = count;
+
+    
+
+
+      var next = 2 ;
+  
+      for (let i = next; i < count_p+1; i++) {
+        $("#row_"+i).remove();
+        count = count -1;
+      }
+      count++;
+
+      $("#sous_select_1").find('option').not(':first').remove();
+
+      $(".sous_label_1").html('________ :');
+
+      $("#attribut_champ").empty();
+      $("#attribut_file").empty();
+
+    }
       
 
        $.ajaxSetup({

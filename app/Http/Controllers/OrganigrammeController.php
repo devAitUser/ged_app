@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Dossier_champ;
 use App\Models\Organigramme;
 use App\Models\Attribut_champ;
-
+use App\Models\Entite;
 use Illuminate\Http\Request;
 
 class OrganigrammeController extends Controller
@@ -333,6 +333,7 @@ class OrganigrammeController extends Controller
     
                 
                     $new_dossier->organigramme_id = $request->input('id_organigramme');
+                    $new_dossier->entite_id = $request->input('select_entite') ;
                     $new_dossier->save();
     
                     $check_add = true;
@@ -371,7 +372,7 @@ class OrganigrammeController extends Controller
 
                 $new_dossier->nom_champs = $request->input('dossier_champs');
 
-            
+                $new_dossier->entite_id = $request->input('select_entite') ;
                 $new_dossier->organigramme_id = $request->input('id_organigramme');
                 $new_dossier->save();
 
@@ -465,9 +466,11 @@ class OrganigrammeController extends Controller
     public function edit_organigramme($id){
 
         $item_organigramme= Organigramme::find($id);   
-            
+        
+        
+        $entite = Entite::where(['organigramme_id' => $id ])->get();
      
-        $data = array( "nom" => $item_organigramme['nom'] , "id" => $id , );
+        $data = array( "nom" => $item_organigramme['nom'] , "id" => $id , "entites" => $entite );
         return view(' organigramme.edit' ,$data)  ; 
     
      }

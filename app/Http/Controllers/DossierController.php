@@ -11,6 +11,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
+
+use App\Models\Entite;
+
 use Illuminate\Http\Request;
 
 class DossierController extends Controller
@@ -485,6 +488,138 @@ class DossierController extends Controller
             
             return view('dossier.search_dossier',$data);
 
+
+     }
+
+
+
+     public function api_search_table(Request $request){
+
+
+        $user = Auth::user();
+
+        $projet_select_id = $user->projet_select_id;
+
+        $count_dossier=0;
+
+        $nom_champ = '';
+        $word ='';
+
+        $check_input = false;
+
+        $all_dossiers = array();
+
+        if(isset($request->nom_champ)){
+            for($o=0;$o<count($request->nom_champ);$o++){
+                if($word == '' ){
+                    $word = $request->valeur[$o];
+                    $nom_champ = $request->nom_champ[$o];
+                } 
+            }
+        }
+
+       
+
+
+       
+        $array_search = array();
+
+        function like($str, $searchTerm) {
+            $searchTerm = strtolower($searchTerm);
+            if($searchTerm != ''){
+
+                $str = strtolower($str);
+                $pos = strpos($str, $searchTerm);
+                if ($pos === false)
+                    return false;
+                else
+                    return true;
+
+            } else {
+                return false;
+            }
+           
+        }
+
+
+       $dossiers = Dossier::query()->where([ 'organigramme_id' =>  $projet_select_id ])->get() ;
+       $titre = '';
+
+            for($i=0;$i<count($dossiers);$i++){
+
+                $attributs_dossiers = Attributs_dossier::query()->where([ 'dossier_id' =>  $dossiers[$i]->id , 'nom_champs' => $nom_champ ])->get() ;
+
+                
+
+                for($j=0;$j<count($attributs_dossiers);$j++){
+                    $found = like($attributs_dossiers[$j]->valeur, $word);
+                   if($found){
+                    $array_search[] = $attributs_dossiers[$j];
+
+                    $dossiers_s = dossier::find($attributs_dossiers[$j]->dossier_id);
+
+                    
+
+                        $count_check_item_next = 0 ;
+                        $check = 1 ;
+
+                            $all_dossier = Attributs_dossier::where(['dossier_id' => $dossiers_s->id   ])->get();
+                      
+
+                        $createdAt = Carbon::parse($dossiers_s->created_at);
+
+                        $date = $createdAt->format('d/m/Y H:i:s');  
+
+                        $user = User::find($dossiers_s->user_id);
+                        for($e=0;$e<count($all_dossier);$e++){
+                         
+                            if( $all_dossier[$e]->type_champs == 'text' ){
+                                    if($check == $count_check_item_next ){
+                                        $titre .= ' / ' ;
+                                        $check++;
+                                    }
+                                    $titre .= $all_dossier[$e]->valeur;
+                                    $count_check_item_next++;
+                            }
+                        }
+                        $count_dossier++;
+            
+                        $all_dossiers[] = array('id' => $dossiers[$i]->id , 'date' => $date , 'titre' =>  $titre , 'user' =>  $user->identifiant );
+                        $titre = '';
+            
+                      
+                    
+
+                   } else {
+                    
+                   }
+                }
+             
+            }
+          
+            $data = array( 'all_dossiers' => $all_dossiers , 'count' => $count_dossier , 'check_input' => $check_input  );
+
+            return Response()
+            ->json(  $data  );
+
+
+     }
+
+     public function creer_entite(Request $request){
+
+         $new = new Entite();
+
+         $new->nom = $request->nom;
+         $new->organigramme_id = $request->id_organigramme;
+
+         $new->save();
+
+
+         $data = array( 'status' => true , 'entite' => $new  );
+
+
+         return Response()
+            ->json(  $data   );
 
      }
 

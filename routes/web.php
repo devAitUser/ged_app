@@ -107,6 +107,10 @@ Route::post('/update_dossier/{id}',[App\Http\Controllers\DossierController::clas
 
 Route::post('/search_dossier',[App\Http\Controllers\DossierController::class, 'search_dossier'])->name('search_dossier');
 
+Route::post('/api_search_table',[App\Http\Controllers\DossierController::class, 'api_search_table'])->name('api_search_table');
+
+Route::post('/creer_entite',[App\Http\Controllers\DossierController::class, 'creer_entite'])->name('creer_entite');
+
 /****boites */
 
 Route::resource('boites',App\Http\Controllers\BoiteController::class);
