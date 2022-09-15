@@ -50,6 +50,19 @@
     top: -8px;
     }
 
+    .tree {
+         list-style: none;
+         padding-left: 0px;
+      }
+
+      ol.breadcrumb {
+            border: 1px solid #ddd9d9;
+            font-size: 14px;
+            margin-top: 30px;
+            margin-bottom: 18px;
+            background-color: #f5f3f3;
+         }
+
 </style>
 <div class="header_view">
    <div class="sub_view">
@@ -76,7 +89,7 @@
                   </div>
                   <div class="d_flex" style="display: flex;">
 
-                     <select name="select_entite" class="form-control" id="select_entite">
+                     <select name="select_entite" class="form-control" id="select_entite" required>
                         <option value="">Selectionner</option>
                         @foreach ($entites as $entite)
                         <option value="{{$entite->id}}">{{$entite->nom}}</option>
@@ -86,7 +99,17 @@
                        <button class="form-control btn_add_entitre"  data-toggle="modal" data-target="#panel_entite" style="width: auto;margin-left: 37px;background-color: #cddc39;border: #707b0c;color: #333030;">
 
                         <span class="material-icons">add</span>
-                       <span class="lable_btn_add">Ajouter</span> 
+                 
+
+                       </button>
+
+                       
+                       <button class="form-control btn-danger btn_delete_entite"   style="width: auto;margin-left: 37px;">
+
+                       <span class="icon_empty" style="position: relative;top: -1px;"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                                 <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"></path>
+                              </svg> </span>
+        
 
                        </button>
       
@@ -171,15 +194,14 @@
         
          <div class="col-md-12 panel_add">
             <h3 align="center">Le plan de classement du  <span class="ititle_organigramme"> {{$nom}}  </span> </h3>
-            <br />
-            <nav aria-label="breadcrumb">
-               <ol class="breadcrumb">
-                 <li class="breadcrumb-item active" aria-current="page">Home</li>
-               </ol>
-             </nav>
+     
+         
             <div>
-               <div id="treeview"></div>
+               <div ></div>
             </div>
+            <ul class="tree"  >
+
+            </ul>
          </div>
       </div>
    </form>

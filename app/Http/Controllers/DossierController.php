@@ -20,6 +20,8 @@ class DossierController extends Controller
 {
     public function create_dossier(){
 
+        $this->authorize('permission_creer_dossier');
+
         $user = Auth::user();
          $id ='';
 
@@ -349,6 +351,8 @@ class DossierController extends Controller
 
      public function update_dossier($id,Request $request){
 
+
+        $this->authorize('permission_Modifier_dossiers');
         for($i=0;$i<count($request->id);$i++){
             $upd = Attributs_dossier::find($request->id[$i]);  
             $upd->valeur = $request->valeur[$i];
@@ -361,6 +365,8 @@ class DossierController extends Controller
 
 
      public function delete_dossier($id){
+
+        $this->authorize('permission_Modifier_dossiers');
 
         $delete = Dossier::find($id);  
         $delete->delete();

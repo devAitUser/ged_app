@@ -40,7 +40,7 @@ Route::get('/all_user', [App\Http\Controllers\UserController::class, 'all_user']
 
 //Route::get('/organigramme1', [App\Http\Controllers\OrganigrammeController::class, 'index'])->name('organigramme');
 
-
+Route::post('/remove_entite', [App\Http\Controllers\OrganigrammeController::class, 'remove_entite']);
 
 Route::post('/array_organigramme', [App\Http\Controllers\OrganigrammeController::class, 'array_organigramme'])->name('test_ajax');
 
@@ -77,7 +77,7 @@ Route::post('/update_attributs',[App\Http\Controllers\OrganigrammeController::cl
 
 Route::post('/remove_champs_attributs',[App\Http\Controllers\OrganigrammeController::class, 'remove_champs_attributs']);
 
-
+//Route::get('/test/{id}',[App\Http\Controllers\OrganigrammeController::class, 'check_piece']);
 
 /****Dossier */
 
@@ -116,7 +116,7 @@ Route::post('/creer_entite',[App\Http\Controllers\DossierController::class, 'cre
 Route::resource('boites',App\Http\Controllers\BoiteController::class);
 //Route::get('/create', [App\Http\Controllers\BoiteController::class, 'create'])->name('create');
 //Route::get('/register1',[App\Http\Controllers\Auth\RegisterController::class, 'test']);
-Route::get('/user_show', [App\Http\Controllers\UserController::class, 'test'])->name('user_show');
+Route::get('/create_user', [App\Http\Controllers\UserController::class, 'create_user'])->name('user_show');
 Route::post('/ajouter', [App\Http\Controllers\UserController::class, 'create'])->name('add');
 Route::get('/verify', [App\Http\Controllers\UserController::class, 'verify'])->name('verify');
 Route::post('/checkLogin', [App\Http\Controllers\UserController::class, 'checkLogin'])->name('checkLogin');

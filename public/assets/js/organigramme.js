@@ -149,7 +149,7 @@ function unset_table() {
 
   check_have_parent();
 
-
+  var  entite =  $('#select_entite').val() 
 
   $.ajaxSetup({
     headers: {
@@ -163,8 +163,10 @@ function unset_table() {
     data:{
       organigramme_id : id_organigramme,
       type_btn : type_btn,
+      entite : entite,
     },
     success: function(data) {
+    
 
        $('#select_block').html(data)
        $('#select_tree').treeselect();
@@ -181,11 +183,39 @@ function unset_table() {
       },
       dataType: "json",
       success: function(data) {
-        $('#treeview').treeview({
-          data: data,
-          
+        console.log(data)
 
-        });
+        var num = 0;
+
+
+ 
+
+        $(".tree").empty()
+
+        for (let i = 0; i < data.length; i++) {
+
+          num = num+1
+
+
+          var label_entite = '<nav aria-label="breadcrumb"> <ol class="breadcrumb"> <li class="breadcrumb-item active" aria-current="page">'+data[i].name_entite+'</li> </ol> </nav>';
+
+
+          $(".tree").append("<li  > "+label_entite+" <div id='treeview_"+num+"'> </div> </li> ");
+          
+        
+
+
+              $("#treeview_"+num).treeview({
+              data: data[i].dossiers,
+              
+
+            });
+
+
+         }
+
+
+      
       }
   })
 
@@ -339,6 +369,12 @@ $(document).ready(function() {
 
                  
            });
+
+
+
+           $("#select_entite").change(function(){
+               fill_treeview()
+          });
   
       
 
@@ -420,6 +456,38 @@ $(document).ready(function() {
          })
       });
 
+
+
+
+      $('.btn_delete_entite').on('click', function(event){
+        event.preventDefault();
+
+        var id_entite =  $('#select_entite').val();
+
+        $.ajax({
+          url:"/remove_entite",
+          method:"POST",
+          data:{
+            'id_entite' : id_entite,
+          },
+          success:function(data){
+
+            if(data.etat){
+
+
+              $('#select_entite').find('option:selected').remove();
+
+
+                alert('supprimer avec Succès')
+
+            }
+    
+          }
+         })
+
+      });
+
+
        $('.modal_btn_add_oranigramme').on('click', function(event){
         event.preventDefault();
         var rowCount_v = $('#Modal_table_champs_add tr').length;
@@ -477,15 +545,17 @@ $(document).ready(function() {
                  success:function(data){
                   console.log(data)
 
-              
+                  console.log(data.piece_have_att)
 
-                  if(!data.check_sub_dossier){
+                  if(!data.piece_have_att){
 
-                       if(data.type_dossier == 'btn_piece_joint' && data.piece_joint == true ){
+                      if(!data.check_sub_dossier){
+
+                        if(data.type_dossier == 'btn_piece_joint' && data.piece_joint == true ){
 
                           alert("ce n'est pas une piece joint");
 
-                       }else{
+                        }else{
 
                         if(data.etat){
                         
@@ -493,25 +563,34 @@ $(document).ready(function() {
                       
                           $('#treeview_form')[0].reset();
                           alert('ajouter aves succes');
-  
+
                           $('#type_dossier').val(data.type_dossier);
       
                             $([document.documentElement, document.body]).animate({
-                              scrollTop: $("#treeview").offset().top
+                              scrollTop: $(".tree").offset().top
                           }, 2000);
       
                           unset_table()
                         }
 
-                       }
+                        }
 
 
               
 
-                  }else{
-                     alert('interdit d ajouter sous dossier dans ce racine');
+                      }else{
+                          alert('il ne respect pas la forme d une pièce ');
+                      }
+
+
+                  } else{
+
+
+                       alert('interdit d ajouter la pièce  dans ce racine');
+
                   }
-   
+
+       
                   
            
                  }

@@ -10,11 +10,15 @@ class RoleController extends Controller
 {
     public function index()
     {
+        $this->authorize('permission_Modifier_roles');
+
         $roles=Role::all();$permissions=Permission::all();
         return view('role.index',compact('roles','permissions'));
     }
     public function create()
-    { $role=Role::all();
+    { 
+        $this->authorize('permission_Modifier_roles');
+        $role=Role::all();
         $permissions=Permission::all();
         return view('role.create',compact('role','permissions'));
     }
@@ -67,6 +71,7 @@ class RoleController extends Controller
 
     public function edit(Role $role)
     {
+        $this->authorize('permission_Modifier_roles');
         $permissions=Permission::all();
         return view('role.edit',compact('role','permissions'));
     }

@@ -20,7 +20,7 @@
             <form method="POST" action="{{ route('login') }}">
               @csrf
 
-                <div class="input-container">
+                <div class="input-container login">
                     <span class="material-icons pers">
                         person
                         </span>

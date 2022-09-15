@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Organigramme;
@@ -11,6 +12,7 @@ use Hash;
 use Session;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
+
 class UserController extends Controller
 {
     public function __construct()
@@ -21,13 +23,16 @@ class UserController extends Controller
 
 
 
-    public function test(){
+    public function create_user(){
+        $this->authorize('permission_user');
         $roles=Role::all();
         return view('user.register',compact('roles'));
     }
 
     public function create(Request $request)
     {
+
+        $this->authorize('permission_user');
 
         $request->validate([
             'nom'=>'required',
@@ -65,6 +70,8 @@ class UserController extends Controller
     }
 
     public function test2(Request $request){
+
+        $this->authorize('permission_user');
         $search=$request->search;
         if($search != ""){
             $users=User::where('nom','=',$search)->get();
@@ -121,6 +128,10 @@ class UserController extends Controller
     }
 
     public function showUser($id){
+
+        $this->authorize('permission_user');
+
+
          $organigrammes=Organigramme::all();
          $roles=Role::all();
          $user = User::find($id);
@@ -142,9 +153,14 @@ class UserController extends Controller
           }
 
 
+         
+
+
           
 
        return view('user.showuser',compact('user','roles','permissions','organigrammes','les_projets' ,'count_projet' ));
+
+
     }
     public function updateUser(Request $request)
     {
