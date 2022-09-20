@@ -10,7 +10,10 @@ use App\Models\Attributs_dossier;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
-
+use Illuminate\Routing\UrlGenerator;
+use Smalot\PdfParser\Parser;
+use App\Models\File_searche;
+use Illuminate\Support\Str;
 
 use App\Models\Entite;
 
@@ -18,6 +21,15 @@ use Illuminate\Http\Request;
 
 class DossierController extends Controller
 {
+
+    protected $url;
+
+    public function __construct(UrlGenerator $url)
+    {
+        $this->middleware('auth');
+        $this->url = $url;
+    }
+
     public function create_dossier(){
 
         $this->authorize('permission_creer_dossier');
@@ -183,6 +195,35 @@ class DossierController extends Controller
                         $attributs_dossier1->type_champs =   'Fichier' ;
                         $attributs_dossier1->dossier_id  =   $dossier->id;
                         $attributs_dossier1->save();
+
+
+                        if($attributs_dossier1->valeur != ''){
+
+                            include ('../public/lib/PdfToText/PdfToText.phpclass');
+
+                            //$link = $this->url->to('/');
+                            $link = "http://localhost/ged_app1/public";
+                            $path_file = $attributs_dossier1->valeur ;
+                            $path = $link.'/storage/'.$path_file;
+                            $pdf	=  new \PdfToText ($path );
+                            $data = $pdf -> Text;
+                    
+                            $file =  new File_searche();
+                            $file->filename   =  $attributs_dossier1->nom_champs ;
+                            $file->content    =  $data  ;
+                            $file->dossier_id =  $dossier->id;
+                            $file->attributs_dossiers_id =  $attributs_dossier1->id;
+                            $file->projet_id =  $request->id_organigramme ;
+                            $file->save();
+
+
+                           
+                           
+                        
+                            
+
+                        }
+                     
                         
                     }
                                 
@@ -293,6 +334,81 @@ class DossierController extends Controller
 
 
         return view('dossier.recherche',$data);
+
+     }
+
+
+     public function api_search_ocr(Request $request) {
+
+        $posts = File_searche::where('projet_id', '=', $request->id_organigramme)->where('content', 'like', "%".$request->input_text."%")->get();
+
+        function arr_filter($arr) {
+            $arr_explode = [];
+            $data =[];
+            $text = "";        
+            if($arr){
+
+                foreach($arr as $value) {
+                    $content= preg_split('/\.|\?|!/', $value->content); 
+                    $arr_explode = array_filter($content, function($element) {
+                        return Str::contains($element, '1040-V',false);
+                    });
+                    $content_array = array_values(array_unique($arr_explode));
+                    foreach( $content_array as  $content){
+                        $w1 = "1040-V";
+                        $w2 = "<strong>1040-V</strong>";
+                        $str = str_replace($w1, $w2, $content); 
+
+                        $text .= $str.'<br><br>';
+                    }
+
+                   
+
+                    $createdAt = Carbon::parse($value->created_at);
+
+                    $date = $createdAt->format('d/m/Y H:i:s');  
+
+                    $data[] = array( 'date' => $date  , 'filename' => $value->filename , 'content' => $text , 'id_dossier' => $value->dossier_id  );
+                }
+
+            }        
+            return   $data ;
+        }
+
+        $data_search =  arr_filter($posts) ;
+
+        return Response()
+        ->json(  $data_search  );
+
+     }
+
+
+     public function recherche_ocr() {
+
+        $user = Auth::user();
+        $id ='';
+
+
+        if($user->projet_select_id != NULL) {
+ 
+            $projet_select_id = $user->projet_select_id;
+ 
+            $organigramme = Organigramme::find($projet_select_id);
+            $id = $organigramme->id;
+       
+          
+ 
+        }
+
+       
+       
+
+
+        $data = array( 'id_organigramme' => $id  );
+
+
+
+        return view('dossier.recherche_ocr',$data);
 
      }
 

@@ -31,7 +31,7 @@
    }
    button.btn_profil.btn_search {
    font-size: 15px;
-   padding: 5px 10px 5px 37px
+   padding:5px 15px 5px 37px
    }
    .icon_search {
    position: absolute;
@@ -43,10 +43,21 @@
     padding-top: 23px;
 
    }
-   .styled-table thead tr {
-    background-color: #428bca;
-      }
+   .table td, .table th {
+    padding: 0.5rem !important;
+    }
 
+    #organigramme_table thead tr th {
+    border-bottom: 1px solid #a1a3a4 !important;
+    border-top: 1px solid #a1a3a4 !important;
+     }
+
+    .styled-table thead tr {
+      background-color: #e3e5e8;
+      color: #363f44;
+      line-height: 2.3;
+      border: 1px solid #c0b9b9;
+      }
 
       table#organigramme_table {
       box-shadow: rgb(136 136 136) 0px 1px 3px;
@@ -55,6 +66,8 @@
       table#organigramme_table tr {
          border-top: 1px solid #ddd !important;
          border-bottom: 1px solid #ddd !important;
+         border-left: 1px solid #ddd !important;
+         border-right: 1px solid #ddd !important;
  
       }
 
@@ -65,12 +78,12 @@
       }
 
       #organigramme_table .odd {
-            background-color: #ebf3f9;
+            background-color: #edf0f3cf;
          }
 
       @media screen and (min-width: 600px){
             table#organigramme_table tbody tr:hover {
-               background-color: #d6e4ef;
+               background-color: #e3e6e9f7;
             }
 
     

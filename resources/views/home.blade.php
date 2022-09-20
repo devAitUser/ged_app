@@ -23,6 +23,12 @@
                </span>
                <span class="label_menu _left"> Rechercher un dossier </span>
             </li>
+            <li class="link_menu__left " onclick="window.open('{{route('recherche_ocr')}}', '_self');">
+               <span class="icon_menu_left search_ocr" >
+               <img src="{{ asset('img_app/img_search_ocr.png') }}" style="width: 20px;">
+               </span>
+               <span class="label_menu _left"> Rechercher plein texte </span>
+            </li>
             {{-- <li class="link_menu__left">
                <span class="icon_menu_left" >
                <img src="{{ asset('img_app/folder-close-icon.png') }}" style="width: 20px;">

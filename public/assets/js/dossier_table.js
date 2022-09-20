@@ -38,17 +38,18 @@
         'contentType': 'application/json'
     }).done( function(data) {
         $('#organigramme_table').dataTable( {
+            order: [[0, 'desc']],
             "aaData": data,
             "searching" : false,
             "bInfo" : false,
             "lengthChange": false,
             columnDefs: [
-                {
-                    targets: -1,
-                    data: null,
-                    defaultContent: '<button>Click!</button>',
-                },
-            ],
+              { targets: 0, width: '120px' },    
+              { targets: 1, width: '130px' },
+              { targets: 2, width: '270px' },
+              { targets: 3, width: '160px' },
+              { targets: 4, width: '100px' }, ],
+            fixedColumns: true,
             
             "paginate": {
                 "first": "PremiÃ¨re",

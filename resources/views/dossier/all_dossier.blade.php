@@ -2,9 +2,7 @@
 @section('content')
 <script src="https://code.jquery.com/jquery-1.12.1.min.js"></script> 
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/flatly/bootstrap.min.css">
-<link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.0.45/css/materialdesignicons.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
 
 <link rel="stylesheet" href="{{ asset('assets/css/css_table_show.css') }}">
 
@@ -12,9 +10,6 @@
 <style>
    .panel_view_bottom {
    display: block;
-   }
-   span.title_profil {
-   padding-left: unset !important; 
    }
    .panel_view_bottom {
    height: auto !important;
@@ -26,71 +21,49 @@
    #organigramme_table_wrapper {
    margin-bottom: 15px;
    }
-   i.fa-solid.fa-circle-xmark {
-   font-size: 18px;
-   color: #e91e63;
-   margin-top: 10px;
+   button.btn_profil {
+   border: none;
    }
-   .form-group.row {
-    align-items: center;
+   .tbl_profil {
+   width: 36%;
+   }
+   table.tbl_profil tr td {
+   text-align: CENTER;
+   }
+   .tbl_profil .block_search td {
+   padding-top: 47px ;
+   text-align: center;
+   margin-top: 11px;
+   }
+   button.btn_profil.btn_search {
+   font-size: 15px;
+   padding:5px 15px 5px 37px
+   }
+   .icon_search {
+   position: absolute;
+   margin-left: -28px;
+   margin-top: -1px;
    }
 
-   .form-control {
-    height: 36px;
-    padding: 1px 15px;
-   }
+   table.tbl_profil tr td {
+    padding-top: 23px;
 
-   .form-control:focus, input:focus {
-    border-color: #d7d1cb !important;
+   }
+   .table td, .table th {
+    padding: 0.5rem !important;
     }
 
-    .attribut_file {
-    border: 2px solid #cbc3c3;
-    border-radius: 22px;
-    padding-top: 15px;
-    padding-bottom: 15px;
-    margin-top: 15px;
-   }
-
-   #attribut_champ {
-    width: 100%;   
-    PADDING-TOP: 15PX;
-   }
-   .btn_panel {
-    text-align: -webkit-center;
-    padding-top: 25px;
-    padding-bottom: 20px;
-   }
-
-   .btn_panel button {
-    padding: 5px 10px;
-    }
-
-    .panel_organigramme {
-    PADDING-RIGHT: 0px!important;
-    PADDING-LEFT: 0px !important;
-    }
-
-    .panel_view_details , .header_view {
-
-    width: 84% !important;
-
-    }
-
-    .panel_organigramme {
-    PADDING-RIGHT: 25px!important;
-    height: 550px !important;
+    #organigramme_table thead tr th {
+    border-bottom: 1px solid #a1a3a4 !important;
+    border-top: 1px solid #a1a3a4 !important;
      }
 
-     .form-group label {
-    font-size: 14px;
-    }
-
-
     .styled-table thead tr {
-    background-color: #428bca;
+      background-color: #e3e5e8;
+      color: #363f44;
+      line-height: 2.3;
+      border: 1px solid #c0b9b9;
       }
-
 
       table#organigramme_table {
       box-shadow: rgb(136 136 136) 0px 1px 3px;
@@ -99,6 +72,8 @@
       table#organigramme_table tr {
          border-top: 1px solid #ddd !important;
          border-bottom: 1px solid #ddd !important;
+         border-left: 1px solid #ddd !important;
+         border-right: 1px solid #ddd !important;
  
       }
 
@@ -109,22 +84,73 @@
       }
 
       #organigramme_table .odd {
-            background-color: #ebf3f9;
+            background-color: #edf0f3cf;
          }
 
       @media screen and (min-width: 600px){
             table#organigramme_table tbody tr:hover {
-               background-color: #d6e4ef;
+               background-color: #e3e6e9f7;
             }
 
     
 
        }
-
-       .tbl_profil {
-       right: unset !important;
+       button.btn_profil.btn_empty {
+       font-size: 15px;
+       padding: 5px 10px 5px 28px;
+       background-color: red;
+       }
+       .icon_empty {
+            position: absolute;
+            margin-left: -20px;
+            margin-top: -1px;
          }
- 
+         .tbl_profil {
+            width: 90% !important;
+            margin-bottom: 10px !important;
+            position: unset !important;
+          
+         }
+         .cadre_form {
+            border: 1px solid #cbc3c3;
+            border-radius: 22px;
+            padding-top: 15px;
+            padding-bottom: 15px;
+            margin-top: 15px;
+         }
+         .cadre_form {
+            width: 50%;
+            margin: 0 auto;
+            background-color: #f8f5f5;
+         }
+         form#search_form {
+            margin-bottom: 20px;
+            
+         }
+         span.label_search {
+            font-weight: 500;
+         
+         }
+         .tbl_profil tr:not(:first-child) td {
+            text-transform: uppercase;
+         font-weight: 400;
+         }
+         .d_none{
+            display: none;
+         }
+        
+         .panel_view_details, .header_view {
+            width: 84% !important;
+         }
+         .row.panel_add select , .row.panel_add label {
+            font-size: 13px !important;
+         }
+         .panel_search {
+                  margin: 0 auto;
+         }
+         .form-control {
+            height: 33.5px;
+         }
 </style>
 <div class="header_view">
    <div class="sub_view">

@@ -576,7 +576,7 @@ span.ititle_organigramme {
   font-size: 0.9em;
   font-family: sans-serif;
   min-width: 400px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+
 }
 
 .styled-table thead tr {
@@ -669,13 +669,7 @@ table.table_champs_add {
   text-align:  center;
 }
 
-#organigramme_table tr:first-child th:first-child {
-  border-top-left-radius: 6px;
-}
 
-#organigramme_table tr:first-child th:last-child {
-  border-top-right-radius: 6px;
-}
 #organigramme_table_paginate {
   padding-top: 5px;
   padding-right: 2px;

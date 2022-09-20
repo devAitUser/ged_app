@@ -46,11 +46,11 @@ $(document).ready(function() {
 
 
 
-        var tt= [{ id: 1, date:"Demo Name" , titre:"demo1@gmail.com" , user:"demo1@gmail.com", user1:"demo1@gmail.com"  },{ id: 2, date:"Demo Name" , titre:"demo1@gmail.com" , user:"demo1@gmail.com", user1:"demo1@gmail.com"  }]
+       
 
         table = $('#organigramme_table').DataTable( {
           paging: true,
-
+          order: [[0, 'desc']],
                "bInfo": false,
               "lengthChange": false,
               
@@ -106,7 +106,7 @@ $(document).ready(function() {
 
           table = $('#organigramme_table').DataTable( {
             paging: true,
-
+            order: [[0, 'desc']],
             "bInfo": false,
            "lengthChange": false,
 
@@ -186,7 +186,7 @@ $(document).ready(function() {
              console.log(data.all_dossiers)
 
 
-             var tt1 = [{ id: 3, date:"Demo Name" , titre:"demo1@gmail.com" , user:"demo1@gmail.com", user1:"demo1@gmail.com"  }];
+          
              table.destroy();
        
              table
@@ -203,6 +203,7 @@ $(document).ready(function() {
               fixedColumns: true,
                "aaData": data.all_dossiers ,
                "bInfo": false,
+               order: [[0, 'desc']],
                "lengthChange": false,
        
        

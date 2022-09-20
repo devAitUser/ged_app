@@ -31,6 +31,7 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+
 Route::get('/user_profile', [App\Http\Controllers\UserController::class, 'index'])->name('user_profile');
 
 Route::post('/user_profile_update', [App\Http\Controllers\UserController::class, 'update'])->name('user_profile_update');
@@ -95,6 +96,10 @@ Route::get('/show_dossier/{id}',[App\Http\Controllers\DossierController::class, 
 
 Route::get('/recherche_dossier',[App\Http\Controllers\DossierController::class, 'recherche_dossier'])->name('recherche_dossier');
 
+
+Route::get('/recherche_ocr',[App\Http\Controllers\DossierController::class, 'recherche_ocr'])->name('recherche_ocr');
+
+Route::post('/api_search_ocr',[App\Http\Controllers\DossierController::class, 'api_search_ocr'])->name('api_search_ocr');
 
 Route::get('/all_dossier',[App\Http\Controllers\DossierController::class, 'all_dossier'])->name('all_dossier');
 

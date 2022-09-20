@@ -1,13 +1,27 @@
 <?php
 
 namespace App\Http\Controllers;
+use Smalot\PdfParser\Parser;
+
+
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Organigramme;
 use App\Models\User;
 use App\Models\Dossier;
+use App\Models\File_searche;
+use Illuminate\Support\Str;
 use Carbon\Carbon;
+use Illuminate\Routing\UrlGenerator;
+
+use Spatie\PdfToText\Pdf;
+
+
+
+
+
+
 
 class HomeController extends Controller
 {
@@ -16,10 +30,15 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    protected $url;
+
+    public function __construct(UrlGenerator $url)
     {
         $this->middleware('auth');
+        $this->url = $url;
     }
+
+
 
     /**
      * Show the application dashboard.

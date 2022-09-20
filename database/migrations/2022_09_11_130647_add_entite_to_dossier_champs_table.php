@@ -26,8 +26,6 @@ class AddEntiteToDossierChampsTable extends Migration
      */
     public function down()
     {
-        Schema::table('dossier_champs', function (Blueprint $table) {
-            //
-        });
+       
     }
 }
