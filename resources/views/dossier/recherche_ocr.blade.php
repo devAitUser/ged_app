@@ -48,7 +48,7 @@
     }
 
     #organigramme_table thead tr th {
-    border-bottom: 1px solid #a1a3a4 !important;
+    border-bottom: 1px solid #c6c2c2  !important;
     border-top: 1px solid #a1a3a4 !important;
      }
 
@@ -59,12 +59,24 @@
       border: 1px solid #c0b9b9;
       }
 
-      
+      #organigramme_table tr:first-child th:first-child {
+      border-top-left-radius: 4px   ;
+      }
+
+      #organigramme_table tr:first-child th:last-child {
+      border-top-right-radius: 4px;
+      }
+
+      table#organigramme_table {
+         border-collapse: collapse;
+         border-radius: 4px;
+         border-style: hidden;
+         box-shadow: 0 0 0 1px #b6b1b1;
+      }
 
       table#organigramme_table tr {
          border-top: 1px solid #ddd !important;
          border-bottom: 1px solid #ddd !important;
-
          border-left: 1px solid #ddd !important;
          border-right: 1px solid #ddd !important;
  
@@ -80,7 +92,14 @@
             background-color: #edf0f3cf;
          }
 
-     
+      @media screen and (min-width: 600px){
+            table#organigramme_table tbody tr:hover {
+               background-color: #e3e6e9f7;
+            }
+
+    
+
+       }
        button.btn_profil.btn_empty {
        font-size: 15px;
        padding: 5px 10px 5px 28px;

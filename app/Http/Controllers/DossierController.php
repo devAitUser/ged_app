@@ -30,6 +30,51 @@ class DossierController extends Controller
         $this->url = $url;
     }
 
+    public function test (){
+        $posts = File_searche::where('projet_id', '=', 1)->where('content', 'like', "%Je soussigné%")->get();
+
+  $word= "Je soussigné";
+        
+ 
+            $arr_explode = [];
+            $data =[];
+            $text = "";        
+     
+
+                foreach($posts as $value) {
+                    $content= preg_split('/\.|\?|!/', $value->content); 
+                    $arr_explode = array_filter($content, function($element) use($word) {
+                        return Str::contains($element, $word ,false);
+                    });
+                    $content_array = array_values(array_unique($arr_explode));
+                    foreach( $content_array as  $content){
+                        $w1 = "Je soussigné";
+                        $w2 = "<strong>Je soussigné</strong>";
+                        $str = str_replace($w1, $w2, $content); 
+
+                        $text .= $str.'<br><br>';
+                    }
+
+                   
+
+                    $createdAt = Carbon::parse($value->created_at);
+
+                    $date = $createdAt->format('d/m/Y H:i:s');  
+
+                    $data[] = array( 'date' => $date  , 'filename' => $value->filename , 'content' => $text , 'id_dossier' => $value->dossier_id  );
+                }
+
+                
+        
+        
+
+      
+
+        return Response()
+        ->json(  $data  );
+
+    }
+
     public function create_dossier(){
 
         $this->authorize('permission_creer_dossier');
@@ -202,7 +247,7 @@ class DossierController extends Controller
                             include ('../public/lib/PdfToText/PdfToText.phpclass');
 
                             //$link = $this->url->to('/');
-                            $link = "http://localhost/ged_app1/public";
+                            $link = "http://localhost/ged/ged_app/public";
                             $path_file = $attributs_dossier1->valeur ;
                             $path = $link.'/storage/'.$path_file;
                             $pdf	=  new \PdfToText ($path );
@@ -342,25 +387,43 @@ class DossierController extends Controller
 
         $posts = File_searche::where('projet_id', '=', $request->id_organigramme)->where('content', 'like', "%".$request->input_text."%")->get();
 
-        function arr_filter($arr) {
+
+
+
+        function arr_filter($arr,$word_key) {
             $arr_explode = [];
             $data =[];
-            $text = "";        
+            $text = ""; 
+              
             if($arr){
 
                 foreach($arr as $value) {
                     $content= preg_split('/\.|\?|!/', $value->content); 
-                    $arr_explode = array_filter($content, function($element) {
-                        return Str::contains($element, '1040-V',false);
+                    $arr_explode = array_filter($content, function($element) use($word_key) {
+                        return Str::contains($element, $word_key ,true);
                     });
-                    $content_array = array_values(array_unique($arr_explode));
-                    foreach( $content_array as  $content){
-                        $w1 = "1040-V";
-                        $w2 = "<strong>1040-V</strong>";
+
+                    foreach ($content as $key) {
+
+                        $word_uc =  ucfirst($word_key);
+                        $word_lc =  lcfirst($word_key);
+
+                        if (strpos($key, $word_lc ) !== false  || strpos($key, $word_uc ) !== false || strpos($key, $word_key ) !== false  ) {
+                            $array_b[]= $key;
+
+                        }
+                      
+                    }
+                    $content_array = $content;
+                    foreach( $array_b as  $content){
+                        $w1 = $word_key;
+                        $w2 = "<strong>".$word_key."</strong>";
                         $str = str_replace($w1, $w2, $content); 
 
-                        $text .= $str.'<br><br>';
+                        $text .= $str.'<br>';
                     }
+
+                    $print_content = '<div class="text-left">'.$text.'</div>';
 
                    
 
@@ -368,14 +431,14 @@ class DossierController extends Controller
 
                     $date = $createdAt->format('d/m/Y H:i:s');  
 
-                    $data[] = array( 'date' => $date  , 'filename' => $value->filename , 'content' => $text , 'id_dossier' => $value->dossier_id  );
+                    $data[] = array( 'date' => $date  , 'filename' => $value->filename , 'content' => $print_content , 'id_dossier' => $value->dossier_id  );
                 }
 
             }        
             return   $data ;
         }
 
-        $data_search =  arr_filter($posts) ;
+        $data_search =  arr_filter($posts,$request->input_text) ;
 
         return Response()
         ->json(  $data_search  );

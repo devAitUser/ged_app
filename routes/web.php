@@ -82,6 +82,9 @@ Route::post('/remove_champs_attributs',[App\Http\Controllers\OrganigrammeControl
 
 /****Dossier */
 
+
+Route::get('/test',[App\Http\Controllers\DossierController::class, 'test']);
+
 Route::get('/create_dossier',[App\Http\Controllers\DossierController::class, 'create_dossier'])->name('create_dossier');
 Route::get('/fill_parent_dossier',[App\Http\Controllers\DossierController::class, 'fill_parent_dossier']);
 
