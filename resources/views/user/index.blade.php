@@ -17,10 +17,14 @@
    button.btn_profil {
     border: none;
    }
+   .panel-heading {
+    width: 80% !important;
+   }
 </style>
 
-      <div class="header_view">
-         <div class="sub_view"> <span class="title_profil"> Mon profil</span> </div>
+  
+      <div class="panel-heading">   
+         Mon profil
       </div>
       <div class="panel_view_details">
          <div class="table_p">

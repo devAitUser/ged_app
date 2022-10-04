@@ -76,6 +76,11 @@ Route::post('/fill_table_edit_attributs',[App\Http\Controllers\OrganigrammeContr
 
 Route::post('/update_attributs',[App\Http\Controllers\OrganigrammeController::class, 'update_attributs']);
 
+Route::post('/api_champs_index',[App\Http\Controllers\OrganigrammeController::class, 'api_champs_index']);
+
+Route::post('/remove_row_indexe',[App\Http\Controllers\OrganigrammeController::class, 'remove_row_indexe']);
+
+
 Route::post('/remove_champs_attributs',[App\Http\Controllers\OrganigrammeController::class, 'remove_champs_attributs']);
 
 //Route::get('/test/{id}',[App\Http\Controllers\OrganigrammeController::class, 'check_piece']);
@@ -87,6 +92,7 @@ Route::get('/test',[App\Http\Controllers\DossierController::class, 'test']);
 
 Route::get('/create_dossier',[App\Http\Controllers\DossierController::class, 'create_dossier'])->name('create_dossier');
 Route::get('/fill_parent_dossier',[App\Http\Controllers\DossierController::class, 'fill_parent_dossier']);
+Route::post('/uploud_pdf_temp',[App\Http\Controllers\DossierController::class, 'uploud_pdf_temp']);
 
 Route::get('/fill_sous_dossier',[App\Http\Controllers\DossierController::class, 'fill_sous_dossier']);
 
@@ -95,7 +101,11 @@ Route::get('/fill_sous_dossier1',[App\Http\Controllers\DossierController::class,
 
 Route::post('/store_dossier_create',[App\Http\Controllers\DossierController::class, 'store_dossier']);
 
+Route::post('/remove_temp_file',[App\Http\Controllers\DossierController::class, 'remove_temp_file']);
+
 Route::get('/show_dossier/{id}',[App\Http\Controllers\DossierController::class, 'show_dossier'])->name('show_dossier');
+
+Route::post('/historique_dossier',[App\Http\Controllers\DossierController::class, 'historique_dossier'])->name('historique_dossier');
 
 Route::get('/recherche_dossier',[App\Http\Controllers\DossierController::class, 'recherche_dossier'])->name('recherche_dossier');
 

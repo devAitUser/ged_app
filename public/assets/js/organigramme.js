@@ -24,6 +24,7 @@ var check_parent = 'false';
 
 
       $("#Modal_table_champs_add tbody tr:not(:first)").remove();
+      $("#Modal_table_link_index tbody tr:not(:first)").remove();
       $(".title_dossier").html(data.nom_dossier);
       $(".id_dossier").val(data.id_dossier);
       for (let i = 0; i < data.attributs.length; i++) {
@@ -52,6 +53,44 @@ var check_parent = 'false';
         add_row += '<a href="" onClick="model_removeRow_table_champs_add(event,' + [i] + ','+data.attributs[i].id+')" ><i class="fa-solid fa-circle-xmark "></i></a>';
         add_row += '      </div> </td></tr>';
         $("#Modal_table_champs_add tbody tr:last").after(add_row);
+
+      }
+
+
+
+      for (let i = 0; i < data.all_index.length; i++) {
+
+        var add_row = '<tr id=model_row_table_all_index_' + [i] + '  >';
+        add_row += '<td><input name="old_id_index[]" class="hidden" type="text" value="'+data.all_index[i].id+'" ><input name="old_name_index[]" class="form-control" type="text" value="'+data.all_index[i].name_index+'"   required></td>';
+        add_row += '<td>  <select name ="old_type_champ_index[]" class="form-control" id="" required> ';
+        add_row += '  <option>sélectionner le type</option>';
+        for (let t = 0; t < data.attributs.length; t++) {
+          if(data.attributs[t].type_champs == "Text" || data.attributs[t].type_champs == "Date" ){
+            add_row += ' <option value=" '+data.attributs[t].id+' "';
+              if(data.attributs[t].id == data.all_index[i].attribut_id ){
+                add_row += 'selected';
+              }
+            add_row += '>'+data.attributs[t].nom_champs+'</option>';
+            }
+        }
+        add_row += '   </select></td>';
+        add_row += '<td>  <select name ="old_type_fichier[]" class="form-control" id="" required> ';
+        add_row += '  <option>sélectionner le type</option>';
+        for (let t = 0; t < data.attributs.length; t++) {
+          if(data.attributs[t].type_champs == "Fichier" ){
+            add_row += ' <option value=" '+data.attributs[t].id+' "';
+              if(data.attributs[t].id == data.all_index[i].file_id ){
+                add_row += 'selected';
+              }
+            add_row += '>'+data.attributs[t].nom_champs+'</option>';
+            }
+        }
+        add_row += '   </select></td>';
+        
+        add_row += '<td>  <div class="block_action_organigramme"> ';
+        add_row += '<a href="" onClick="model_removeRow_table_index(event,' + [i] + ','+data.all_index[i].id+')" ><i class="fa-solid fa-circle-xmark "></i></a>';
+        add_row += '      </div> </td></tr>';
+        $("#Modal_table_link_index tbody tr:last").after(add_row);
 
       }
 
@@ -130,6 +169,46 @@ function model_removeRow_table_champs_add(e,row,id=null) {
 
 }
 
+
+function model_removeRow_table_index(e,row,id=null) {
+
+  e.preventDefault();
+
+  if (confirm("Vous voulez vraiment supprimer ce indexe !") == true) {
+      document.getElementById("model_row_table_all_index_" + row).remove();
+
+      if(id !=null){
+      
+        $.ajaxSetup({
+          headers: {
+            'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+          }
+        });
+      
+        $.ajax({
+          url: "/remove_row_indexe",
+          method:"POST",
+          data:{
+            id_indexe : id,
+          },
+          success: function(data) {
+      
+            fill_treeview()
+      
+          }
+        })
+      
+      }
+  } else {
+
+  }
+
+ 
+ 
+
+
+
+}
 
 function unset_table() {
 
@@ -527,11 +606,76 @@ $(document).ready(function() {
        });
 
 
+       $('.modal_btn_add_index').on('click', function(event){
+        event.preventDefault();
+
+        var rowCount_v = $('#Modal_table_link_index  tr').length;
+        rowCount = rowCount_v - 1;
+        
+        $.ajax({
+          url:"/api_champs_index",
+          method:"POST",
+          data:{ id :   $('.id_dossier').val()  },
+          success:function(data){
+         
+            var add_row = '<tr id=model_row_table_champs_add_' + rowCount + '  >';
+
+      
 
 
+            add_row += '<td><input name="new_name_index[]" class="form-control" type="text"   required></td>';
+
+      
+          
+
+            add_row += '<td>  <select name ="new_type_champ[]" class="form-control" id="" required> ';
+
+            add_row += '  <option>sélectionner le type</option>';
+            for (let i = 0; i < data.length; i++) {
+              if(data[i].type_champs == "Text" || data[i].type_champs == "Date"  ){
+            add_row += '  <option value=" '+data[i].id+' ">'+data[i].nom_champs+'</option>';
+              }
+
+            }
+            
+            add_row += '   </select></td>';
+            add_row += '<td>  <select name ="new_file_champ[]" class="form-control" id="" required> ';
+            add_row += '  <option>sélectionner le type</option>';
+            for (let i = 0; i < data.length; i++) {
+              if( data[i].type_champs == "Fichier"  ){
+            add_row += '  <option value=" '+data[i].id+' ">'+data[i].nom_champs+'</option>';
+              }
+
+            }
+            add_row += '   </select></td>';
+            add_row += '<td>  <div class="block_action_organigramme"> ';
+            add_row += '<a href="" onClick="model_removeRow_table_index(event,' + rowCount + ')" ><i class="fa-solid fa-circle-xmark "></i></a>';
+            add_row += '      </div> </td></tr>';
+          
+                
+
+
+
+
+                $("#Modal_table_link_index  tbody tr:last").after(add_row);
+
+    
+          }
+         })
+       
+    
 
 
         
+           
+          
+      
+
+
+
+       });
+
+
 
 
       

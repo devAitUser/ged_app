@@ -17,6 +17,9 @@
 </script>
 <script src="{{ asset('assets/js/organigramme.js') }}"></script>
 <style>
+   form#form_modal table tr td {
+      text-align: -webkit-center;
+   }
    .panel_view_bottom {
    display: block;
    }
@@ -62,16 +65,19 @@
             margin-bottom: 18px;
             background-color: #f5f3f3;
          }
+         .panel-heading {
+         width: 80% !important;
+         }
 
 </style>
-<div class="header_view">
-   <div class="sub_view">
-      <a class="link_organigramme" href="{{route('home_organigramme')}}">
+
+<div class="panel-heading">   
+   <a class="link_organigramme" href="{{route('home_organigramme')}}">
       <span class="material-icons">  home </span>  Les plans de classement des archives
       </a>
       <span class="title_profil">     \ 
       <span class="ititle_organigramme"> {{$nom}} </span> </span> 
-   </div>
+
 </div>
 <div class="panel_view_details">
    <div class="table_p">
@@ -213,10 +219,10 @@
  
  <!-- Modal panel_attributs -->
  <div class="modal fade" id="panel_attributs" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-   <div class="modal-dialog modal-dialog-centered" role="document">
+   <div class="modal-dialog modal-lg" role="document">
      <div class="modal-content">
        <div class="modal-header">
-         <h4 class="modal-title" id="exampleModalLongTitle">Dossier : <strong><span class="title_dossier"></span></strong>
+         <h4 class="modal-title" >Dossier : <strong><span class="title_dossier"></span></strong>
             </h4>
          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
            <span aria-hidden="true">&times;</span>
@@ -243,6 +249,25 @@
             </tbody>
           
          </table>
+
+         <button type="button" class="btn btn-info modal_btn_add_index"><span class="material-icons">
+            add
+            </span>Ajouter</button>
+
+         <table id="Modal_table_link_index" class="table_champs_add">
+            <tbody><tr class="table_h">
+               <th style="width:45%">Index dans le fichier PDF</th>
+               <th>Le champs</th>
+               <th>Fichier PDF</th>
+               <th>Action</th>
+            </tr>
+            </tbody><tbody>
+
+       
+
+            </tbody>
+          
+         </table>
       
        </div>
        <div class="modal-footer">
@@ -260,7 +285,7 @@
    <div class="modal-dialog modal-dialog-centered" role="document">
      <div class="modal-content">
        <div class="modal-header">
-         <h4 class="modal-title" id="exampleModalLongTitle">Ajouter : <strong><span class="title_dossier"></span></strong>
+         <h4 class="modal-title" id="Modal_attributs">Ajouter : <strong><span class="title_dossier"></span></strong>
             </h4>
          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
            <span aria-hidden="true">&times;</span>

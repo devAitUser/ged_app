@@ -54,8 +54,8 @@
     }
 
     #organigramme_table thead tr th {
-    border-bottom: 1px solid #c6c2c2  !important;
-    border-top: 1px solid #a1a3a4 !important;
+    border-bottom: 1px solid hwb(214deg 79% 17%)   !important;
+    
      }
 
     .styled-table thead tr {
@@ -66,18 +66,22 @@
       }
 
       #organigramme_table tr:first-child th:first-child {
-      border-top-left-radius: 4px   ;
+         border-radius: 4px 0 0 0  !important;
       }
 
       #organigramme_table tr:first-child th:last-child {
-      border-top-right-radius: 4px;
+         border-radius: 0 4px 0 0  !important;
       }
 
       table#organigramme_table {
+         -moz-border-radius: 10px;
+         -webkit-border-radius: 10px !important;
+         border-radius: 4px !important;
          border-collapse: collapse;
          border-radius: 4px;
          border-style: hidden;
-         box-shadow: 0 0 0 1px #b6b1b1;
+         box-shadow: 0 0 0 1px hwb(214deg 79% 17%);
+
       }
 
       table#organigramme_table tr {
@@ -164,13 +168,11 @@
             height: 33.5px;
          }
 </style>
-<div class="header_view">
-   <div class="sub_view">
-  
-      Résultats : 
- 
-   </div>
-</div>
+
+
+
+
+<div class="panel-heading">   Résultats : </div>
 <div class="panel_view_details">
    <div class="table_p">
              

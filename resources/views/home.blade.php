@@ -85,7 +85,7 @@
                 @else
 
                 <li class="li_block_archive last_item_bskli">
-                  <a href="#" style="width: 22px;vertical-align: sub;margin-left: 36px;font-size: 16px;">
+                  <a href="{{route('user_profile')}}"style="width: 22px;vertical-align: sub;margin-left: 36px;font-size: 16px;">
                  
                      <b>  Sélectionner Votre projet dans la page Mon profil  </b></a>
                 </li>

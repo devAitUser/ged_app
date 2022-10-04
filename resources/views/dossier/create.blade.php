@@ -84,19 +84,20 @@
      .form-group label {
     font-size: 14px;
     }
+
+    .panel-heading {
+         width: 94% !important;
+      }
  
 </style>
-<div class="header_view">
-   <div class="sub_view">
-  
-      Créer un nouveau dossier   
- 
-   </div>
-</div>
 
 
+<div class="panel-heading">   Créer un nouveau dossier  </div>
 
 <div class="panel_view_details">
+   
+
+ 
    <div class="table_p">
    <form  method="post" action="{{url('store_dossier_create')}}" enctype="multipart/form-data" >
             @csrf
@@ -157,8 +158,8 @@
        
 
               </div> 
-
-
+              
+   
              
          
         

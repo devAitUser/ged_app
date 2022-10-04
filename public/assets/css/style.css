@@ -57,30 +57,31 @@ img.logo_css {
 .header_panel_view {
   display: flex;
   justify-content: space-between;
-  margin-top: 38px;
+  margin-top: 25px;
+  margin-bottom: 10px;
 }
 
 .panel_view_bottom {
-  background: #fff ;
-  box-shadow: 0px 2px 7px rgb(110 110 110 / 62%);
-  border-radius: 0 0 10px 10px;
+  background: #fff;
   padding: 17px 0px;
   width: 100%;
   display: flex;
-    justify-content: space-between;
+  justify-content: space-between;
+  border: 1px solid #d5cece;
+  min-height: 400px;
 }
 
 
 .panel_view_header {
+  border-radius: 8px 8px 0 0;
   display: inline-block;
   position: relative;
-  border: none!important;
+  /* border: none!important; */
   width: 100%;
-  box-shadow: 0px -2px 7px rgb(110 110 110 / 62%);
-  border-radius: 10px 10px 0 0;
   color: rgba(0,0,0, 0.87);
   background: #fff;
   padding: 17px 0px 8px 0px;
+  border: 1px solid #d5cece;
  
 }
 
@@ -150,7 +151,26 @@ body {
   font-size: 13px !important; 
   letter-spacing: 0.05em;
   font-size: 11px; 
-  background-color: #EEEEEE
+  background-color: #EEEEEE !important;
+}
+
+.animation_ajax_call {
+  width: 100%;
+  height: 100%;
+  background-color: #ebf0f0;
+  position: absolute;
+  z-index: 9;
+}
+
+.panel_view_details {
+  position: relative;
+}
+
+table#organigramme_table {
+  border-collapse: collapse;
+  border-radius: 4px;
+  border-style: hidden;
+  border: 1px solid #dee2e6 ;
 }
 
 .card-header {
@@ -370,12 +390,11 @@ input#remember {
 
 
 .panel_view_details {
-  border: 1px solid #b9b5b5;
+  border: 1px solid #d3e0e9;
   width: 80%;
   border-radius: 0px 0px 4px 4px;
   margin: 0 auto;
 
-  background-color: #fafafa;
 }
 
 .header_view {
@@ -580,9 +599,17 @@ span.ititle_organigramme {
 }
 
 .styled-table thead tr {
-  background-color: #009879;
+  background-color: #009688;
   color: #ffffff;
   text-align: left;
+}
+
+#organigramme_table tr:first-child th:first-child {
+  border-radius: 4px 0 0 0 !important;
+}
+
+#organigramme_table tr:first-child th:last-child {
+  border-radius: 0 4px 0 0 !important;
 }
 
 table.table_champs_add {
@@ -680,24 +707,20 @@ table.table_champs_add {
 }
 
 table#organigramme_table {
-  width: 100% !important;
+    width: 100% !important;
     max-width: 100%!important;
 }
 
 a.link_organigramme span {
-  position: absolute;
+  position: relative;
   top: 5px;
-  left: 13px;
-  top: 11px;
+  left: -2px;
+  top: 4px;
   font-size: 18px;
 }
 
-a.link_organigramme {
-  margin-left: 25px;
-  padding-top: 5px;
-}
 
-.btn_add_oranigramme span , .modal_btn_add_oranigramme span {
+.btn_add_oranigramme span , .modal_btn_add_oranigramme span , .modal_btn_add_index span  {
   position: absolute;
   margin-left: -25px;
   margin-top: -2px;
@@ -705,11 +728,29 @@ a.link_organigramme {
 
 
 
-.btn_add_oranigramme , .modal_btn_add_oranigramme {
+
+.btn_add_oranigramme , .modal_btn_add_oranigramme ,.modal_btn_add_index {
   float: right;
   margin-top: 15px;
   margin-bottom: 15px !important;
   padding-left: 30px !important;
+}
+
+.panel-heading {
+  padding: 10px 15px;
+  border-bottom: 1px solid transparent;
+  border-top-right-radius: 3px;
+  border-top-left-radius: 3px;
+  color: #333;
+  background-color: #ededed;
+  border-color: #ddd;
+  WIDTH: 84% !important;
+  MARGIN: auto;
+  border-left: 1px solid #d3e0e9;
+  border-right: 1px solid #d3e0e9;
+  border-top: 1px solid #d3e0e9;
+  box-shadow: 0 1px 1px rgb(0 0 0 / 5%);
+  
 }
 
 

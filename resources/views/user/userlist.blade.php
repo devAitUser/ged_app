@@ -39,13 +39,16 @@
     background-color: #343a40;
 
     }
+    .panel-heading {
+    width: 80% !important;
+     }
 </style>
 
 
 
-<div class="header_view">
-         <div class="sub_view"> <span class="title_profil"> Les utilisateurs  </span> </div>
-      </div>
+      <div class="panel-heading">   
+        Les utilisateurs
+     </div>
       <div class="panel_view_details">
          <div class="table_p">
 

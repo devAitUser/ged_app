@@ -35,11 +35,13 @@
    #organigramme_table_wrapper {
     margin-bottom: 15px;
    }
+   .panel-heading {
+    width: 80% !important;
+   }
 </style>
 
-      <div class="header_view">
-         <div class="sub_view"> <span class="title_profil"> Les plans de classements </span> </div>
-      </div>
+    
+      <div class="panel-heading">  Les plans de classements  </div>
       <div class="panel_view_details">
          <div class="table_p">
 

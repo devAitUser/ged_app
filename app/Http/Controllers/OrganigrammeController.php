@@ -6,6 +6,8 @@ use App\Models\Organigramme;
 use App\Models\Attribut_champ;
 use App\Models\Entite;
 use Illuminate\Http\Request;
+use App\Models\Indexe;
+
 
 class OrganigrammeController extends Controller
 {
@@ -519,9 +521,10 @@ class OrganigrammeController extends Controller
         $dossier = Dossier_champ::find($request->champs_id);
         $attributs = Attribut_champ::where('dossier_champs_id', '=', $request->champs_id)
             ->get();
+        $all_index = Indexe::where(['dossier_id' => $request->champs_id ])->get();
 
         return Response()
-            ->json(['attributs' => $attributs, 'nom_dossier' => $dossier->nom_champs, 'id_dossier' => $dossier->id]);
+            ->json(['attributs' => $attributs, 'nom_dossier' => $dossier->nom_champs, 'id_dossier' => $dossier->id,'all_index' => $all_index]);
 
     }
 
@@ -551,6 +554,31 @@ class OrganigrammeController extends Controller
             }
         }
 
+        if (!empty($request->old_id_index))
+        {
+            for ($i = 0;$i < count($request->old_id_index);$i++)
+            {
+                $update_Indexe = Indexe::find($request->old_id_index[$i]);
+                $update_Indexe->name_index = $request->old_name_index[$i];
+                $update_Indexe->attribut_id = $request->old_type_champ_index[$i];
+                $update_Indexe->file_id = $request->old_type_fichier[$i];
+                $update_Indexe->save();
+            }
+        }
+
+        if (!empty($request->new_name_index))
+        {
+            for ($i = 0;$i < count($request->new_name_index);$i++)
+            {
+                $add_Indexe = new Indexe();
+                $add_Indexe->name_index = $request->new_name_index[$i];
+                $add_Indexe->attribut_id = $request->new_type_champ[$i];
+                $add_Indexe->file_id = $request->new_file_champ[$i];
+                $add_Indexe->dossier_id = $request->id_champs;
+                $add_Indexe->save();
+            }
+        }
+
         return Response()
             ->json(['etat' => true]);
 
@@ -564,6 +592,15 @@ class OrganigrammeController extends Controller
 
     }
 
+    public function remove_row_indexe(Request $request)
+    {
+
+        $delete = Indexe::find($request->id_indexe);
+        $delete->delete();
+
+    }
+
+
 
     public function remove_entite(Request $request)
     {
@@ -573,6 +610,13 @@ class OrganigrammeController extends Controller
 
         return Response()
         ->json(['etat' => true]);
+
+    }
+
+    public function api_champs_index(Request $request){
+
+        $les_champs = Attribut_champ::where('dossier_champs_id', '=', $request->id)->get();
+        return $les_champs;
 
     }
 
@@ -624,6 +668,8 @@ class OrganigrammeController extends Controller
      
 
     }
+
+   
 
 }
 

@@ -17,7 +17,11 @@ use Illuminate\Support\Str;
 
 use App\Models\Entite;
 
+use App\Models\Indexe;
+
 use Illuminate\Http\Request;
+
+use App\Models\Historique_dossier;
 
 class DossierController extends Controller
 {
@@ -180,12 +184,13 @@ class DossierController extends Controller
         $dossier_champs = Dossier_champ::where(['parent_id' => $request->id_dossier ])->get();
 
         $attribut_champ = Attribut_champ::where(['dossier_champs_id' => $request->id_dossier ])->get();
+
         $dossier_champs_label = Dossier_champ::find($request->id_dossier);
 
-     
+        $all_index = Indexe::where(['dossier_id' => $request->id_dossier ])->get();
 
         return Response()
-      ->json(['dossier_champs' => $dossier_champs ,'attribut_champ' => $attribut_champ  ,'dossier_champs_label' => $dossier_champs_label->nom_champs ]);
+      ->json(['all_index' => $all_index ,'dossier_champs' => $dossier_champs ,'attribut_champ' => $attribut_champ  ,'dossier_champs_label' => $dossier_champs_label->nom_champs ]);
 
      }
 
@@ -244,18 +249,11 @@ class DossierController extends Controller
 
                         if($attributs_dossier1->valeur != ''){
 
-                            include ('../public/lib/PdfToText/PdfToText.phpclass');
-
-                            //$link = $this->url->to('/');
-                            $link = "http://localhost/ged/ged_app/public";
-                            $path_file = $attributs_dossier1->valeur ;
-                            $path = $link.'/storage/'.$path_file;
-                            $pdf	=  new \PdfToText ($path );
-                            $data = $pdf -> Text;
+                          
                     
                             $file =  new File_searche();
                             $file->filename   =  $attributs_dossier1->nom_champs ;
-                            $file->content    =  $data  ;
+                            $file->content    =  $request->file_text[$i] ;
                             $file->dossier_id =  $dossier->id;
                             $file->attributs_dossiers_id =  $attributs_dossier1->id;
                             $file->projet_id =  $request->id_organigramme ;
@@ -289,13 +287,56 @@ class DossierController extends Controller
         $dossier = Dossier::find($id);
         $titre = '';
 
+        $user =  Auth::user();
+        $add_historique = new Historique_dossier();
+        $add_historique->user = $user->identifiant;
+        $add_historique->action = 'Consultation du dossier';
+        $add_historique->dossier_id = $id;
+        $add_historique->save();
+
         $attributs = $dossier->attibuts_dossier;
 
+        $historique = Historique_dossier::where(['dossier_id' => $id  ])->get();
 
+        $all_historiques = array();
 
-        $data = array("attributs" =>  $attributs , 'id' => $id );
+        for($i=0;$i<count($historique);$i++){
+
+            $createdAt = Carbon::parse($historique[$i]->created_at);
+
+            $date = $createdAt->format('d/m/Y H:i:s');
+
+            $all_historiques[] = array("user" => $historique[$i]->user , "action" => $historique[$i]->action ,"date" => $date );
+
+        }
+
+        
+
+         
+
+        
+
+        $data = array("attributs" =>  $attributs , 'id' => $id , 'all_historiques' => $all_historiques );
 
         return view('dossier.show',  $data);
+
+     }
+
+
+     public function historique_dossier(Request $request){
+
+  
+
+        $user =  Auth::user();
+        $add_historique = new Historique_dossier();
+        $add_historique->user = $user->identifiant;
+        $add_historique->action = $request->text;
+        $add_historique->dossier_id = $request->id_dossier;
+        $add_historique->save();
+
+
+
+
 
      }
 
@@ -805,6 +846,29 @@ class DossierController extends Controller
 
          return Response()
             ->json(  $data   );
+
+     }
+
+     public function uploud_pdf_temp(Request $request){
+
+ 
+        $data=  $request->file('data')->store('file_pdf_temp');
+
+
+        
+        return Response()
+        ->json(  $data   );
+
+
+     }
+
+
+     public function remove_temp_file(Request $request){
+
+        $file= $request->link_file;
+
+        unlink(storage_path('app/public/file_pdf_temp/'.$file));
+
 
      }
 

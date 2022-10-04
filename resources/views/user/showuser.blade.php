@@ -52,15 +52,19 @@
     border-radius: 0.25rem;
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
     }
+    .panel-heading {
+    width: 80% !important;
+     }
 </style>
-<div class="header_view">
-   <div class="sub_view">
-      <a class="link_organigramme" href="{{ route('user_list') }}">
+
+<div class="panel-heading"> 
+
+   <a class="link_organigramme" href="{{ route('user_list') }}">
       <span class="material-icons">  home </span>  Les utilisateurs
       </a>
       <span class="title_profil">     \ 
       <span class="ititle_organigramme"> {{$user->nom}} {{$user->prenom}} </span> </span> 
-   </div>
+
 </div>
 <div class="panel_view_details">
    <div class="table_p">
