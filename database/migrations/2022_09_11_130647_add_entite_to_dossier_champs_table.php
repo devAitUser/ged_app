@@ -13,10 +13,10 @@ class AddEntiteToDossierChampsTable extends Migration
      */
     public function up()
     {
-        // Schema::table('dossier_champs', function (Blueprint $table) {
-        //     $table->unsignedBigInteger('entite_id')->after('organigramme_id');
-        //     $table->foreign('entite_id')->references('id')->on('entites');
-        // });
+        Schema::table('dossier_champs', function (Blueprint $table) {
+            $table->unsignedBigInteger('entite_id')->after('organigramme_id');
+            $table->foreign('entite_id')->references('id')->on('entites');
+        });
     }
 
     /**

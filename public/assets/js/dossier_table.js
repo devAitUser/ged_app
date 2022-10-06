@@ -38,6 +38,10 @@
         'contentType': 'application/json'
     }).done( function(data) {
         $('#organigramme_table').dataTable( {
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'excel', 'pdf', 'print'
+            ],
             order: [[0, 'desc']],
             "aaData": data,
             "searching" : false,

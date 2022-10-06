@@ -8,8 +8,6 @@ function loadFile(event,id_file){
   event.preventDefault();
 
 
-
-  
   
   var output = document.getElementById('output');
     output.src = URL.createObjectURL(event.target.files[0]);
@@ -107,18 +105,18 @@ function loadFile(event,id_file){
        });
 
 
-       $.ajax({
-        'async': false,
-        url: '/remove_temp_file', // router
-        method:"POST",
-        data: {link_file : result },
-        dataType: "json",
+      //  $.ajax({
+      //   'async': false,
+      //   url: '/remove_temp_file', // router
+      //   method:"POST",
+      //   data: {link_file : result },
+      //   dataType: "json",
     
-        success:function(data) {
+      //   success:function(data) {
         
           
-        }
-      });
+      //   }
+      // });
 
 
       
