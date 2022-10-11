@@ -7,7 +7,7 @@
     e.preventDefault();
     var id =row
 
-    var url ='/show_dossier/' + row ;
+    var url =APP_URL+'/show_dossier/' + row ;
 
     window.open(url,'_blank');
 
@@ -63,7 +63,7 @@ $(document).ready(function() {
                   "previous": "PrÃ©cÃ©dente"
               },
               "oLanguage": {
-                  "sUrl": "/assets/fr-FR.json"
+                  "sUrl": APP_URL+"/assets/fr-FR.json"
               },
         
           columnDefs: [
@@ -178,7 +178,7 @@ $(document).ready(function() {
             
 
           $.ajax({
-            url:"/api_search_table",
+            url:APP_URL+"/api_search_table",
             method:"POST",
             data:$(this).serialize(),
             success:function(data){

@@ -7,7 +7,7 @@
     e.preventDefault();
     var id =row
 
-    var url ='/show_dossier/' + row ;
+    var url =APP_URL+'/show_dossier/' + row ;
 
     window.open(url,'_blank');
 
@@ -33,7 +33,7 @@
       });
 
     $.ajax({
-        'url': "/api_all_dossier",
+        'url': APP_URL+"/api_all_dossier",
         'method': "GET",
         'contentType': 'application/json'
     }).done( function(data) {
@@ -62,7 +62,7 @@
                 "previous": "PrÃ©cÃ©dente"
             },
             "oLanguage": {
-                "sUrl": "/assets/fr-FR.json"
+                "sUrl": APP_URL+"/assets/fr-FR.json"
               },
     
             "columns": [
@@ -91,5 +91,6 @@
 $(document).ready(function() {
      
     fill_table();
+  
 
  } );

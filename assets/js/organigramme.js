@@ -15,7 +15,7 @@ var check_parent = 'false';
   });
 
   $.ajax({
-    url: "/fill_table_edit_attributs",
+    url: APP_URL+"/fill_table_edit_attributs",
     method:"POST",
     data:{
       champs_id : row,
@@ -145,7 +145,7 @@ function model_removeRow_table_champs_add(e,row,id=null) {
         });
       
         $.ajax({
-          url: "/remove_champs_attributs",
+          url: APP_URL+"/remove_champs_attributs",
           method:"POST",
           data:{
             id_champs_attributs : id,
@@ -186,7 +186,7 @@ function model_removeRow_table_index(e,row,id=null) {
         });
       
         $.ajax({
-          url: "/remove_row_indexe",
+          url: APP_URL+"/remove_row_indexe",
           method:"POST",
           data:{
             id_indexe : id,
@@ -237,7 +237,7 @@ function unset_table() {
   });
 
   $.ajax({
-    url: "/fill_drop_down",
+    url: APP_URL+"/fill_drop_down",
     method:"POST",
     data:{
       organigramme_id : id_organigramme,
@@ -254,7 +254,7 @@ function unset_table() {
   })
 
   $.ajax({
-      url: "/array_organigramme",
+      url: APP_URL+"/array_organigramme",
       method:"POST",
       data:{
    
@@ -299,7 +299,7 @@ function unset_table() {
   })
 
   $.ajax({
-      url: "/array_organigramme_simple",
+      url: APP_URL+"/array_organigramme_simple",
       dataType: "json",
       data:{
         organigramme_id : id_organigramme

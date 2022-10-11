@@ -8,7 +8,7 @@
 
 
             $.ajax({
-              url:"/user_destroy/"+row,
+              url:APP_URL+"/user_destroy/"+row,
               method:"POST",
               data:{
                 items_delete : row
@@ -51,7 +51,7 @@
     e.preventDefault();
     var id =row
 
-    location.href='/showUser/' + row ;
+    location.href=APP_URL+'/showUser/' + row ;
 
 
 
@@ -88,7 +88,7 @@
       });
 
     $.ajax({
-        'url': "/all_user",
+        'url': APP_URL+"/all_user",
         'method': "GET",
         'contentType': 'application/json'
     }).done( function(data) {

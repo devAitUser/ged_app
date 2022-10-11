@@ -58,7 +58,7 @@ console.log(count)
         }
       });
       $.ajax({
-        url: "/fill_drop_down_dossier",
+        url: APP_URL+"/fill_drop_down_dossier",
         method:"post",
         data:{
           organigramme_id : id_select

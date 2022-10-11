@@ -20,7 +20,7 @@ function loadFile(event,id_file){
   var link_file ;
   $.ajax({
       'async': false,
-      url: '/uploud_pdf_temp', // router
+      url: APP_URL+'/uploud_pdf_temp', // router
       method:"POST",
       data: form_data,
       dataType:'JSON',
@@ -34,7 +34,7 @@ function loadFile(event,id_file){
       }
     });
     var result = link_file.substring(14);
-    var full_link= 'http://127.0.0.1:8000/storage/file_pdf_temp/'+result;
+    var full_link= APP_URL+'/public/storage/file_pdf_temp/'+result;
     var array = [];
 
 
@@ -70,7 +70,7 @@ function loadFile(event,id_file){
 
       $.ajax({
         'async': false,
-        url: 'http://127.0.0.1:5000/api_pdf',
+        url: 'http://192.168.2.51:5000/api_pdf',
         contentType: "application/json",
         data: JSON.stringify(indexe_file),
        
@@ -105,18 +105,18 @@ function loadFile(event,id_file){
        });
 
 
-      //  $.ajax({
-      //   'async': false,
-      //   url: '/remove_temp_file', // router
-      //   method:"POST",
-      //   data: {link_file : result },
-      //   dataType: "json",
+       $.ajax({
+        'async': false,
+        url: APP_URL+'/remove_temp_file', // router
+        method:"POST",
+        data: {link_file : result },
+        dataType: "json",
     
-      //   success:function(data) {
+        success:function(data) {
         
           
-      //   }
-      // });
+        }
+      });
 
 
       
@@ -128,6 +128,8 @@ function loadFile(event,id_file){
 function add_row_select(row){
 
   var next = row +1 ;
+
+  var coordonnees  = ['salle', 'rayonnage','conteneur','boite'];
 
   var id_select =    $('#sous_select_'+row+' option:selected').val();
 
@@ -153,7 +155,7 @@ function add_row_select(row){
       });
       $.ajax({
         'async': false,
-        url: "/fill_sous_dossier1",
+        url: APP_URL+"/fill_sous_dossier1",
         method:"get",
         data:{
           id_dossier : id_select
@@ -278,10 +280,35 @@ function add_row_select(row){
                 $("#attribut_file").addClass("attribut_file");
               }
 
+
+             
+            
+
              
      
 
             });
+
+
+            for (let index = 0; index < coordonnees.length; index++) {
+              var nom_champs = coordonnees[index];
+  
+              row_select1 = '<div id="" class="col-md-12">';
+              row_select1 += '<div class="form-group row">';
+              row_select1 += ' <label for="colFormLabelSm" class=" text-uppercase col-sm-4 col-form-label col-form-label-sm">'+nom_champs+' :</label>';
+              row_select1 += '<input type="text" name="nom_champ[]"  value="'+nom_champs+' " class="hidden"> ';
+              row_select1 += '<input type="text" name="type_champ[]" value="text" class="hidden"> <div class="col-sm-8">';
+              row_select1 += ' <input class="form-control" type="text" name="valeur[]">';
+          
+            
+              row_select1 += '</div></div>';
+              row_select1 += '</div>';
+  
+              $("#attribut_champ").append(row_select1);
+              
+            }
+
+         
 
      
     
@@ -293,6 +320,9 @@ function add_row_select(row){
             $("#attribut_file").removeClass("attribut_file");
            }
        
+
+
+           
     
 
 
@@ -314,7 +344,7 @@ function add_row_select(row){
       }
     });
     $.ajax({
-      url: "/fill_parent_dossier",
+      url: APP_URL+"/fill_parent_dossier",
       method:"get",
       dataType: "json",
       success: function(data) {
@@ -396,7 +426,7 @@ $(document).ready(function() {
         }
       });
       $.ajax({
-        url: "/fill_sous_dossier",
+        url: APP_URL+"/fill_sous_dossier",
         method:"get",
         data:{
           id_dossier : id_select
@@ -481,7 +511,7 @@ $(document).ready(function() {
             }
           });
           $.ajax({
-            url: "/historique_dossier",
+            url: APP_URL+"/historique_dossier",
             method:"post",
             data: {
               text : text,

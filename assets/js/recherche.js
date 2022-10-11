@@ -39,7 +39,7 @@ function add_row_select(row){
         }
       });
       $.ajax({
-        url: "/fill_sous_dossier1",
+        url: APP_URL+"/fill_sous_dossier1",
         method:"get",
         data:{
           id_dossier : id_select
@@ -204,7 +204,7 @@ function add_row_select(row){
       }
     });
     $.ajax({
-      url: "/fill_parent_dossier",
+      url: APP_URL+"/fill_parent_dossier",
       method:"get",
       dataType: "json",
       success: function(data) {
@@ -269,7 +269,7 @@ $(document).ready(function() {
         }
       });
       $.ajax({
-        url: "/fill_sous_dossier",
+        url: APP_URL+"/fill_sous_dossier",
         method:"get",
         data:{
           id_dossier : id_select

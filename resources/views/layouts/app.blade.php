@@ -20,6 +20,11 @@
       <!-- CSRF Token -->
       <meta name="csrf-token" content="{{ csrf_token() }}">
       <title>{{ config('app.name', 'Laravel') }}</title>
+
+      <script type="text/javascript">
+      var APP_URL = {!! json_encode(url('/')) !!}
+      
+      </script>
     
    </head>
    <body>
@@ -47,7 +52,7 @@
                   </div>
                   <ul class="hdMnu">
                      <li class="Mnuli lish  {{ request()->is('home')  ? 'active' : '' }} ">
-                        <a href="/">
+                        <a href="{{route('home')}}">
                         <span class="material-icons">
                         home
                         </span>

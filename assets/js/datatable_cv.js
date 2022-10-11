@@ -8,7 +8,7 @@ function remove_organigramme(e,row) {
 
   
                   $.ajax({
-                    url:"/delete_organigramme",
+                    url:APP_URL+"/delete_organigramme",
                     method:"POST",
                     data:{
                       items_delete : row
@@ -50,7 +50,7 @@ function remove_organigramme(e,row) {
     e.preventDefault();
     var id =row
 
-    location.href='/organigramme/' + row + '/edit';
+    location.href=APP_URL+'/organigramme/' + row + '/edit';
 
 
 
@@ -67,7 +67,7 @@ function remove_organigramme(e,row) {
       });
 
     $.ajax({
-        'url': "/table_organigramme",
+        'url': APP_URL+"/table_organigramme",
         'method': "GET",
         'contentType': 'application/json'
     }).done( function(data) {
