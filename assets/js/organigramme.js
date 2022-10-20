@@ -323,7 +323,7 @@ function check_have_parent(){
           }
         });
       $.ajax({
-        url: "/check_have_parent",
+        url: APP_URL+"/check_have_parent",
         method:"POST",
         data:{
           organigramme_id : id_organigramme
@@ -512,7 +512,7 @@ $(document).ready(function() {
         var id_organigramme =  $('#id_organigramme').val();
 
         $.ajax({
-          url:"/creer_entite",
+          url:APP_URL+"/creer_entite",
           method:"POST",
           data:{
             'nom' : entite,
@@ -544,7 +544,7 @@ $(document).ready(function() {
         var id_entite =  $('#select_entite').val();
 
         $.ajax({
-          url:"/remove_entite",
+          url:APP_URL+"/remove_entite",
           method:"POST",
           data:{
             'id_entite' : id_entite,
@@ -613,7 +613,7 @@ $(document).ready(function() {
         rowCount = rowCount_v - 1;
         
         $.ajax({
-          url:"/api_champs_index",
+          url:APP_URL+"/api_champs_index",
           method:"POST",
           data:{ id :   $('.id_dossier').val()  },
           success:function(data){
@@ -683,7 +683,7 @@ $(document).ready(function() {
             $('#treeview_form').on('submit', function(event){
               event.preventDefault();
                 $.ajax({
-                 url:"/store_dossier",
+                 url:APP_URL+"/store_dossier",
                  method:"POST",
                  data:$(this).serialize(),
                  success:function(data){
@@ -744,7 +744,7 @@ $(document).ready(function() {
              $('#form_modal').on('submit', function(event){
               event.preventDefault();
                 $.ajax({
-                 url:"/update_attributs",
+                 url:APP_URL+"/update_attributs",
                  method:"POST",
                  data:$(this).serialize(),
                  success:function(data){
@@ -815,7 +815,7 @@ function removeRow(e,row) {
 
 
                 $.ajax({
-                  url:"/delete_dossier",
+                  url: APP_URL+"/delete_dossier",
                   method:"POST",
                   data:{
                     items_delete : array_id

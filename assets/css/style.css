@@ -112,7 +112,7 @@ li.Mnuli.lish.active a {
 }
 
 .panel_view_info {
-  width: 50%;
+  width: 64%;
 
 }
 
@@ -200,10 +200,10 @@ img.svg_logo {
 
 
 .link_menu__left {
-  padding: 7px 25px 7px 10px;
+  padding: 10px 25px 10px 10px;
   background-color: #f6f6f6;
   border: 1px solid #d6d0d0;
- 
+  border-radius: 3px;
   color: #4a4a4a;
   display: flex;
   cursor: pointer;
