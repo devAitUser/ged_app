@@ -40,7 +40,34 @@
         $('#organigramme_table').dataTable( {
             dom: 'Bfrtip',
             buttons: [
-                'copy', 'excel', 'pdf', 'print'
+              {
+                extend: 'copy',
+                title: 'La liste des dossiers electroniques archivé dans le systeme',
+                exportOptions: {
+                  columns: [ 0, 1, 2, 3 ]
+                },
+              },
+              {
+                extend: 'excel',
+                title: 'La liste des dossiers electroniques archivé dans le systeme',
+                exportOptions: {
+                  columns: [ 0, 1, 2,3]
+                },
+              },
+              {
+                extend: 'pdf',
+                title: 'La liste des dossiers electroniques archivé dans le systeme',
+                exportOptions: {
+                  columns: [ 0, 1, 2,3]
+                },
+              },
+              {
+                extend: 'print',
+                title: 'La liste des dossiers electroniques archivé dans le systeme',
+                exportOptions: {
+                  columns: [ 0, 1, 2,3]
+                },
+              },
             ],
             order: [[0, 'desc']],
             "aaData": data,
@@ -48,11 +75,11 @@
             "bInfo" : false,
             "lengthChange": false,
             columnDefs: [
-              { targets: 0, width: '120px' },    
-              { targets: 1, width: '130px' },
-              { targets: 2, width: '270px' },
-              { targets: 3, width: '160px' },
-              { targets: 4, width: '100px' }, ],
+              { targets: 0, width: '120px'  },    
+              { targets: 1, width: '130px'  },
+              { targets: 2, width: '270px'  },
+              { targets: 3, width: '160px'  },
+              { targets: 4, width: '100px'  }, ],
             fixedColumns: true,
             
             "paginate": {

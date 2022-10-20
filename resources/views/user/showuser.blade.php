@@ -33,42 +33,36 @@
    justify-content: center !important;
    }
    .select2-container.form-control {
-    height: unset !important;;
-    padding: unset !important;;
-    border: unset !important;
-    width: 100%;
-    }
-    .select2-container {
-
-    width: 100%;
-
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.5;
-    color: #495057;
-    background-color: #fff;
-    background-clip: padding-box;
- 
-    border-radius: 0.25rem;
-    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-    }
-    .panel-heading {
-    width: 80% !important;
-     }
+   height: unset !important;;
+   padding: unset !important;;
+   border: unset !important;
+   width: 100%;
+   }
+   .select2-container {
+   width: 100%;
+   font-size: 1rem;
+   font-weight: 400;
+   line-height: 1.5;
+   color: #495057;
+   background-color: #fff;
+   background-clip: padding-box;
+   border-radius: 0.25rem;
+   transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+   }
+   .panel-heading {
+   width: 80% !important;
+   }
 </style>
-
 <div class="panel-heading"> 
-
    <a class="link_organigramme" href="{{ route('user_list') }}">
-      <span class="material-icons">  home </span>  Les utilisateurs
-      </a>
-      <span class="title_profil">     \ 
-      <span class="ititle_organigramme"> {{$user->nom}} {{$user->prenom}} </span> </span> 
-
+   <span class="material-icons">  home </span>  Les utilisateurs
+   </a>
+   <span class="title_profil">     \ 
+   <span class="ititle_organigramme"> {{$user->nom}} {{$user->prenom}} </span> </span> 
 </div>
 <div class="panel_view_details">
    <div class="table_p">
-      <div class="row justify-content-center pb-3">
+      <div class="row justify-content-center pb-3" >
          <div class="col-md-10">
             <div class="card">
                <div class="card-body ">
@@ -78,7 +72,7 @@
                      <div class="row mb-3">
                         <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Nom') }}</label>
                         <div class="col-md-6">
-                           <input id="nom" type="text" class="form-control @error('nom') is-invalid @enderror" name="nom" value="{{$user->nom}}"  autofocus>
+                           <input  id="nom" type="text" class="form-control @error('nom') is-invalid @enderror" name="nom" value="{{$user->nom}}"  autofocus>
                            @error('nom')
                            <span class="invalid-feedback" role="alert">
                            <strong>{{ $message }}</strong>
@@ -117,14 +111,14 @@
                         }
                         }
                         return  false;
-                    } ?>
+                        } ?>
                      <div class="row mb-3">
                         <label for="identifiant" class="col-md-4 col-form-label text-md-end">{{ __('Identifiant') }}</label>
                         <div class="col-md-6">
                            <input id="identifiant" type="text" class="form-control @error('Identifiant') is-invalid @enderror" name="identifiant" value="{{$user->identifiant}}"  autofocus>
                            @error('identifiant')
                            <span class="invalid-feedback" role="alert">
-                           <strong>{{ $message }}</strong>
+                           <strong>Identifiant que vous avez entrer deja enregistré dans la base de données</strong>
                            </span>
                            @enderror
                         </div>
@@ -135,61 +129,60 @@
                            <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{$user->email}}" required autocomplete="email">
                            @error('email')
                            <span class="invalid-feedback" role="alert">
-                           <strong>{{ $message }}</strong>
+                           <strong> Email que vous avez entrer deja enregistré dans la base de données</strong>
                            </span>
                            @enderror
                         </div>
                      </div>
-                     <div id="row0" class="row mb-3">
-                        <label for="select_project" class="col-md-4 col-form-label text-md-end">Les Projets  </label>
-                        <div class="col-md-6">
-                           <select id="select_project" multiple="multiple"  class=" form-control ">
-                              <?php for($i=0;$i<count($organigrammes);$i++){ ?>
-                                  
-                                 <?php if( isset($les_projets[$i])  ) {  ?>
-                                                   <?php if (in_array($organigrammes[$i]['id'], $les_projets[$i])) {    ?>
-                                                   <option value="<?php echo $organigrammes[$i]['id']; ?>" selected><?php echo $organigrammes[$i]['nom']; ?></option>
-                                                   <?php  } else {  ?>
-                                                   <option value="<?php echo $organigrammes[$i]['id']; ?>" ><?php echo $organigrammes[$i]['nom']; ?></option>
-                                                   <?php  } ?>
-                                          
-                                           <?php  } else { ?>
-                                             <option value="<?php echo $organigrammes[$i]['id']; ?>" ><?php echo $organigrammes[$i]['nom']; ?></option>
+                     <div class="row_project_panel">
+                        <div id="row0" class="row mb-3">
+                           <label for="select_project" class="col-md-4 col-form-label text-md-end">Les Projets  </label>
+                           <div class="col-md-6">
+                              <select id="select_project" multiple="multiple"  class=" form-control ">
+                                 <?php for($i=0;$i<count($organigrammes);$i++){ ?>
+                                    <?php if( isset($les_projets)  ) {  ?>
+                                       <?php if (array_search($organigrammes[$i]['id'], array_column($les_projets, 'id')) !== false) {    ?>
+                                          <option value="<?php echo $organigrammes[$i]['id']; ?>" selected><?php echo $organigrammes[$i]['nom']; ?></option>
+                                          <?php  } else {  ?>
+                                          <option value="<?php echo $organigrammes[$i]['id']; ?>" ><?php echo $organigrammes[$i]['nom']; ?></option>
+                                          <?php  } ?>
+                                       <?php  } else { ?>
+                                       <option value="<?php echo $organigrammes[$i]['id']; ?>" ><?php echo $organigrammes[$i]['nom']; ?></option>
+                                    <?php  } ?>
+                                 <?php  } ?>
+                              </select>
+                           </div>
+                        </div>
+                        <input type="text" value="{{$count_projet}}" id="count_projet" hidden>
+                        <?php  for($i=0;$i<count($les_projets);$i++){ ?>
+                        <div id="row<?php echo $les_projets[$i]['id']; ?>" class="row mb-3 row_project">
+                           <input type="text" value="<?php echo $les_projets[$i]['id']; ?>" name="organigramme_id[]" hidden>
+                           <label for="password-confirm" class="col-md-4 col-form-label text-md-end">Les Dossiers a Voir dans  <strong> <?php echo $les_projets[$i]['nom_organigrammes']; ?> </strong>  </label>
+                           <div class="col-md-6">
+                              <select id="select_tree<?php echo $les_projets[$i]['id']; ?>" multiple="multiple" name="dossiers<?php echo $les_projets[$i]['id']; ?>[]" class=" form-control ">
+                                 <?php for($j=0;$j<count($les_projets[$i]['dossiers']);$j++){ ?>
+                                    <?php if ($les_projets[$i]['dossiers'][$j]['parent_id'] == 0){  ?>
+                                       <?php if (is_array_empty($les_projets[$i]['dossiers_select'])){  ?>
+                                          <?php if (in_array($les_projets[$i]['dossiers'][$j]['id'], $les_projets[$i]['dossiers_select'])) {  ?>
+                                          <option value="<?php echo $les_projets[$i]['dossiers'][$j]['id']; ?>" selected><?php echo $les_projets[$i]['dossiers'][$j]['nom_champs']; ?></option>
+                                          <?php  } else { ?>
+                                          <option value="<?php echo $les_projets[$i]['dossiers'][$j]['id']; ?>" ><?php echo $les_projets[$i]['dossiers'][$j]['nom_champs']; ?></option>
+                                          <?php  } ?>
+                                          <?php } else {  ?>
+                                          <option value="<?php echo $les_projets[$i]['dossiers'][$j]['id']; ?>" ><?php echo $les_projets[$i]['dossiers'][$j]['nom_champs']; ?></option>
                                        <?php  } ?>
-                              <?php  } ?>
-                           </select>
-                        </div>
-                     </div>
-                     <input type="text" value="{{$count_projet}}" id="count_projet" hidden>
-                     <?php  $count=1; for($i=0;$i<count($les_projets);$i++){ ?>
-                     <div id="row<?php echo $count; ?>" class="row mb-3">
-                        <input type="text" value="<?php echo $les_projets[$i]['id']; ?>" name="organigramme_id[]" hidden>
-                        <label for="password-confirm" class="col-md-4 col-form-label text-md-end">Les Dossiers a Voir dans  <strong> <?php echo $les_projets[$i]['nom_organigrammes']; ?> </strong>  </label>
-                        <div class="col-md-6">
-                           <select id="select_tree<?php echo $count; ?>" multiple="multiple" name="dossiers<?php echo $count; ?>[]" class=" form-control ">
-                              <?php $array_id= array(); for($j=0;$j<count($les_projets[$i]['dossiers']);$j++){ ?>
-                                 <?php if ($les_projets[$i]['dossiers'][$j]['parent_id'] == 0){  ?>
-                                    <?php if (is_array_empty($les_projets[$i]['dossiers_select'])){  ?>
-                                          
-                                                   <?php if (in_array($les_projets[$i]['dossiers'][$j]['id'], $les_projets[$i]['dossiers_select'])) {  ?>
-                                                   <option value="<?php echo $les_projets[$i]['dossiers'][$j]['id']; ?>" selected><?php echo $les_projets[$i]['dossiers'][$j]['nom_champs']; ?></option>
-                                                   <?php  } else { ?>
-                                                      <option value="<?php echo $les_projets[$i]['dossiers'][$j]['id']; ?>" ><?php echo $les_projets[$i]['dossiers'][$j]['nom_champs']; ?></option>
-                                                      <?php  } ?>
+                                    <?php } ?>
+                                 <?php } ?>
+                              </select>
+                           </div>
 
-                                  
-
-                                       
-                                        
-                                  <?php } else {  ?>
-                                    <option value="<?php echo $les_projets[$i]['dossiers'][$j]['id']; ?>" ><?php echo $les_projets[$i]['dossiers'][$j]['nom_champs']; ?></option>
-                                  <?php  } ?>
-                                  <?php } ?>
-                              <?php } ?>
-                           </select>
+                           <script>
+                               var id_select = {!! json_encode($les_projets[$i]['id']) !!}
+                              $('#select_tree'+id_select).select2({});
+                           </script>
                         </div>
+                        <?php  } ?>
                      </div>
-                     <?php  $count++; } ?>
                      <div class="row mb-3">
                         <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
                         <div class="col-md-6">

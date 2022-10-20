@@ -73,7 +73,51 @@
          padding-left: 25px !important ;
       }
 
- 
+      caption {
+         background-color: #f3f0f0;
+         width: 44%;
+         caption-side: top;
+         font-size: 14px;
+         font-weight: 500;
+         padding-left: 10px;
+         border-top: 1px solid #dbd4d4 !important;
+         border-left: 1px solid #dbd4d4 !important;
+         border-right: 1px solid #dbd4d4 !important;
+      }
+      .info_doc_table {
+         border: 1px solid #dbd4d4 !important;
+      }
+
+      table.tbl_profil tr td {
+         padding: 9px;
+         text-align: right;
+      }
+
+      .input_doc_info_table {
+         text-transform: uppercase;
+         font-weight: 400;
+         font-size: 13px;
+         text-align: left !important;
+      }
+
+      td.cell_table_info {
+         text-align: left !important;
+         width: 45%;
+         font-weight: 500;
+      }
+
+      .info_doc_table tbody {
+         background-color: #fbfbfb;
+      }
+
+      .info_doc_table tr {
+         border: 1px solid #dbd4d4 !important;
+      }
+
+      .modal-footer {
+         justify-content: space-between;
+      }
+      
 </style>
 
 
@@ -134,22 +178,7 @@
                    </tr>
                    @for ($i = 0; $i < count($attributs) ; $i++)
 
-                     @if($attributs[$i]->type_champs == "textarea") 
-                           <tr>
-                                    <td class="td_1">{{$attributs[$i]->nom_champs}} :</td>
-                                    <td> 
-                                   
-      
-      
-                                          <textarea name="titre" class="form-control" id="folder_name">{{$attributs[$i]->valeur}}</textarea>
-      
-                                     
-                                 
-                                    </td>
-      
-      
-                              </tr>
-                     @else
+              
       
       
                        <tr>
@@ -181,9 +210,17 @@
                                  
       
                                           @else 
-                                          <input type="text" name="id[]" value="{{$attributs[$i]->id}}" hidden>
-                                          <input type="text" name="valeur[]" class="form-control" value="{{$attributs[$i]->valeur}}" >
-      
+
+                                             @if($attributs[$i]->nom_champs == "dispose d'une version physique" )
+                                                <input type="text" name="id[]" value="{{$attributs[$i]->id}}" hidden>
+                                                <input type="text" name="valeur[]" class="form-control" value="{{$attributs[$i]->valeur}}" disabled>
+                                             
+                                             @else
+                                                <input type="text" name="id[]" value="{{$attributs[$i]->id}}" hidden>
+                                                <input type="text" name="valeur[]" class="form-control" value="{{$attributs[$i]->valeur}}" >
+                                             
+                                             @endif
+
                                           @endif
                                  
                                     </td>
@@ -192,7 +229,7 @@
                               </tr>
       
       
-                      @endif        
+                              
                    
       
       
@@ -201,6 +238,30 @@
                  
           
                   </table>
+
+
+                  <table id="id_table_print" class="tbl_profil info_doc_table">
+                 
+                     <caption>LES INFORMATIONS DU DOSSIER : </caption>
+                     <tr>
+                        <td class="input_doc_info_table">Dossier Créer par  :</td>
+                        <td class="cell_table_info" > 
+                           <label>{{$user_create_dossier}}</label>                                      
+                        </td>
+
+
+                     </tr>
+                     <tr>
+                        <td class="input_doc_info_table">Date de creation du dossier  :</td>
+                        <td class="cell_table_info"> 
+                           <label>{{$date_create_dossier}}</label>                                      
+                        </td>
+
+
+                     </tr>
+                 
+
+                   </table>
       
                   @if (Auth::user()->hasPermissionTo('Modifier les dossiers'))
       
@@ -209,8 +270,10 @@
                         
       
                               <button class="btn btn-primary delete_user mr-3" href="" id="">Modifier</button>
-                              <a class="btn btn-danger delete_user" href="{{ route('delete_dossier',$id) }}" id="">Supprimer</a>
-      
+
+                              @if($check_demande_supperssion)
+                              <a class="btn btn-danger delete_user" href="#" data-bs-toggle="modal" data-bs-target="#demande_suppression">Supprimer</a>
+                              @endif()
       
       
                         </div>
@@ -265,6 +328,42 @@
       </div>
 
       </form>
+
+
+
+
+
+ 
+ <!-- Modal -->
+ <div class="modal fade" id="demande_suppression" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+   <div class="modal-dialog">
+  <form  method="post" action="{{url('demande_suppression')}}"  >
+     {{ csrf_field() }}
+     <div class="modal-content">
+       <div class="modal-header">
+         <h5 class="modal-title" id="exampleModalLabel">Demande de suppression </h5>
+         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+       </div>
+       <div class="modal-body">
+        
+         
+            <div class="form-group">
+              <label for="exampleFormControlTextarea1">Motif :</label>
+              <textarea class="form-control" name="motif" rows="3" required></textarea>
+            </div>
+
+            
+            <input type="text" value="{{$id}}" name="id_dossier" hidden>
+         
+       </div>
+       <div class="modal-footer">
+         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">fermer</button>
+         <button type="submit" class="btn btn-primary">Validé</button>
+       </div>
+     </div>
+   </form>
+   </div>
+ </div>
 
 
 

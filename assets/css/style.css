@@ -27,7 +27,9 @@
 }
 
 
-
+th.col_1 {
+  text-align: center;
+}
 
 ul.hdMnu {
   list-style: none;
@@ -601,7 +603,7 @@ span.ititle_organigramme {
 .styled-table thead tr {
   background-color: #009688;
   color: #ffffff;
-  text-align: left;
+
 }
 
 #organigramme_table tr:first-child th:first-child {

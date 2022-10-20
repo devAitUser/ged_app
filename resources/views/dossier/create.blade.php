@@ -2,7 +2,7 @@
 @section('content')
 <script src="https://code.jquery.com/jquery-1.12.1.min.js"></script> 
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/flatly/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.0.45/css/materialdesignicons.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 
@@ -54,6 +54,8 @@
    #attribut_champ {
     width: 100%;   
     PADDING-TOP: 15PX;
+    padding-right: 0px;
+    padding-left: 0px;
    }
    .btn_panel {
     text-align: -webkit-center;
@@ -88,7 +90,17 @@
     .panel-heading {
          width: 94% !important;
       }
- 
+
+
+      input#version_physique_btn {
+         transform: scale(1.7);
+         margin-left: 0px;
+      }
+
+
+label:last-child input[type=radio] {
+  transform: scale(1.5);
+}
 </style>
 
 
@@ -115,7 +127,7 @@
                            <label for="colFormLabelSm" class="col-sm-4 col-form-label col-form-label-sm">FOND :</label>
                            <input  type="text" name="nom_champs_select[]" value="FOND" hidden="">
                            <div class="col-sm-8">
-                           <select class="form-control" id="parent_select" name="value_select[]">
+                           <select class="form-select" id="parent_select" name="value_select[]">
                               <option value="">Selectionne le dossier</option>
                      
                               </select>
@@ -136,7 +148,7 @@
                            <label for="colFormLabelSm"  class="col-sm-4 col-form-label col-form-label-sm sous_label_1 text-uppercase">________ :</label>
                            <input class="nom_champs_select_1" type="text" name="nom_champs_select[]" value="text" hidden="">
                            <div class="col-sm-8">
-                              <select class="form-control" id="sous_select_1" name="value_select[]" onchange="add_row_select(1)">
+                              <select class="form-select" id="sous_select_1" name="value_select[]" onchange="add_row_select(1)">
                                  <option value="">Selectionne le dossier</option>
                         
                                  </select>

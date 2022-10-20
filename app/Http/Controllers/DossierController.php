@@ -15,6 +15,9 @@ use Smalot\PdfParser\Parser;
 use App\Models\File_searche;
 use Illuminate\Support\Str;
 
+
+use App\Models\Request_delete_dossier;
+
 use App\Models\Entite;
 
 use App\Models\Indexe;
@@ -284,6 +287,17 @@ class DossierController extends Controller
 
      public function show_dossier($id){
 
+        $check_demande_supperssion =  true;
+
+    
+
+        if (Request_delete_dossier::where('dossier_id', '=', $id )->count() > 0) {
+             $check_demande_supperssion = false ;
+         }
+        
+
+
+
         $dossier = Dossier::find($id);
         $titre = '';
 
@@ -295,6 +309,11 @@ class DossierController extends Controller
         $add_historique->save();
 
         $attributs = $dossier->attibuts_dossier;
+        $user_create_dossier = $dossier->user->identifiant;
+        $date_create_dossier =  $dossier->created_at;
+        $createdAt = Carbon::parse($date_create_dossier);
+
+        $date_create_dossier = $createdAt->format('d/m/Y H:i:s');        
 
         $historique = Historique_dossier::where(['dossier_id' => $id  ])->get();
 
@@ -306,7 +325,8 @@ class DossierController extends Controller
 
             $date = $createdAt->format('d/m/Y H:i:s');
 
-            $all_historiques[] = array("user" => $historique[$i]->user , "action" => $historique[$i]->action ,"date" => $date );
+            $all_historiques[] = array("user" => $historique[$i]->user , "action" => $historique[$i]->action ,
+            "date" => $date );
 
         }
 
@@ -316,7 +336,8 @@ class DossierController extends Controller
 
         
 
-        $data = array("attributs" =>  $attributs , 'id' => $id , 'all_historiques' => $all_historiques );
+        $data = array("attributs" =>  $attributs , 'id' => $id , 'all_historiques' => $all_historiques ,
+         "date_create_dossier" => $date_create_dossier , "user_create_dossier" => $user_create_dossier , "check_demande_supperssion" => $check_demande_supperssion  );
 
         return view('dossier.show',  $data);
 
@@ -871,6 +892,96 @@ class DossierController extends Controller
 
 
      }
+
+
+     public function request_delete_dossier(Request $request){
+
+
+        return view('dossier.request_delete');
+
+
+     }
+
+
+     public function api_request_delete_dossier(Request $request){
+
+         $Request_delete_dossier = Request_delete_dossier::all();
+
+         $all =array();
+
+
+         for($i=0;$i<count($Request_delete_dossier);$i++){
+
+            $createdAt = Carbon::parse($Request_delete_dossier[$i]->created_at);
+
+            $date = $createdAt->format('d/m/Y H:i:s'); 
+          
+     
+            $all[] = array('id' => $Request_delete_dossier[$i]->id , 'name_user' => $Request_delete_dossier[$i]->name_user ,
+             'dossier_id' =>  $Request_delete_dossier[$i]->dossier_id ,   'motif' =>  $Request_delete_dossier[$i]->motif ,
+              'date' =>  $date );
+
+         
+         }
+    
+
+
+ 
+
+        return $all;
+
+
+     }
+
+
+     public function request_decision_user(Request $request){
+
+       
+
+       if($request->decision == 'accepter'){
+
+        $dossier = Dossier::find($request->dossier_id);
+        $dossier->delete();
+        $Request_delete_dossier = Request_delete_dossier::find($request->id_request);
+        $Request_delete_dossier->delete();
+        }
+
+        if($request->decision == 'rejeter'){
+
+          $Request_delete_dossier = Request_delete_dossier::find($request->id_request);
+          $Request_delete_dossier->delete();
+
+        }
+
+
+       return Response()
+        ->json(['etat' => true]);
+
+
+
+     }
+
+
+     public function demande_suppression(Request $request){
+
+        $user = Auth::user();
+       
+        $Request_delete_dossier = new Request_delete_dossier();
+
+        $Request_delete_dossier->name_user  =  $user->identifiant;
+        $Request_delete_dossier->motif      =  $request->motif;
+        $Request_delete_dossier->dossier_id =  $request->id_dossier;
+
+        $Request_delete_dossier->save();
+
+
+      
+         return redirect('/show_dossier/'.$request->id_dossier); 
+
+ 
+ 
+ 
+      }
 
 
 
