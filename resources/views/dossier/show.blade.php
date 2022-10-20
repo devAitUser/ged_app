@@ -212,8 +212,8 @@
                                           @else 
 
                                              @if($attributs[$i]->nom_champs == "dispose d'une version physique" )
-                                                <input type="text" name="id[]" value="{{$attributs[$i]->id}}" hidden>
-                                                <input type="text" name="valeur[]" class="form-control" value="{{$attributs[$i]->valeur}}" disabled>
+                                                <input type="text"  value="{{$attributs[$i]->id}}" hidden>
+                                                <input type="text"  class="form-control" value="{{$attributs[$i]->valeur}}" disabled>
                                              
                                              @else
                                                 <input type="text" name="id[]" value="{{$attributs[$i]->id}}" hidden>

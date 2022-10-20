@@ -594,6 +594,15 @@ class DossierController extends Controller
 
 
         $this->authorize('permission_Modifier_dossiers');
+
+        $user =  Auth::user();
+        $add_historique = new Historique_dossier();
+        $add_historique->user = $user->identifiant;
+        $add_historique->action = 'Modifier le dossier';
+        $add_historique->dossier_id = $id;
+        $add_historique->save();
+
+
         for($i=0;$i<count($request->id);$i++){
             $upd = Attributs_dossier::find($request->id[$i]);  
             $upd->valeur = $request->valeur[$i];
@@ -965,6 +974,12 @@ class DossierController extends Controller
      public function demande_suppression(Request $request){
 
         $user = Auth::user();
+
+        $add_historique = new Historique_dossier();
+        $add_historique->user = $user->identifiant;
+        $add_historique->action = 'Demande de suppression du dossier';
+        $add_historique->dossier_id = $request->id_dossier;
+        $add_historique->save();
        
         $Request_delete_dossier = new Request_delete_dossier();
 

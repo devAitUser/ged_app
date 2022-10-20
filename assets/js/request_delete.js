@@ -139,9 +139,8 @@
                 "previous": "PrÃ©cÃ©dente"
             },
             "oLanguage": {
-                "sUrl": "/assets/fr-FR.json"
-              },
-    
+              "sUrl": APP_URL+"/assets/fr-FR.json"
+            },
             "columns": [
              
                 { "data": "name_user"  },

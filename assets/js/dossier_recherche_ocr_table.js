@@ -43,7 +43,7 @@ $(document).ready(function() {
                   "previous": "PrÃ©cÃ©dente"
               },
               "oLanguage": {
-                  "sUrl": "/assets/fr-FR.json"
+                "sUrl": APP_URL+"/assets/fr-FR.json"
               },
         
           columnDefs: [
@@ -140,9 +140,8 @@ $(document).ready(function() {
                           "previous": "PrÃ©cÃ©dente"
                       },
                       "oLanguage": {
-                          "sUrl": "/assets/fr-FR.json"
+                        "sUrl": APP_URL+"/assets/fr-FR.json"
                       },
-                
                   columnDefs: [
                     { targets: 0, width: '120px' },    
                     { targets: 1, width: '130px' },

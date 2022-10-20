@@ -220,7 +220,7 @@
  <!-- Modal panel_attributs -->
  <div class="modal fade" id="panel_attributs" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
    <div class="modal-dialog modal-lg" role="document">
-     <div class="modal-content">
+     <div class="modal-content panel_organigramme  ">
        <div class="modal-header">
          <h4 class="modal-title" >Dossier : <strong><span class="title_dossier"></span></strong>
             </h4>
@@ -228,15 +228,17 @@
            <span aria-hidden="true">&times;</span>
          </button>
        </div>
+
+       <h3 class="text-center" >Les attributs du Dossier</h3>
        <form method="post" id="form_modal">
-       <div class="modal-body">
+       <div class="modal-body   ">
          <button type="button" class="btn btn-info modal_btn_add_oranigramme"><span class="material-icons">
             add
             </span>Ajouter</button>
         
             <input type="text" class="hidden id_dossier" name="id_champs" >
             
-         <table id="Modal_table_champs_add" class="table_champs_add">
+         <table id="Modal_table_champs_add" class="table_champs_add ">
             <tbody><tr class="table_h">
                <th style="width:45%">Nom du champs</th>
                <th>Type du champs</th>
@@ -249,6 +251,8 @@
             </tbody>
           
          </table>
+
+         <h3 class="text-center" >Les paramètres de l'indexation Automatique</h3>
 
          <button type="button" class="btn btn-info modal_btn_add_index"><span class="material-icons">
             add

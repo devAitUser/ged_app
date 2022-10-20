@@ -11,7 +11,7 @@
       width: 307px;
    }
    ul.block_archive {
-      width: 67%;
+      width: 69%;
    }
    .panel_view_info {
       display: flex;
