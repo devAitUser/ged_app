@@ -42,6 +42,7 @@
     .panel-heading {
     width: 80% !important;
      }
+
      .table-bordered>tbody>tr>td, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>td, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>thead>tr>th {
             border: 1px solid #ddd;
             vertical-align: unset !important;
@@ -51,22 +52,20 @@
 
 
       <div class="panel-heading">   
-        Les utilisateurs
+        Les demandes de suppression des dossiers
      </div>
       <div class="panel_view_details">
          <div class="table_p">
 
-            <div class="block_manager_datable">
-                <a href="{{route('user_show')}}" class="create_organi" aria-label="Close" >Nouveau utilisateur </a>
-            </div>
+    
 
             <table id="organigramme_table" class=" table table-bordered text-center styled-table">
                <thead>
                    <tr>
-                       <th scope="col">Nom</th>
-                       <th scope="col">Prenom</th>
-                       <th scope="col">Email</th>
-                       <th scope="col">identifiant</th>
+                       <th scope="col">Nom d'utilisateur</th>
+                       <th scope="col">Motif</th>
+                       <th scope="col">Date</th>
+                  
                        <th scope="col">Action  </th>
 
 
@@ -109,6 +108,6 @@
 
 
       <script src="{{asset('assets/js/datatables.min.js')}}"></script>
-      <script src="{{asset('assets/js/datatable_user.js')}}"></script>
+      <script src="{{asset('assets/js/request_delete.js')}}"></script>
 
 @endsection

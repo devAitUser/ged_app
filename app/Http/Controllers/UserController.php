@@ -38,8 +38,9 @@ class UserController extends Controller
             'nom'=>'required',
             'telephone'=>'required',
             'password'=>'required',
-            'email'=>'required',
-            'identifiant'=>'required',
+            'email' => 'required|unique:users,email',  
+            'identifiant' => 'required|unique:users,identifiant',  
+       
             'prenom' => 'required'
         ]);
 
@@ -174,10 +175,28 @@ class UserController extends Controller
             }
             return  false;
         }
-       
+
+
         $user = User::where('id', '=', $request->id)->first();
         $user->nom = $request->nom;
+    
+
+        if($user->identifiant !=  $request->identifiant ){
+            $this->validate($request,[
+                'identifiant' => 'required|unique:users,identifiant',  
+            ]);
+        }
+
+        if($user->email !=  $request->email ){
+            $this->validate($request,[
+                'email' => 'required|unique:users,email', 
+            ]);
+        }
+
+    
         $user->identifiant = $request->identifiant;
+   
+    
         $user->prenom = $request->prenom;
         $user->telephone = $request->telephone;
         $user->projet_select_id = 0;
@@ -201,7 +220,7 @@ class UserController extends Controller
                 $projet = new Projet();
                 $projet->organigrammes_id  = $request->organigramme_id[$i];
                 $projet->user_id  = $user->id;
-                $dossiers =json_encode($request->input('dossiers'.$count));
+                $dossiers =json_encode($request->input('dossiers'.$request->organigramme_id[$i]));
                 $projet->dossiers = $dossiers ;
                 $projet->save();
                 $count++;

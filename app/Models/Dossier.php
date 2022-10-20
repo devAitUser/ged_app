@@ -16,6 +16,11 @@ class Dossier extends Model
         return $this->hasMany('App\Models\Attributs_dossier');
     }
 
+    public function user()
+    {
+        return $this->hasOne('App\Models\User','id','user_id');
+    }
+
     
     
 

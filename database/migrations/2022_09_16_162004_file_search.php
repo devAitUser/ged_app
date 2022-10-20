@@ -18,11 +18,10 @@ class FileSearch extends Migration
             $table->string('filename')->nullable();
             $table->text('content')->nullable();
             $table->unsignedBigInteger('dossier_id');
-            $table->foreign('dossier_id')->references('id')->on('dossiers');
+            $table->foreign('dossier_id')->references('id')->on('dossiers')->onDelete('cascade');
             $table->unsignedBigInteger('attributs_dossiers_id');
-            $table->foreign('attributs_dossiers_id')->references('id')->on('attributs_dossiers');
+            $table->foreign('attributs_dossiers_id')->references('id')->on('attributs_dossiers')->onDelete('cascade');
             $table->unsignedBigInteger('projet_id');
-            $table->foreign('projet_id')->references('id')->on('organigrammes');
             $table->timestamps();
         });
     }

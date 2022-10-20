@@ -68,6 +68,13 @@
                         <span class="material-icons">manage_accounts</span>
                         </a>
                      </li>
+
+
+                     <li class="Mnuli lish  {{ request()->is('request_delete_dossier')  ? 'active' : '' }} ">
+                        <a href="{{route('request_delete_dossier')}}">
+                        <span class="material-icons">rule_folder</span>
+                        </a>
+                     </li>
                 
                  
    

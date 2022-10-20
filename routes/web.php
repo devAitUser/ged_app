@@ -94,6 +94,15 @@ Route::get('/create_dossier',[App\Http\Controllers\DossierController::class, 'cr
 Route::get('/fill_parent_dossier',[App\Http\Controllers\DossierController::class, 'fill_parent_dossier']);
 Route::post('/uploud_pdf_temp',[App\Http\Controllers\DossierController::class, 'uploud_pdf_temp']);
 
+
+Route::get('/request_delete_dossier',[App\Http\Controllers\DossierController::class, 'request_delete_dossier'])->name('request_delete_dossier');
+
+Route::get('/api_request_delete_dossier',[App\Http\Controllers\DossierController::class, 'api_request_delete_dossier']);
+
+Route::post('/request_decision_user',[App\Http\Controllers\DossierController::class, 'request_decision_user']);
+
+Route::post('/demande_suppression',[App\Http\Controllers\DossierController::class, 'demande_suppression']);
+
 Route::get('/fill_sous_dossier',[App\Http\Controllers\DossierController::class, 'fill_sous_dossier']);
 
 Route::get('/fill_sous_dossier1',[App\Http\Controllers\DossierController::class, 'fill_sous_dossier1']);

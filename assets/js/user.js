@@ -12,21 +12,11 @@ if(count_page >0){
 }
 
 
-console.log(count)
 
   $('#select_project').select2();
 
   var cpt =0;
-  for (let i = 0; i < count_page; i++) {
-         cpt = i+1;
-      $('#select_tree'+cpt).select2({
-   
-      
-      });
-    
-  
-
-  }
+ 
 
 
   $('#select_project').on("removed", function(e) {
@@ -71,22 +61,24 @@ console.log(count)
           new_count =parseInt(count)+1;
          
 
-          var row = '<div id="row'+new_count +'" class="row mb-3">'
-           row += '<input type="text" value="'+id_select+'" name="organigramme_id[]" hidden><label for="select_tree'+new_count+'" class="col-md-4 col-form-label text-md-end">Les Dossiers a Voir dans  <strong> '+text_select+' </strong>  </label>'
+          var row = '<div id="row'+id_select +'" class="row mb-3">'
+           row += '<input type="text" value="'+id_select+'" name="organigramme_id[]" hidden><label for="select_tree'+id_select+'" class="col-md-4 col-form-label text-md-end">Les Dossiers a Voir dans  <strong> '+text_select+' </strong>  </label>'
            row += '<div class="col-md-6">'
-           row += '<select id="select_tree'+new_count+'"  multiple="multiple" class="form-control"  name="dossiers'+new_count+'[]">'
+           row += '<select id="select_tree'+id_select+'"  multiple="multiple" class="form-control"  name="dossiers'+id_select+'[]">'
            row += ''
            row += '</select> </div> </div>'
          
         
       
 
-           $("#row"+count).after(row);
-           $('#select_tree'+new_count).select2({
+           $(".row_project_panel").append(row);
+           
+           $('#select_tree'+id_select).select2({
            
             width: "100%"
            });
-           $('#select_tree'+new_count).html(data);
+           
+           $('#select_tree'+id_select).html(data);
            count++;
           
   
