@@ -28,7 +28,7 @@
                 
                                           
                   
-                      alert('supprimer avec succes');
+                   
                     
 
                 }
