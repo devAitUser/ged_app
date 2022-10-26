@@ -147,7 +147,7 @@
                   </div>
                </div>
                <div class="form-group">
-                  <label>Entrez le nom de dossier</label>
+                  <label>Entrez le nom de <span class="nom_dossier">dossier</span></label>
                   <input type="text" name="dossier_champs" id="category_name" class="form-control" required>
                   <input class="hidden" type="text" name="id_organigramme" id="id_organigramme" value="{{$id}}" hidden="true"/>
                   <input class="hidden" type="text" name="type_dossier" id="type_dossier" value="btn_dossier" hidden="true"/>

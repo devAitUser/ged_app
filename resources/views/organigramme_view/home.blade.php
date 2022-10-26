@@ -45,9 +45,7 @@
       <div class="panel_view_details">
          <div class="table_p">
 
-            <div class="block_manager_datable">
-                <a href="#" class="create_organi" aria-label="Close" data-toggle="modal" data-target="#exampleModal">creer un plan de classement </a>
-            </div>
+      
 
             <table id="organigramme_table" class=" table table-bordered text-center styled-table">
                <thead>
@@ -98,45 +96,6 @@
 
 
 
-  <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <form  method="post" action="{{url('create_organigramme')}}">
-            @csrf
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Créer un plan de classement</h5>
-          <button type="button" class="close" data-dismiss="modal" >
-
-          </button>
-        </div>
-        <div class="modal-body">
-            <div class="panel_pop_up">
-
-
-                    <div class="form-group">
-                      <label for="nom_organigramme">Nom du plan de classement </label>
-                      <input type="text" class="form-control" name="nom_organigramme"  id="nom_organigramme"  placeholder="Nom du organigramme" required="">
-
-                    </div>
-
-
-
-
-            </div>
-
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-          <button type="submit" class="btn btn-primary">Créer</button>
-        </div>
-        </form>
-      </div>
-    </div>
-  </div>
-
-
-
 
 
 
@@ -154,6 +113,6 @@
 
 
    <script src="{{asset('assets/js/datatables.min.js')}}"></script>
-      <script src="{{asset('assets/js/datatable_plan_classement.js')}}"></script>
+      <script src="{{asset('assets/js/datatable_plan_classement_v.js')}}"></script>
 
 @endsection

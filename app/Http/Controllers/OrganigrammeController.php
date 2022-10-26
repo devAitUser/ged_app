@@ -7,6 +7,8 @@ use App\Models\Attribut_champ;
 use App\Models\Entite;
 use Illuminate\Http\Request;
 use App\Models\Indexe;
+use Illuminate\Support\Facades\Auth;
+use PDF;
 
 
 class OrganigrammeController extends Controller
@@ -24,6 +26,17 @@ class OrganigrammeController extends Controller
         return view('organigramme.home');
 
     }
+
+    public function home_organigramme_view()
+    {
+
+        $this->authorize('Voir_plan_classement');
+
+        return view('organigramme_view.home');
+
+    }
+
+    
 
     public function get_node_data($parent_id, $organigramme_id, $entite_organigramme)
     {
@@ -92,6 +105,74 @@ class OrganigrammeController extends Controller
 
     }
 
+
+    public function get_node_data_view($parent_id, $organigramme_id, $entite_organigramme)
+    {
+
+        $dossier_parent = Dossier_champ::query()->where(['parent_id' => $parent_id, 'entite_id' => $entite_organigramme])->get();
+
+        $dossier_attributs = Attribut_champ::where('dossier_champs_id', '=', $parent_id)->get();
+        $output = array();
+
+        if (count($dossier_parent) == 0)
+        {
+
+        }
+        else
+        {
+            for ($i = 0;$i < count($dossier_parent);$i++)
+            {
+
+                if ($dossier_parent[$i]->organigramme_id == $organigramme_id)
+                {
+                    $check_attributs = Attribut_champ::where('dossier_champs_id', '=', $dossier_parent[$i]->id)
+                        ->get();
+                    $sub_array = array();
+                    $sub_array['id_node'] = $dossier_parent[$i]->parent_id;
+                    if (count($check_attributs) == 0)
+                    {
+                        $sub_array['text'] = $dossier_parent[$i]->nom_champs ;
+                    }
+                    else
+                    {
+                        $sub_array['text'] = $dossier_parent[$i]->nom_champs ;
+                    }
+
+                    $sub_array['nodes'] = array_values($this->get_node_data_view($dossier_parent[$i]->id, $organigramme_id, $entite_organigramme));
+
+                    $output[] = $sub_array;
+
+                }
+
+            }
+        }
+
+        if (count($dossier_attributs) == 0)
+        {
+
+        }
+        else
+        {
+            $attributs_f = '';
+            for ($i = 0;$i < count($dossier_attributs);$i++)
+            {
+                if ($dossier_attributs[$i]->type_champs == 'Fichier')
+                {
+                    $attributs_f .= '<span class="material-icons icon_file_organi">description</span>' . $dossier_attributs[$i]->nom_champs . ',';
+                }
+            }
+            if ($attributs_f != '')
+            {
+                $sub_array = array();
+                $sub_array['text'] = $attributs_f . '<a href="" class="prevent-default" onClick="removeRow(event,1 )" > </a>';
+                $output[] = $sub_array;
+            }
+        }
+
+        return $output;
+
+    }
+
     public function array_organigramme(Request $request)
     {
 
@@ -114,6 +195,42 @@ class OrganigrammeController extends Controller
                 {
 
                     $data = $this->get_node_data($parent_id, $organigramme_id, $entite->id);
+
+                }
+                $output[] = array(
+                    'name_entite' => $entite->nom,
+                    'dossiers' => $data
+                );
+            }
+
+        }
+
+        return Response()->json($output);
+
+    }
+
+    public function array_organigramme_view(Request $request)
+    {
+
+        $parent_id = 0;
+        $organigramme_id = 1;
+        $all_dossier = Dossier_champ::all();
+
+        $organigramme_id = $request->input('organigramme_id');
+        $all_entite = Entite::where('organigramme_id', '=', $organigramme_id)->get();
+        $data = array();
+
+        foreach ($all_entite as $entite)
+        {
+
+            if (Dossier_champ::where('entite_id', '=', $entite->id)
+                ->count() > 0)
+            {
+
+                foreach ($all_dossier as $row)
+                {
+
+                    $data = $this->get_node_data_view($parent_id, $organigramme_id, $entite->id);
 
                 }
                 $output[] = array(
@@ -430,9 +547,32 @@ class OrganigrammeController extends Controller
 
         $table_organigramme = Organigramme::all();
 
+
+
         return Response()->json($table_organigramme);
 
     }
+
+
+    public function table_organigramme_view()
+    {
+
+        $user = Auth::user();
+
+        $organigramme =array();
+    
+        for($i=0;$i<count($user->projet);$i++){
+            $organigramme[]=Organigramme::find($user->projet[$i]['organigrammes_id']);
+    
+           
+        }
+
+        return Response()->json($organigramme);
+
+    }
+
+  
+
 
     public function create_organigramme(Request $request)
     {
@@ -473,6 +613,25 @@ class OrganigrammeController extends Controller
             "entites" => $entite
         );
         return view(' organigramme.edit', $data);
+
+    }
+
+    public function edit_organigramme_view($id)
+    {
+        
+        $this->authorize('Voir_plan_classement');
+
+        $item_organigramme = Organigramme::find($id);
+
+        $entite = Entite::where(['organigramme_id' => $id])->get();
+
+        $data = array(
+            "nom" => $item_organigramme['nom'],
+            "id" => $id,
+            "entites" => $entite
+        );
+        return view(' organigramme_view.edit', $data);
+        
 
     }
 
@@ -620,6 +779,9 @@ class OrganigrammeController extends Controller
 
     }
 
+
+    
+
     public function check_piece($id)
     {
 
@@ -666,6 +828,24 @@ class OrganigrammeController extends Controller
         return $check;
 
      
+
+    }
+
+    public function pdf($id)
+    {
+
+        $item_organigramme = Organigramme::find($id);
+
+        $entite = Entite::where(['organigramme_id' => $id])->get();
+
+        $data = array(
+            "nom" => $item_organigramme['nom'],
+            "id" => $id,
+            "entites" => $entite
+        );
+
+        $pdf = PDF::loadView('organigramme_view.pdf', $data);
+        return $pdf->stream();
 
     }
 

@@ -415,11 +415,14 @@ $(document).ready(function() {
 
             if(type_btn == 'btn_sous_dossier' && check_parent == 'true'  ){
               $('.btn_add_attributs_click').removeClass("hidden");
+              $('.nom_dossier').html("dossier");
             } 
 
             $('#type_dossier').val(type_btn);
 
             fill_treeview()
+
+            $('.nom_dossier').html("dossier");
 
                  
            });
@@ -429,7 +432,7 @@ $(document).ready(function() {
             e.preventDefault();
             type_btn = 'btn_piece_joint';
 
-            
+            $('.nom_dossier').html("pièce");
 
            $("#btn_group_oganigramme .btn").removeClass("btn-primary");
            $(".btn_piece_joint").addClass("btn-primary");
@@ -438,14 +441,16 @@ $(document).ready(function() {
 
             if( type_btn == 'btn_piece_joint' && check_parent == 'true'  ){
               $('.btn_add_attributs_click').removeClass("hidden");
+              $('.nom_dossier').html("pièce");
             } 
 
 
 
-               $('#type_dossier').val(type_btn);
+           $('#type_dossier').val(type_btn);
 
                fill_treeview()
-
+              
+               
                  
            });
 

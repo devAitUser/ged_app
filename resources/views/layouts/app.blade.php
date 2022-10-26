@@ -92,9 +92,21 @@
                      @endif
                 
                    
-                     @if (Auth::user()->hasPermissionTo('Plan de classement')) 
+                     @if (Auth::user()->hasPermissionTo('Modifier le plan de classement')) 
                      <li class="Mnuli lish {{ request()->is('organigramme')  ? 'active' : '' }}">
                         <a href="{{route('home_organigramme')}}">
+                           <span class="material-icons  ">
+                           account_tree
+                           </span>
+
+                         </a>
+                     </li>
+                     @endif
+
+
+                     @if (Auth::user()->hasPermissionTo('Voir le plan de classement')) 
+                     <li class="Mnuli lish {{ request()->is('organigramme_view')  ? 'active' : '' }}">
+                        <a href="{{route('home_organigramme_view')}}">
                            <span class="material-icons  ">
                            account_tree
                            </span>

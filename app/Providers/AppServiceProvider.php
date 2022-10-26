@@ -37,7 +37,17 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('permission_plan_classements', function ()
         {
             $value = false;
-             if (Auth::user()->hasPermissionTo('Plan de classement'))
+             if (Auth::user()->hasPermissionTo('Modifier le plan de classement'))
+            {
+              $value = true;
+            }
+            return $value;
+        });
+        ;
+        Gate::define('Voir_plan_classement', function ()
+        {
+            $value = false;
+             if (Auth::user()->hasPermissionTo('Voir le plan de classement'))
             {
               $value = true;
             }
@@ -56,7 +66,7 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('permission_Modifier_dossiers', function ()
         {
             $value = false;
-             if (Auth::user()->hasPermissionTo('Modifier les dossiers'))
+             if (Auth::user()->hasPermissionTo('Modifier le plan de classement'))
             {
               $value = true;
             }

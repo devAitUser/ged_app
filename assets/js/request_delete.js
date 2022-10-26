@@ -18,19 +18,8 @@
 
 
                 if(data.etat){
-
-                  
-
                       $('#organigramme_table').DataTable().destroy();
                       fill_table()
-                      
-
-                
-                                          
-                  
-                   
-                    
-
                 }
             
 

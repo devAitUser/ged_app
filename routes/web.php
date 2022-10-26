@@ -172,7 +172,20 @@ Route::delete('/revokePermission/{user}/permissions/{permission}', [App\Http\Con
 
 
 
-    Route::get('/user_list', [App\Http\Controllers\UserController::class, 'test2'])->name('user_list');
-    Route::get('/organigramme', [App\Http\Controllers\OrganigrammeController::class, 'home_organigramme'])->name('home_organigramme');
+Route::get('/user_list', [App\Http\Controllers\UserController::class, 'test2'])->name('user_list');
+Route::get('/organigramme', [App\Http\Controllers\OrganigrammeController::class, 'home_organigramme'])->name('home_organigramme');
 
+
+/*****    organigramme_view   ****/
+
+Route::get('/organigramme_view', [App\Http\Controllers\OrganigrammeController::class, 'home_organigramme_view'])->name('home_organigramme_view');
+
+Route::get('/organigramme_view/{id}/edit',[App\Http\Controllers\OrganigrammeController::class, 'edit_organigramme_view']);
+
+Route::post('/array_organigramme_view', [App\Http\Controllers\OrganigrammeController::class, 'array_organigramme_view']);
+
+Route::get('/pdf/{pdf}', [App\Http\Controllers\OrganigrammeController::class, 'pdf']);
+
+
+Route::get('/table_organigramme_view', [App\Http\Controllers\OrganigrammeController::class, 'table_organigramme_view'])->name('table_organigramme_view');
 
