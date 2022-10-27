@@ -1,11 +1,39 @@
 @extends('layouts.app')
 
+<style>
+    .card-header {
+    display: flex !important;
+   }
+
+   .panel_view_bottom {
+   display: block;
+   }
+   .panel_view_bottom {
+    height: auto !important;
+  margin-bottom: 37px;
+   }
+   .panel_view_details {
+    margin-bottom: 15px;
+   }
+   #organigramme_table_wrapper {
+    margin-bottom: 15px;
+   }
+   .panel-heading {
+    width: 80% !important;
+   }
+</style>
+
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Modifier le role') }}</div>
+                <div class="card-header">
+                    
+                <a href="{{ route('roles.index') }}" > <h6>Les roles </h6> </a>  
+               \ {{ __('Modifier le role') }}
+            
+              </div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('roles.update',$role->id) }}">
@@ -28,17 +56,8 @@
 
 
                         <div class="container" style="margin-left:205px">
-                            <div class="row">
-                                <button type="submit" class="btn btn-primary ml-4">
-                                    {{ __('Register') }}
-                                </button>
-                                &nbsp;
-
-                                <button type="reset" class="btn btn-primary" >
-                                    {{ __('Annuler') }}
-                                </button>
-                            </div>
-                          <a href="{{ route('roles.index') }}" style="text-decoration: underline;text-align: center"> <h6>retour</h6></a>
+                         
+                          
                         </div>
                     </form>
                     <div class="row mb-3">

@@ -731,7 +731,7 @@ a.link_organigramme span {
 
 
 
-.btn_add_oranigramme , .modal_btn_add_oranigramme ,.modal_btn_add_index {
+.btn_add_oranigramme , .modal_btn_add_oranigramme ,.modal_btn_add_index,.btn_remove_oranigramme {
   float: right;
   margin-top: 15px;
   margin-bottom: 15px !important;

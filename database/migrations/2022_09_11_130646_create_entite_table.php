@@ -17,7 +17,7 @@ class CreateEntiteTable extends Migration
             $table->id();
             $table->string('nom');
             $table->unsignedBigInteger('organigramme_id');
-            $table->foreign('organigramme_id')->references('id')->on('organigrammes');
+            $table->foreign('organigramme_id')->references('id')->on('organigrammes')->onDelete('cascade');
             $table->timestamps();
         });
     }

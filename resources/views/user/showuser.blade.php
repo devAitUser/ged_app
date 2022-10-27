@@ -124,7 +124,7 @@
                         </div>
                      </div>
                      <div class="row mb-3">
-                        <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
+                        <label for="email" class="col-md-4 col-form-label text-md-end">Email</label>
                         <div class="col-md-6">
                            <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{$user->email}}" required autocomplete="email">
                            @error('email')
@@ -184,7 +184,7 @@
                         <?php  } ?>
                      </div>
                      <div class="row mb-3">
-                        <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
+                        <label for="password" class="col-md-4 col-form-label text-md-end">Mot de passe</label>
                         <div class="col-md-6">
                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password"  autocomplete="new-password">
                            @error('password')
@@ -194,12 +194,7 @@
                            @enderror
                         </div>
                      </div>
-                     <div class="row mb-3">
-                        <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
-                        <div class="col-md-6">
-                           <input id="password-confirm" type="password" class="form-control" name="password_confirmation"  autocomplete="new-password">
-                        </div>
-                     </div>
+                    
                      <div class="row mb-5 pt-3">
                         <label for="password-confirm" class="col-md-4 col-form-label text-md-end"></label>
                         <div class="col-md-6">
@@ -243,7 +238,7 @@
                         <div class="container" style="margin-left:205px">
                            <div class="row">
                               <button type="submit" class="btn btn-primary ml-4">
-                              {{ __('Update Role') }}
+                                 Mettre à jour le rôle
                               </button>
                               &nbsp;
                               <button type="reset" class="btn btn-primary" >

@@ -367,12 +367,22 @@ $(document).ready(function() {
       fill_treeview();
 
 
+      $('.btn_add_attributs_click').click(function(e) {
+
+        e.preventDefault();
+        $(".block_attributs").removeClass("hidden");
 
 
-        $('.btn_add_attributs_click').click(function(e) {
+            
+      });
+
+
+
+
+        $('.btn_remove_oranigramme').click(function(e) {
 
            e.preventDefault();
-           $(".block_attributs").removeClass("hidden");
+           $(".block_attributs").addClass("hidden");
 
   
                
@@ -385,6 +395,7 @@ $(document).ready(function() {
            e.preventDefault();
             type_btn = "btn_dossier" ;
            $(".btn_add_attributs_click").addClass("hidden");
+           $(".block_attributs").addClass("hidden");
 
 
            $("#btn_group_oganigramme .btn").removeClass("btn-primary");
@@ -402,7 +413,7 @@ $(document).ready(function() {
           });
 
 
-          $('.btn_sous_dossier').click(function(e) {
+        $('.btn_sous_dossier').click(function(e) {
 
             e.preventDefault();
 
@@ -415,11 +426,14 @@ $(document).ready(function() {
 
             if(type_btn == 'btn_sous_dossier' && check_parent == 'true'  ){
               $('.btn_add_attributs_click').removeClass("hidden");
+              $('.nom_dossier').html("dossier");
             } 
 
             $('#type_dossier').val(type_btn);
 
             fill_treeview()
+
+            $('.nom_dossier').html("dossier");
 
                  
            });
@@ -429,7 +443,7 @@ $(document).ready(function() {
             e.preventDefault();
             type_btn = 'btn_piece_joint';
 
-            
+            $('.nom_dossier').html("pièce");
 
            $("#btn_group_oganigramme .btn").removeClass("btn-primary");
            $(".btn_piece_joint").addClass("btn-primary");
@@ -438,14 +452,16 @@ $(document).ready(function() {
 
             if( type_btn == 'btn_piece_joint' && check_parent == 'true'  ){
               $('.btn_add_attributs_click').removeClass("hidden");
+              $('.nom_dossier').html("pièce");
             } 
 
 
 
-               $('#type_dossier').val(type_btn);
+           $('#type_dossier').val(type_btn);
 
                fill_treeview()
-
+              
+               
                  
            });
 

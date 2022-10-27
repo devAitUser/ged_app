@@ -90,8 +90,8 @@ function remove_organigramme(e,row) {
                 "previous": "PrÃ©cÃ©dente"
             },
             "oLanguage": {
-                "sUrl": "/assets/fr-FR.json"
-              },
+              "sUrl": APP_URL+"/assets/fr-FR.json"
+            },
     
             "columns": [
                 { "data": "id"  },

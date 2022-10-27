@@ -169,62 +169,7 @@
   
       <form method="post" id="search_form">
          <div class="cadre_form">
-            {{-- <table class="tbl_profil">
-               <tbody>
-                  <tr>
-                     
-                     <td class="td_1"><span class="label_search">Rechercher par Champs :</span>  </td>
-                  </tr>
-                  <tr>
-                 
-                  <input type="text" name="id_organigramme" value="{{$id_organigramme}}" hidden>
-                     <td class="td_1">Fond :</td>
-                     <td>
-                        <select class="input_prof" id="parent_select" name="value_select[]">
-                           <option value="">Selectionne le dossier</option>
-                        </select>
-                     </td>
-                  </tr>
-                 
-                  <tr id="row_1" >
-                     <td class="td_1 td_1 sous_label_1  " >________ :</td>
-                     <td>
-                           <select class="input_prof" id="sous_select_1" name="value_select[]" onchange="add_row_select(1)">
-                                    <option value="">Selectionne le dossier</option>
-                           
-                                    </select>
-
-                     </td>
-                  </tr>
-                  
-                  <tr id="attribut_champ" >
-                  
-                  </tr>
-                  <tr id="attribut_date" >
-                  
-                  </tr>
-               
-                  <tr class="block_search" >
-                     <td colspan="2" >
-                        <button type="submit" class="btn_profil btn_search"> 
-                        <span class="material-icons icon_search"> search </span>
-                        Recherche sur le dossier   </button> 
-                        
-                        
-                        <button type="submit" class="btn_profil btn_empty d_none"> 
-                           <span class="icon_empty"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
-                              <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
-                           </svg> </span>
-                           Effacer</button>  
-                           
-                     </td>
-                  </tr>
-                  
-
-
-
-                  
-            </table> --}}
+        
 
             <div class="row">
              
