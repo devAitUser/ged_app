@@ -12,6 +12,7 @@
 <script src="{{ asset('assets/Treeview/js/jquery.bootstrap.treeselect.js') }}"></script>
 <link rel="stylesheet" href="{{ asset('assets/combotree/style.css') }}">
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
 
 
 
@@ -100,7 +101,8 @@
          <div class="col-md-12 panel_add">
             <h3 align="center">Le plan de classement du  <span class="ititle_organigramme"> {{$nom}}  </span>
             
-               <span class="btn btn-warning btn_print" href="">
+
+               <span class="btn btn-warning btn_print"  href="">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-printer" viewBox="0 0 16 16">
                      <path d="M2.5 8a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z"></path>
                      <path d="M5 1a2 2 0 0 0-2 2v2H2a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h1v1a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V3a2 2 0 0 0-2-2H5zM4 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2H4V3zm1 5a2 2 0 0 0-2 2v1H2a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v-1a2 2 0 0 0-2-2H5zm7 2v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1z"></path>
@@ -112,7 +114,7 @@
             <div>
                <div ></div>
             </div>
-            <ul class="tree"  >
+            <ul class="tree" >
 
             </ul>
          </div>

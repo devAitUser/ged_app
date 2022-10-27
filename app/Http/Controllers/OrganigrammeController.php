@@ -416,14 +416,21 @@ class OrganigrammeController extends Controller
                 return false;
             }
 
-            for ($i = 0;$i < count($request->input('name_champ'));$i++)
-            {
+            if($request->input('name_champ') != null){
 
-                if ($request->type_champ[$i] == 'Fichier')
-                {
-                    $count_file++;
-                }
+
+                    for ($i = 0;$i < count($request->input('name_champ'));$i++)
+                    {
+
+                        if ($request->type_champ[$i] == 'Fichier')
+                        {
+                            $count_file++;
+                        }
+                    }
+
             }
+
+            
 
             if ($count_file == 1)
             {

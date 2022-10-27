@@ -367,12 +367,22 @@ $(document).ready(function() {
       fill_treeview();
 
 
+      $('.btn_add_attributs_click').click(function(e) {
+
+        e.preventDefault();
+        $(".block_attributs").removeClass("hidden");
 
 
-        $('.btn_add_attributs_click').click(function(e) {
+            
+      });
+
+
+
+
+        $('.btn_remove_oranigramme').click(function(e) {
 
            e.preventDefault();
-           $(".block_attributs").removeClass("hidden");
+           $(".block_attributs").addClass("hidden");
 
   
                
@@ -385,6 +395,7 @@ $(document).ready(function() {
            e.preventDefault();
             type_btn = "btn_dossier" ;
            $(".btn_add_attributs_click").addClass("hidden");
+           $(".block_attributs").addClass("hidden");
 
 
            $("#btn_group_oganigramme .btn").removeClass("btn-primary");
@@ -402,7 +413,7 @@ $(document).ready(function() {
           });
 
 
-          $('.btn_sous_dossier').click(function(e) {
+        $('.btn_sous_dossier').click(function(e) {
 
             e.preventDefault();
 

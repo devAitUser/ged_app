@@ -69,6 +69,11 @@
          width: 80% !important;
          }
 
+         .btn_tableau {
+           display: flex;
+           justify-content: space-between;
+         }
+
 </style>
 
 <div class="panel-heading">   
@@ -164,9 +169,25 @@
             <h3 align="center">Les attributs</h3>
             <br />
             <div class="block_attributs hidden">
-               <button type="button" class="btn btn-info btn_add_oranigramme" ><span class="material-icons">
-               add
-               </span>Ajouter</button>
+
+               <div class="btn_tableau">
+
+                  <button type="button" class="btn btn-info btn_remove_oranigramme " style="padding-left: 10px !important;"><svg style="margin-right: 5px;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                     <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"></path>
+                   </svg>Supprimer le tableau
+                  </button>
+
+                  <button type="button" class="btn btn-info btn_add_oranigramme " ><span class="material-icons">
+                     add
+                     </span>Ajouter</button>
+
+
+
+               </div>
+
+              
+
+            
                <table id="add_table_champs_add" class="table_champs_add">
                   <tr class="table_h">
                      <th style="width:45%">Nom du champs</th>

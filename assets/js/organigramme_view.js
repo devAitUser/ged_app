@@ -92,10 +92,12 @@
 $(document).ready(function() {
 
 
-       fill_treeview();
+
+        $('.btn_print').click(function(e) {
 
 
-       $('.btn_print').click(function(e) {
+         
+            
 
           e.preventDefault(); 
           var restorepage = $('body').html();
@@ -103,8 +105,20 @@ $(document).ready(function() {
           $('body').empty().html(printcontent);
           window.print();
           $('body').html(restorepage);
+
+
+      
+
+          
+
             
-       });
+        });
+
+
+       fill_treeview();
+
+
+       
 
 
 });
