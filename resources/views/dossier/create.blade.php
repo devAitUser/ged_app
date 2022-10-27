@@ -197,9 +197,7 @@ label:last-child input[type=radio] {
     
 
            <div class="btn_panel">
-            
-               
-                  <button type="submit" class="btn btn-primary  mr-3 " >Validé</button>
+                  <button type="submit" class="btn btn-primary  mr-3 " >Valider</button>
                 
                   <button type="button" class="btn btn-danger" >Supprimer</button>
            </div>

@@ -41,12 +41,12 @@
 </style>
 
     
-      <div class="panel-heading">  Les plans de classements  </div>
+      <div class="panel-heading">  Plans de classement </div>
       <div class="panel_view_details">
          <div class="table_p">
 
             <div class="block_manager_datable">
-                <a href="#" class="create_organi" aria-label="Close" data-toggle="modal" data-target="#exampleModal">creer un plan de classement </a>
+                <a href="#" class="create_organi" aria-label="Close" data-toggle="modal" data-target="#exampleModal">créer un plan de classement </a>
             </div>
 
             <table id="organigramme_table" class=" table table-bordered text-center styled-table">
